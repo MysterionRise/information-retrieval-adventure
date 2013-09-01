@@ -1,13 +1,68 @@
-*.class
+#ignore netbeans files
+nbactions.xml
+nb-configuration.xml
+#ignore Intellij Idea IDE folder
+target
+*/target
+*/*/target
+*.iml
+*.jar
+*.war
+*.ear
+*.ec
+*.ipr
+*.iws
+*.swp
+*~
 *.log
+log
+.idea/
+*/.idea
+*/target/
+*.iml
+*.ec
+*.ipr
+*.iws
+*.swp
+*~
+*.log
+*.log.*
+*.sqlite
+git.properties
+jbehave.log
+jbehave.log.*
+*.project
+*/.settings
+*/*/.settings
+*/*/.classpath
 
-# sbt specific
-dist/*
-target/
-lib_managed/
-src_managed/
-project/boot/
-project/plugins/project/
+# Python stuff #
+################
+*.pyc
+*.egg-info
+bin
+dist
+build
+develop-eggs
+eggs
+parts
+.installed.cfg
+logs
+*.MainThread-*
+*.pid
+*.pid.lock
+test/.coverage
+test/coverage.xml
+test/nosetests.xml
 
-# Scala-IDE specific
-.scala_dependencies
+
+log
+
+# Ruby stuff #
+################
+Gemfile.lock
+
+
+# Mac OS stuff #
+################
+.DS_Store
