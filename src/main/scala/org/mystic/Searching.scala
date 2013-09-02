@@ -12,6 +12,7 @@ import scala.util.Random
  * @author kperikov
  */
 object Searching {
+  // @todo this should be configurable
   private final val SOLR_HOME: String = "/home/kperikov/Downloads/solr-4.4.0"
   private final val PATH_TO_INDEX: String = SOLR_HOME + "/example/solr/collection1/data/index"
 
