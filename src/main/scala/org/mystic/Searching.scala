@@ -3,7 +3,7 @@ package org.mystic
 import scala.Predef.String
 import org.apache.lucene.store.FSDirectory
 import java.io.{IOException, File}
-import org.apache.lucene.index.{DirectoryReader, IndexReader}
+import org.apache.lucene.index.{AtomicReaderContext, DirectoryReader, IndexReader}
 import org.apache.lucene.search.IndexSearcher
 import org.apache.lucene.document.Document
 import scala.util.Random
@@ -24,6 +24,8 @@ object Searching {
       val searcher: IndexSearcher = new IndexSearcher(indexReader)
       System.out.println(indexReader.numDocs)
       val childDocument: Document = indexReader.document(random.nextInt(indexReader.numDocs()))
+      val atomicReaderContext: AtomicReaderContext = new AtomicReaderContext(indexReader)
+      atomicReaderContext.reader().
 
     }
     catch {
