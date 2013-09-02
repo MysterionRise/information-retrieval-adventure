@@ -20,10 +20,10 @@
 
     <fields>
         <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
-        <field name="title" type="text_general" indexed="true" stored="true" required="true" multiValued="true"/>
-        <field name="url" type="string" indexed="true" stored="true" required="true" multiValued="true"/>
+        <field name="title" type="string" indexed="true" stored="true" required="true" docValues="true"/>
+        <field name="url" type="string" indexed="true" stored="true" required="true"/>
         <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
-        <field name="text" type="text_general" indexed="true" stored="false" multiValued="true"/>
+        <field name="text" type="string" indexed="true" stored="false" multiValued="true"/>
 
     </fields>
     <uniqueKey>id</uniqueKey>
@@ -32,34 +32,5 @@
     <types>
         <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
         <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
-
-
-        <fieldType name="text_ws" class="solr.TextField" positionIncrementGap="100">
-            <analyzer>
-                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-            </analyzer>
-        </fieldType>
-
-        <!-- A general text field that has reasonable, generic
-             cross-language defaults: it tokenizes with StandardTokenizer,
-         removes stop words from case-insensitive "stopwords.txt"
-         (empty by default), and down cases.  At query time only, it
-         also applies synonyms. -->
-        <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
-            <analyzer type="index">
-                <tokenizer class="solr.StandardTokenizerFactory"/>
-                <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
-                <!-- in this example, we will only use synonyms at query time
-                <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
-                -->
-                <filter class="solr.LowerCaseFilterFactory"/>
-            </analyzer>
-            <analyzer type="query">
-                <tokenizer class="solr.StandardTokenizerFactory"/>
-                <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
-                <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
-                <filter class="solr.LowerCaseFilterFactory"/>
-            </analyzer>
-        </fieldType>
     </types>
 </schema>

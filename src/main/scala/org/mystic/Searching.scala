@@ -3,10 +3,9 @@ package org.mystic
 import scala.Predef.String
 import org.apache.lucene.store.FSDirectory
 import java.io.{IOException, File}
-import org.apache.lucene.index.{AtomicReaderContext, DirectoryReader, IndexReader}
-import org.apache.lucene.search.IndexSearcher
-import org.apache.lucene.document.Document
-import scala.util.Random
+import scala.Console._
+import org.apache.lucene.index.{DirectoryReader, IndexReader}
+import org.apache.lucene.util.BytesRef
 
 /**
  * @author kperikov
@@ -20,17 +19,32 @@ object Searching {
     try {
       val fsDirectory: FSDirectory = FSDirectory.open(new File(PATH_TO_INDEX))
       val indexReader: IndexReader = DirectoryReader.open(fsDirectory)
-      val random: Random = new Random()
-      val searcher: IndexSearcher = new IndexSearcher(indexReader)
-      System.out.println(indexReader.numDocs)
-      val childDocument: Document = indexReader.document(random.nextInt(indexReader.numDocs()))
-      val atomicReaderContext: AtomicReaderContext = new AtomicReaderContext(indexReader)
-      atomicReaderContext.reader().
+      val contexts = indexReader.leaves
+      val it = contexts.listIterator
 
+      var i = 0
+      while (it.hasNext) {
+        val arc = it.next
+        println(i)
+        i += 1
+        val fieldsIT = arc.reader().fields().iterator()
+        while (fieldsIT.hasNext) {
+          val docValues = arc.reader().getSortedDocValues(fieldsIT.next())
+          if (docValues != null) {
+            val ref: BytesRef = new BytesRef()
+            docValues.lookupOrd(docValues.getOrd(1), ref)
+            println(ref.utf8ToString() + " ")
+            docValues.lookupOrd(docValues.getOrd(100), ref)
+            println(ref.utf8ToString() + " ")
+            docValues.lookupOrd(docValues.getOrd(10000), ref)
+            println(ref.utf8ToString() + " ")
+          }
+        }
+      }
     }
     catch {
       case e: IOException => {
-        System.out.println("Error while opening index" + e.getCause)
+        println("Error while opening index" + e.getCause)
       }
     }
   }

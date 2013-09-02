@@ -5,7 +5,7 @@ import org.apache.solr.client.solrj.impl.HttpSolrServer
 import javax.xml.stream.{XMLStreamException, XMLEventReader, XMLInputFactory}
 import java.net.URL
 import org.apache.solr.common.SolrInputDocument
-import scala.Predef.String
+import scala.Console._
 import javax.xml.stream.events.XMLEvent
 import java.util
 import java.io.IOException
@@ -32,7 +32,7 @@ object Indexing {
       var isDocs: Boolean = false
       var id: Long = 1
       var fieldName: String = ""
-      System.out.println("-------------------Reading and parsing file " + XML_FILE_PATH + "-----------------")
+      println("-------------------Reading and parsing file " + XML_FILE_PATH + "-----------------")
       while (xmlEventReader.hasNext) {
         val event: XMLEvent = xmlEventReader.peek
         if (event.isStartElement) {
@@ -60,27 +60,27 @@ object Indexing {
         }
         xmlEventReader.nextEvent
         if (docs.size > MAX_SIZE) {
-          System.out.println("---------- Adding " + MAX_SIZE + " documents to Solr---------------")
+          println("---------- Adding " + MAX_SIZE + " documents to Solr---------------")
           server.add(docs)
           server.commit
           docs.clear
         }
       }
-      System.out.println("-------------------Adding last chunk of docs to Solr-----------------")
+      println("-------------------Adding last chunk of docs to Solr-----------------")
       server.add(docs)
       server.commit
       server.shutdown
-      System.out.println("Indexing of " + id + " documents, takes " + (System.currentTimeMillis - start) / 1000 + " seconds")
+      println("Indexing of " + id + " documents, takes " + (System.currentTimeMillis - start) / 1000 + " seconds")
     }
     catch {
       case e: SolrServerException => {
-        System.out.println("Error in Solr" + e.getRootCause)
+        println("Error in Solr" + e.getRootCause)
       }
       case e: IOException => {
-        System.out.println("Error while IO operation" + e.getCause)
+        println("Error while IO operation" + e.getCause)
       }
       case e: XMLStreamException => {
-        System.out.println("Error while reading XML file" + e.getCause)
+        println("Error while reading XML file" + e.getCause)
       }
     }
   }
