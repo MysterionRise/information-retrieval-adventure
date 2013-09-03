@@ -21,15 +21,17 @@ object Searching {
       val indexReader: IndexReader = DirectoryReader.open(fsDirectory)
       val contexts = indexReader.leaves
       val it = contexts.listIterator
-
       var i = 0
       while (it.hasNext) {
         val arc = it.next
-        println(i)
+        println("Index of segment is " + i)
         i += 1
         val fieldsIT = arc.reader().fields().iterator()
+        val f = arc.reader().fields()
         while (fieldsIT.hasNext) {
-          val docValues = arc.reader().getSortedDocValues(fieldsIT.next())
+          val field = fieldsIT.next()
+          println(f.terms(field).size())
+          val docValues = arc.reader().getSortedDocValues(field)
           if (docValues != null) {
             val ref: BytesRef = new BytesRef()
             docValues.lookupOrd(docValues.getOrd(1), ref)
