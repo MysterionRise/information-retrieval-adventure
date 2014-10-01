@@ -1,15 +1,11 @@
 package org.mystic
 
-import scala.Predef.String
 import org.apache.lucene.store.FSDirectory
 import java.io.{IOException, File}
 import scala.Console._
 import org.apache.lucene.index.{DirectoryReader, IndexReader}
 import org.apache.lucene.util.BytesRef
 
-/**
- * @author kperikov
- */
 object Searching {
   // @todo this should be configurable
   private final val SOLR_HOME: String = "/home/kperikov/Downloads/solr-4.4.0"
@@ -33,12 +29,12 @@ object Searching {
           println(f.terms(field).size())
           val docValues = arc.reader().getSortedDocValues(field)
           if (docValues != null) {
-            val ref: BytesRef = new BytesRef()
-            docValues.lookupOrd(docValues.getOrd(1), ref)
+            var ref: BytesRef = new BytesRef()
+            ref = docValues.lookupOrd(docValues.getOrd(1))
             println(ref.utf8ToString() + " ")
-            docValues.lookupOrd(docValues.getOrd(100), ref)
+            ref = docValues.lookupOrd(docValues.getOrd(100))
             println(ref.utf8ToString() + " ")
-            docValues.lookupOrd(docValues.getOrd(10000), ref)
+            ref = docValues.lookupOrd(docValues.getOrd(10000))
             println(ref.utf8ToString() + " ")
           }
         }

@@ -11,9 +11,6 @@ import java.util
 import java.io.IOException
 
 /**
- * @author kperikov
- *         <p/>
- *         <p/>
  *         Connects to localhost Solr, and then index small part of russian wikipedia titles
  */
 object Indexing {

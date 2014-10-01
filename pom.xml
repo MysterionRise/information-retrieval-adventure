@@ -10,10 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <solr.version>4.4.0</solr.version>
-        <commons.codecs>1.7</commons.codecs>
-        <commons.lang>2.6</commons.lang>
-        <commong.logging>1.1.3</commong.logging>
+        <solr.version>4.10.0</solr.version>
         <scala.version>2.10.2</scala.version>
     </properties>
 
@@ -76,20 +73,19 @@
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>${commons.codecs}</version>
+            <version>1.9</version>
         </dependency>
 
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>${commons.lang}</version>
-            <scope>provided</scope>
+            <version>2.6</version>
         </dependency>
 
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>${commong.logging}</version>
+            <version>1.2</version>
         </dependency>
 
 
@@ -104,6 +100,8 @@
             <artifactId>scala-library</artifactId>
             <version>${scala.version}</version>
         </dependency>
+
+
     </dependencies>
 
     <repositories>

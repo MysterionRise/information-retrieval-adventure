@@ -66,3 +66,5 @@ Gemfile.lock
 # Mac OS stuff #
 ################
 .DS_Store
+
+data/
