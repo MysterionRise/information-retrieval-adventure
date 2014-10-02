@@ -7,12 +7,11 @@ object FileSystemIndexing {
 
   def main(args: Array[String]): Unit = {
 
-    // @todo fix absolute path here
-    val coreContainer = new CoreContainer("/home/kperikov/projects/octo-solr-adventure/src/main/resources/solr_home")
-    println(FileSystemIndexing.getClass.getResource("/solr_home").toString)
-    coreContainer.load()
-    val solrServer = new EmbeddedSolrServer(coreContainer, "file-indexing-test")
-    println(solrServer.ping())
-
+    val solrDir = FileSystemIndexing.getClass.getResource("/solr").getPath
+    val container = new CoreContainer(solrDir)
+    container.load()
+    val server = new EmbeddedSolrServer(container, "test")
+    println(server.ping())
+    return
   }
 }
