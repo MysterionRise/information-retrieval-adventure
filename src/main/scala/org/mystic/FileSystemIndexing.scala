@@ -12,6 +12,7 @@ object FileSystemIndexing {
     container.load()
     val server = new EmbeddedSolrServer(container, "test")
     println(server.ping())
+    server.shutdown()
     return
   }
 }
