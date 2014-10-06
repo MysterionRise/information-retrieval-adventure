@@ -1,9 +1,12 @@
 package org.mystic
 
+import org.apache.lucene.analysis.core.{KeywordTokenizerFactory, LowerCaseFilterFactory}
+import org.apache.lucene.analysis.util.TokenFilterFactory
+import org.apache.solr.analysis.TokenizerChain
 import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.request.SolrQueryRequest
 import org.apache.solr.response.SolrQueryResponse
-import org.apache.solr.schema.IndexSchema
+import org.apache.solr.schema.{IndexSchema, TextField}
 import org.apache.solr.update.AddUpdateCommand
 import org.apache.solr.update.processor.{UpdateRequestProcessor, UpdateRequestProcessorFactory}
 
@@ -20,6 +23,13 @@ class ManagedSchemaCRUDFactory extends UpdateRequestProcessorFactory {
 class ManagedSchemaCRUDProcessor(indexSchema: IndexSchema, next: UpdateRequestProcessor) extends UpdateRequestProcessor(next) {
 
   override def processAdd(cmd: AddUpdateCommand): Unit = {
+    val field: TextField = new TextField()
+    val filters: java.util.ArrayList = new java.util.ArrayList[TokenFilterFactory]()
+    filters.add(new LowerCaseFilterFactory())
+    field.setMultiTermAnalyzer(new TokenizerChain(new KeywordTokenizerFactory(), filters.toArray(new Array[TokenFilterFactory](1))))
+    val fieldTypes = indexSchema.getFieldTypes.put("testFieldType", field)
+    indexSchema.refreshAnalyzers()
+    JavaConversions.mapAsScalaMap(fieldTypes).foreach(println)
     val doc: SolrInputDocument = cmd.getSolrInputDocument
     val updatedDoc = addExtraFields(doc)
     doc
@@ -37,7 +47,8 @@ class ManagedSchemaCRUDProcessor(indexSchema: IndexSchema, next: UpdateRequestPr
       }
     }
     val fields = doc.getFieldNames.toArray(new Array[String](1)).map({
-      fieldName => updatedDoc.addField(fieldName, doc.getFieldValues(fieldName))
+      fieldName =>
+        updatedDoc.addField(fieldName, doc.getFieldValues(fieldName))
     })
     updatedDoc
   }
