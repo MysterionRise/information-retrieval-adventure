@@ -3,8 +3,6 @@
 
     <fields>
         <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
-        <field name="title" type="string" indexed="true" stored="true" required="true" docValues="true"/>
-        <field name="url" type="string" indexed="true" stored="true" required="true"/>
         <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
         <field name="text" type="string" indexed="true" stored="false" multiValued="true"/>
 

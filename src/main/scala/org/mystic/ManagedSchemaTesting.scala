@@ -3,11 +3,11 @@ package org.mystic
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.core.CoreContainer
 
-object FileSystemIndexing {
+object ManagedSchemaTesting {
 
   def main(args: Array[String]): Unit = {
 
-    val solrDir = FileSystemIndexing.getClass.getResource("/solr").getPath
+    val solrDir = ManagedSchemaTesting.getClass.getResource("/solr").getPath
     val container = new CoreContainer(solrDir)
     container.load()
     val server = new EmbeddedSolrServer(container, "test")
