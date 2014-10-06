@@ -1,10 +1,11 @@
 package org.mystic
 
-import org.apache.solr.client.solrj.{SolrServerException, SolrServer}
-import org.apache.solr.client.solrj.impl.HttpSolrServer
+import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
+import org.apache.solr.client.solrj.{SolrServerException}
 import javax.xml.stream.{XMLStreamException, XMLEventReader, XMLInputFactory}
 import java.net.URL
 import org.apache.solr.common.SolrInputDocument
+import org.apache.solr.core.CoreContainer
 import scala.Console._
 import javax.xml.stream.events.XMLEvent
 import java.util
@@ -19,7 +20,10 @@ object Indexing {
 
   def main(a: Array[String]) {
     val start: Long = System.currentTimeMillis
-    val server: SolrServer = new HttpSolrServer("http://localhost:8983/solr/")
+    val solrDir = Indexing.getClass.getResource("/solr").getPath
+    val container = new CoreContainer(solrDir)
+    container.load()
+    val server = new EmbeddedSolrServer(container, "wikipedia")
     try {
       server.deleteByQuery("*:*")
       val xmlInputFactory: XMLInputFactory = XMLInputFactory.newInstance

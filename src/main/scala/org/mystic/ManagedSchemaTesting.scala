@@ -13,7 +13,7 @@ object ManagedSchemaTesting {
       val solrDir = ManagedSchemaTesting.getClass.getResource("/solr").getPath
       val container = new CoreContainer(solrDir)
       container.load()
-      server = new EmbeddedSolrServer(container, "test")
+      server = new EmbeddedSolrServer(container, "managed-schema")
       println(server.ping())
       val doc = new SolrInputDocument()
       doc.addField("brand", "Miami Nights 1984")
