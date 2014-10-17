@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="example" version="1.5">
+    <fields>
+        <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
+        <field name="title" type="string" indexed="true" stored="true" docValues="true"/>
+        <field name="url" type="string" indexed="true" stored="true"/>
+        <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
+        <field name="text" type="string" indexed="true" stored="false" multiValued="true"/>
+        <field name="lastName" type="text_token" indexed="true" stored="true" omitNorms="true"
+               omitTermFreqAndPositions="true"/>
+        <field name="lastName_ngram" type="text_token_ngram" indexed="true" stored="false" omitNorms="true"
+               omitTermFreqAndPositions="true"/>
+        <field name="lastNameExact" type="exact_match" indexed="true" stored="false" omitNorms="true"
+               omitTermFreqAndPositions="true"/>
+    </fields>
+    <uniqueKey>id</uniqueKey>
+    <types>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
+        <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+        <fieldType name="text_token" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TrimFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TrimFilterFactory"/>
+            </analyzer>
+        </fieldType>
+        <fieldType name="text_token_ngram" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.StandardTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TrimFilterFactory"/>
+                <filter class="solr.EdgeNGramFilterFactory" maxGramSize="20" minGramSize="1"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.StandardTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TrimFilterFactory"/>
+            </analyzer>
+        </fieldType>
+        <fieldType name="exact_match" class="solr.TextField" positionIncrementGap="100">
+            <analyzer>
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TrimFilterFactory"/>
+            </analyzer>
+        </fieldType>
+    </types>
+
+    <copyField source="lastName" dest="lastNameExact"/>
+</schema>

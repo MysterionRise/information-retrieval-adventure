@@ -14,13 +14,13 @@ import java.io.IOException
 /**
  *         Connects to localhost Solr, and then index small part of russian wikipedia titles
  */
-object Indexing {
+object WikiIndexing {
   private final val XML_FILE_PATH: String = "http://dumps.wikimedia.org/ruwiki/latest/ruwiki-latest-abstract4.xml"
   private final val MAX_SIZE: Int = 1000
 
   def main(a: Array[String]) {
     val start: Long = System.currentTimeMillis
-    val solrDir = Indexing.getClass.getResource("/solr").getPath
+    val solrDir = WikiIndexing.getClass.getResource("/solr").getPath
     val container = new CoreContainer(solrDir)
     container.load()
     val server = new EmbeddedSolrServer(container, "wikipedia")
