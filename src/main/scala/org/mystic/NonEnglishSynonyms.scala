@@ -26,7 +26,7 @@ object NonEnglishSynonyms {
       doc1.addField("id", "1");
       doc1.addField("ru", "spidermen")
       server.add(doc1)
-      val hindi = List("मैं **भारत** का रहने वाला हूँ", "मैं **हिसंदुस्तान** का रहने वाला  हूँ", "मैं **india** का रहने वाला हूँ", "मैं **hindustan** का रहने हूँ", "मैं **bharat** का रहने हूँ")
+      val hindi = List("मैं भारत का रहने वाला हूँ", "मैं हिसंदुस्तान का रहने वाला  हूँ", "मैं india का रहने वाला हूँ", "मैं hindustan का रहने हूँ", "मैं bharat का रहने हूँ")
       var index = 2
       for (h <- hindi) {
         val doc = new SolrInputDocument();

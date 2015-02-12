@@ -24,12 +24,13 @@
             <analyzer>
                 <tokenizer class="solr.StandardTokenizerFactory"/>
                 <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.SynonymFilterFactory" synonyms="synonyms-hi.txt" ignoreCase="true" expand="true"/>
                 <!-- normalizes unicode representation -->
-                <filter class="solr.IndicNormalizationFilterFactory"/>
+                <!--<filter class="solr.IndicNormalizationFilterFactory"/>-->
                 <!-- normalizes variation in spelling -->
-                <filter class="solr.HindiNormalizationFilterFactory"/>
-                <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_hi.txt"/>
-                <filter class="solr.HindiStemFilterFactory"/>
+                <!--<filter class="solr.HindiNormalizationFilterFactory"/>-->
+                <!--<filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_hi.txt"/>-->
+                <!--<filter class="solr.HindiStemFilterFactory"/>-->
             </analyzer>
         </fieldType>
     </types>
