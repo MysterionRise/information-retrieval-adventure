@@ -4,8 +4,8 @@
 
 
     <groupId>org.mystic</groupId>
-    <artifactId>octo-solr-adventure</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>information-retrieval-adventure</artifactId>
+    <version>0.0.2-SNAPSHOT</version>
 
 
     <properties>
