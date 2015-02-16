@@ -2,11 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-
     <groupId>org.mystic</groupId>
     <artifactId>information-retrieval-adventure</artifactId>
     <version>0.0.2-SNAPSHOT</version>
-
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,7 +15,6 @@
 
     <build>
         <sourceDirectory>src/main/scala</sourceDirectory>
-        <testSourceDirectory>src/test/scala</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
@@ -40,6 +37,10 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <includes>
+                        <include>src/main/java/**/*.java</include>
+                        <include>src/main/scala/**/*.scala</include>
+                    </includes>
                 </configuration>
             </plugin>
         </plugins>
