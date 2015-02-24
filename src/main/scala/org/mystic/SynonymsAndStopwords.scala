@@ -11,8 +11,12 @@ import scala.Console._
 /**
  * @see http://stackoverflow.com/q/27128070/2663985
  * @see http://stackoverflow.com/q/28452690/2663985
+ *
+ *      +
+ *
+ * @see http://stackoverflow.com/q/28667629/2663985
  */
-object NonEnglishSynonyms {
+object SynonymsAndStopwords {
 
   def main(args: Array[String]): Unit = {
     var server: SolrServer = null
@@ -25,7 +29,10 @@ object NonEnglishSynonyms {
       val doc1 = new SolrInputDocument()
       doc1.addField("id", "1");
       doc1.addField("ru", "spidermen")
-      server.add(doc1)
+      val doc2 = new SolrInputDocument()
+      doc2.addField("id", "2");
+      doc2.addField("ru", "stop word spiderman")
+      server.add(doc2)
       val hindi = List("मैं भारत का रहने वाला हूँ", "मैं हिसंदुस्तान का रहने वाला  हूँ", "मैं india का रहने वाला हूँ", "मैं hindustan का रहने हूँ", "मैं bharat का रहने हूँ")
       var index = 2
       for (h <- hindi) {
@@ -58,6 +65,15 @@ object NonEnglishSynonyms {
         for (i <- 0 until resp.size()) {
           println(resp.get(i))
         }
+      }
+      val q = new ModifiableSolrParams()
+      println("-------=====================-------")
+      q.add("q", "ru:" + "stop word")
+      println("query = " + q)
+      val resp = server.query(q).getResults
+      println("numFound = " + resp.size())
+      for (i <- 0 until resp.size()) {
+        println(resp.get(i))
       }
     } finally {
       server.shutdown()
