@@ -23,7 +23,7 @@ public class AutomatonScoringTest {
     public static void main(String[] args) throws IOException {
         Directory dir = new RAMDirectory();
         Analyzer analyzer = new StandardAnalyzer();
-        IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_4_10_2, analyzer);
+        IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
         iwc.setOpenMode(OpenMode.CREATE);
         IndexWriter writer = new IndexWriter(dir, iwc);
 

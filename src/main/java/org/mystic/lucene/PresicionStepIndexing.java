@@ -2,6 +2,7 @@ package org.mystic.lucene;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Date;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -10,10 +11,7 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.LongField;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.*;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.Directory;
@@ -41,9 +39,9 @@ public class PresicionStepIndexing {
     public static void main(String[] args) {
         try {
             //Create an index
-            Directory dir = FSDirectory.open(new File(INDEX_PATH));
+            Directory dir = FSDirectory.open(Paths.get(INDEX_PATH));
             Analyzer analyzer = new StandardAnalyzer();
-            IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_4_10_2, analyzer);
+            IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
             iwc.setOpenMode(OpenMode.CREATE);
             IndexWriter writer = new IndexWriter(dir, iwc);
 
@@ -59,7 +57,7 @@ public class PresicionStepIndexing {
             final FieldType type = new FieldType();
             type.setNumericPrecisionStep(4);
             type.setStored(true);
-            type.setIndexed(true);
+            type.setIndexOptions(IndexOptions.DOCS);
             type.setNumericType(FieldType.NumericType.LONG);
             doc.add(new LongField("BirthDate", parseDate("1969/01/31 16:17:18").getTime(), type));
             writer.addDocument(doc);
@@ -68,7 +66,7 @@ public class PresicionStepIndexing {
 
             //Now do searching
 
-            IndexReader reader = DirectoryReader.open(FSDirectory.open(new File(INDEX_PATH)));
+            IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(INDEX_PATH)));
             IndexSearcher searcher = new IndexSearcher(reader);
 
             Query query = NumericRangeQuery.newLongRange("BirthDate",

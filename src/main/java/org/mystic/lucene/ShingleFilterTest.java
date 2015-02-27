@@ -19,12 +19,12 @@ public class ShingleFilterTest {
 
         String theSentence = "THiS Is a bIg doG";
         StringReader reader = new StringReader(theSentence);
-        Tokenizer whitespaceTokenizer = new WhitespaceTokenizer(Version.LUCENE_4_10_3, reader);
-        Tokenizer standardTokenizer = new StandardTokenizer(Version.LUCENE_4_10_3, reader);
-        TokenStream tokenStream = new StandardFilter(Version.LUCENE_4_10_3, whitespaceTokenizer);
+        Tokenizer whitespaceTokenizer = new WhitespaceTokenizer();
+        Tokenizer standardTokenizer = new StandardTokenizer();
+        TokenStream tokenStream = new StandardFilter(whitespaceTokenizer);
         tokenStream = new ShingleFilter(tokenStream, 2, 100);
         ((ShingleFilter) tokenStream).setOutputUnigrams(true);
-        tokenStream = new LowerCaseFilter(Version.LUCENE_4_10_3, tokenStream);
+        tokenStream = new LowerCaseFilter(tokenStream);
 
         final CharTermAttribute charTermAttribute = tokenStream.addAttribute(CharTermAttribute.class);
         tokenStream.reset();

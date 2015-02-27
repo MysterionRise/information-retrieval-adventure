@@ -1,6 +1,6 @@
 package org.mystic
 
-import org.apache.solr.client.solrj.SolrServer
+import org.apache.solr.client.solrj.{SolrClient, SolrServer}
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.core.CoreContainer
@@ -8,7 +8,7 @@ import org.apache.solr.core.CoreContainer
 object ManagedSchemaTesting {
 
   def main(args: Array[String]): Unit = {
-    var server: SolrServer = null
+    var server: SolrClient = null
     try {
       val solrDir = ManagedSchemaTesting.getClass.getResource("/solr").getPath
       val container = new CoreContainer(solrDir)

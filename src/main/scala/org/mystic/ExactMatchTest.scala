@@ -2,7 +2,7 @@ package org.mystic
 
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.client.solrj.request.QueryRequest
-import org.apache.solr.client.solrj.{SolrServer, SolrServerException}
+import org.apache.solr.client.solrj.{SolrClient, SolrServer, SolrServerException}
 import javax.xml.stream.{XMLStreamException, XMLEventReader, XMLInputFactory}
 import java.net.URL
 import org.apache.solr.common.SolrInputDocument
@@ -19,7 +19,7 @@ import java.io.IOException
 object ExactMatchTest {
 
   def main(a: Array[String]) {
-    var server: SolrServer = null
+    var server: SolrClient = null
     try {
       val solrDir = ExactMatchTest.getClass.getResource("/solr").getPath
       val container = new CoreContainer(solrDir)

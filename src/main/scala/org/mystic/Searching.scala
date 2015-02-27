@@ -1,5 +1,7 @@
 package org.mystic
 
+import java.nio.file.Paths
+
 import org.apache.lucene.store.FSDirectory
 import java.io.{IOException, File}
 import scala.Console._
@@ -13,7 +15,7 @@ object Searching {
 
   def main(args: Array[String]) {
     try {
-      val fsDirectory: FSDirectory = FSDirectory.open(new File(PATH_TO_INDEX))
+      val fsDirectory: FSDirectory = FSDirectory.open(Paths.get(PATH_TO_INDEX))
       val indexReader: IndexReader = DirectoryReader.open(fsDirectory)
       val contexts = indexReader.leaves
       val it = contexts.listIterator
