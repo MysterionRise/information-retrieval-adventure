@@ -20,7 +20,7 @@ public class ShingleFilterTest {
         String theSentence = "THiS Is a bIg doG";
         StringReader reader = new StringReader(theSentence);
         Tokenizer whitespaceTokenizer = new WhitespaceTokenizer();
-        Tokenizer standardTokenizer = new StandardTokenizer();
+        whitespaceTokenizer.setReader(reader);
         TokenStream tokenStream = new StandardFilter(whitespaceTokenizer);
         tokenStream = new ShingleFilter(tokenStream, 2, 100);
         ((ShingleFilter) tokenStream).setOutputUnigrams(true);
