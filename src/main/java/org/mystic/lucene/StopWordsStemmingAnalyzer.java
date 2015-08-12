@@ -15,6 +15,9 @@ import org.apache.lucene.analysis.util.StopwordAnalyzerBase;
 import java.io.IOException;
 import java.io.StringReader;
 
+/**
+ * @see http://stackoverflow.com/q/31957986/2663985
+ */
 public class StopWordsStemmingAnalyzer {
 
     public static void main(String[] args) throws IOException {
