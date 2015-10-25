@@ -1,7 +1,6 @@
-package org.mystic.lucene;
+package org.apache.lucene.search;
 
 import org.apache.lucene.index.LeafReaderContext;
-import org.apache.lucene.search.*;
 import org.apache.lucene.util.Bits;
 
 import java.io.IOException;
