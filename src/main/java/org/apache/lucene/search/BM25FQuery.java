@@ -67,47 +67,55 @@ public class BM25FQuery extends DisjunctionMaxQuery {
      */
     class BM25FScorer extends DisjunctionScorer {
 
-        private final IndexSearcher searcher;
-        private double score;
+        private final float b;
+        private final float k1;
+        private float idf;
+        private float avgdl;
+        private float doclen;
+        private float weight;
+        private int sumFreq;
 
         protected BM25FScorer(Weight weight, Scorer[] subScorers, IndexSearcher searcher) {
             super(weight, subScorers);
-            this.searcher = searcher;
+            // we don't work with similarity other than BM25F
+            if (!(searcher.getSimilarity() instanceof BM25FSimilarity)) {
+                throw new RuntimeException("Wrong similarity is supplied! Only working with BM25FSimilarity");
+            }
+            this.b = ((BM25FSimilarity) searcher.getSimilarity()).getB();
+            this.k1 = ((BM25FSimilarity) searcher.getSimilarity()).getK1();
         }
 
         @Override
         protected void reset() {
-            score = 0;
+            idf = 0.0f;
+            avgdl = 0.0f;
+            doclen = 0.0f;
+            weight = 1.0f;
+            sumFreq = 0;
         }
 
         @Override
         protected void accum(Scorer subScorer) throws IOException {
-            float weight = 1.0f;
             if (subScorer instanceof TermBM25FQuery.TermBM25FScorer) {
                 final Similarity.SimScorer simScorer = ((TermBM25FQuery.TermBM25FScorer) subScorer).getDocScorer();
                 final TermBM25FQuery.TermBM25FWeight termWeight = (TermBM25FQuery.TermBM25FWeight) subScorer.getWeight();
                 final BM25FSimilarity.BM25FStats stats = (BM25FSimilarity.BM25FStats) termWeight.getStats();
                 final TermContext termStates = termWeight.getTermStates();
-                final float avgdl = stats.getAvgdl();
+                avgdl = stats.getAvgdl();
                 final String field = stats.getField();
-                final float idf = stats.getIdf().getValue();
-                final BM25FSimilarity.BM25DocScorer docScorer = (BM25FSimilarity.BM25DocScorer) ((TermBM25FQuery.TermBM25FScorer) subScorer).getDocScorer();
-                final float doclen = docScorer.calculateDocLen(subScorer.docID());
-            }
-
-            final Query subQuery = subScorer.getWeight().getQuery();
-            if (subQuery instanceof TermBM25FQuery) {
-                final String field = ((TermBM25FQuery) subQuery).getTerm().field();
                 if (fieldWeights.containsKey(field)) {
                     weight = fieldWeights.get(field);
                 }
+                idf = stats.getIdf().getValue();
+                final BM25FSimilarity.BM25DocScorer docScorer = (BM25FSimilarity.BM25DocScorer) ((TermBM25FQuery.TermBM25FScorer) subScorer).getDocScorer();
+                doclen = docScorer.calculateDocLen(subScorer.docID());
+                sumFreq += subScorer.freq() * weight;
             }
-            this.score += subScorer.freq() * weight;
         }
 
         @Override
         protected float getFinal() {
-            return (float) score;
+            return idf * ((sumFreq * (k1 + 1.0f)) / (sumFreq + k1 * (1.0f - b + b * (1.0f * doclen / avgdl))));
         }
     }
 

@@ -2,16 +2,17 @@ package org.apache.lucene.search;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.*;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -59,11 +60,25 @@ public class BM25FQueryTest {
 
         IndexReader reader = DirectoryReader.open(index);
         IndexSearcher searcher = new IndexSearcher(reader);
+        searcher.setSimilarity(new BM25FSimilarity());
         TopScoreDocCollector collector = TopScoreDocCollector.create(5, true);
 
-        searcher.search(new MatchAllDocsQuery(), collector);
-        System.out.println(collector.getTotalHits());
-        assertEquals(15, collector.getTotalHits());
+        final List<Query> queries = new ArrayList<>();
+        queries.add(new TermBM25FQuery(new Term("title", "system")));
+        queries.add(new TermBM25FQuery(new Term("abs", "system")));
+        final Map<String, Float> weights = new HashMap<>();
+        weights.put("abs", 1.5f);
+        weights.put("title", 0.5f);
+        final BM25FQuery query = new BM25FQuery(queries, weights);
+
+        searcher.search(query, collector);
+        ScoreDoc[] bScoreDocs = collector.topDocs().scoreDocs;
+        double[] scores = new double[bScoreDocs.length];
+        for (int i = 0; i < bScoreDocs.length; ++i) {
+            scores[i] = bScoreDocs[i].score;
+            System.out.println(bScoreDocs[i].doc + " " + scores[i]);
+        }
+        assertEquals(5, collector.getTotalHits());
     }
 
     private static Document doc(int id, String title, String abs) throws IOException {

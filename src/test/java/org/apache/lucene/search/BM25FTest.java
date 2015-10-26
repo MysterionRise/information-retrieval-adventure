@@ -75,7 +75,7 @@ public class BM25FTest {
         double[] scores = new double[bScoreDocs.length];
         for (int i = 0; i < bScoreDocs.length; ++i) {
             scores[i] = bScoreDocs[i].score;
-            System.out.println(scores[i]);
+            System.out.println(bScoreDocs[i].doc + " " + scores[i]);
         }
     }
 
