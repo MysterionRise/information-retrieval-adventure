@@ -1,6 +1,8 @@
 package org.apache.lucene.search;
 
 import org.apache.lucene.index.AtomicReaderContext;
+import org.apache.lucene.index.TermContext;
+import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.util.Bits;
 
 import java.io.IOException;
@@ -81,9 +83,21 @@ public class BM25FQuery extends DisjunctionMaxQuery {
         @Override
         protected void accum(Scorer subScorer) throws IOException {
             float weight = 1.0f;
+            if (subScorer instanceof TermBM25FQuery.TermBM25FScorer) {
+                final Similarity.SimScorer simScorer = ((TermBM25FQuery.TermBM25FScorer) subScorer).getDocScorer();
+                final TermBM25FQuery.TermBM25FWeight termWeight = (TermBM25FQuery.TermBM25FWeight) subScorer.getWeight();
+                final BM25FSimilarity.BM25FStats stats = (BM25FSimilarity.BM25FStats) termWeight.getStats();
+                final TermContext termStates = termWeight.getTermStates();
+                final float avgdl = stats.getAvgdl();
+                final String field = stats.getField();
+                final float idf = stats.getIdf().getValue();
+                final BM25FSimilarity.BM25DocScorer docScorer = (BM25FSimilarity.BM25DocScorer) ((TermBM25FQuery.TermBM25FScorer) subScorer).getDocScorer();
+                final float doclen = docScorer.calculateDocLen(subScorer.docID());
+            }
+
             final Query subQuery = subScorer.getWeight().getQuery();
-            if (subQuery instanceof TermQuery) {
-                final String field = ((TermQuery) subQuery).getTerm().field();
+            if (subQuery instanceof TermBM25FQuery) {
+                final String field = ((TermBM25FQuery) subQuery).getTerm().field();
                 if (fieldWeights.containsKey(field)) {
                     weight = fieldWeights.get(field);
                 }
