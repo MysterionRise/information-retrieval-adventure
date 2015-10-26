@@ -18,6 +18,18 @@ public class TermBM25FQuery extends Query {
         private final Similarity.SimWeight stats;
         private final TermContext termStates;
 
+        public Similarity getSimilarity() {
+            return similarity;
+        }
+
+        public Similarity.SimWeight getStats() {
+            return stats;
+        }
+
+        public TermContext getTermStates() {
+            return termStates;
+        }
+
         public TermBM25FWeight(IndexSearcher searcher, TermContext termStates)
                 throws IOException {
             assert termStates != null : "TermContext must not be null";
@@ -58,7 +70,7 @@ public class TermBM25FQuery extends Query {
             }
             DocsEnum docs = termsEnum.docs(acceptDocs, null);
             assert docs != null;
-            return new TermScorer(this, docs, similarity.simScorer(stats, context));
+            return new TermBM25FScorer(this, docs, similarity.simScorer(stats, context));
         }
 
         /**
@@ -198,6 +210,81 @@ public class TermBM25FQuery extends Query {
     @Override
     public int hashCode() {
         return Float.floatToIntBits(getBoost()) ^ term.hashCode();
+    }
+
+    class TermBM25FScorer extends Scorer {
+        private final DocsEnum docsEnum;
+        private final Similarity.SimScorer docScorer;
+
+        public Similarity.SimScorer getDocScorer() {
+            return docScorer;
+        }
+
+        /**
+         * Construct a <code>TermScorer</code>.
+         *
+         * @param weight    The weight of the <code>Term</code> in the query.
+         * @param td        An iterator over the documents matching the <code>Term</code>.
+         * @param docScorer The </code>Similarity.SimScorer</code> implementation
+         *                  to be used for score computations.
+         */
+        TermBM25FScorer(Weight weight, DocsEnum td, Similarity.SimScorer docScorer) {
+            super(weight);
+            this.docScorer = docScorer;
+            this.docsEnum = td;
+        }
+
+        @Override
+        public int docID() {
+            return docsEnum.docID();
+        }
+
+        @Override
+        public int freq() throws IOException {
+            return docsEnum.freq();
+        }
+
+        /**
+         * Advances to the next document matching the query. <br>
+         *
+         * @return the document matching the query or NO_MORE_DOCS if there are no more documents.
+         */
+        @Override
+        public int nextDoc() throws IOException {
+            return docsEnum.nextDoc();
+        }
+
+        @Override
+        public float score() throws IOException {
+            assert docID() != NO_MORE_DOCS;
+            return docScorer.score(docsEnum.docID(), docsEnum.freq());
+        }
+
+        /**
+         * Advances to the first match beyond the current whose document number is
+         * greater than or equal to a given target. <br>
+         * The implementation uses {@link DocsEnum#advance(int)}.
+         *
+         * @param target The target document number.
+         * @return the matching document or NO_MORE_DOCS if none exist.
+         */
+        @Override
+        public int advance(int target) throws IOException {
+            return docsEnum.advance(target);
+        }
+
+        @Override
+        public long cost() {
+            return docsEnum.cost();
+        }
+
+        /**
+         * Returns a string representation of this <code>TermScorer</code>.
+         */
+        @Override
+        public String toString() {
+            return "scorer(" + weight + ")";
+        }
     }
 
 }
