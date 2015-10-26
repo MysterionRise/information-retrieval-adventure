@@ -1,21 +1,15 @@
-package org.epo.presto.pql.translation.lucene.util;
+package org.apache.lucene.search;
 
 import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
-import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.IntField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.*;
-import org.apache.lucene.search.*;
 import org.apache.lucene.search.similarities.BM25Similarity;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
-import org.epo.presto.pql.model.LogicalField;
-import org.epo.presto.pql.translation.Translator;
-import org.epo.presto.pql.translation.lucene.RankingSettings;
-import org.epo.presto.pql.translation.lucene.TranslationEngineBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -75,7 +69,7 @@ public class BM25FTest {
         final BM25FQuery query = new BM25FQuery(queries, weights);
 
         TopScoreDocCollector collector = TopScoreDocCollector.create(50, true);
-        indexSearcher.setSimilarity(new BM25Similarity());
+        indexSearcher.setSimilarity(new BM25FSimilarity());
         indexSearcher.search(query, collector);
         ScoreDoc[] bScoreDocs = collector.topDocs().scoreDocs;
         double[] scores = new double[bScoreDocs.length];

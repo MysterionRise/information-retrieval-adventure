@@ -8,6 +8,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
+import org.apache.lucene.util.Version;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class BM25FQueryTest {
     public void testBM25FQuery() throws IOException {
         Directory index = new RAMDirectory();
         StandardAnalyzer analyzer = new StandardAnalyzer();
-        IndexWriterConfig config = new IndexWriterConfig(analyzer);
+        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_4_10_4, analyzer);
         IndexWriter w = new IndexWriter(index, config);
         w.addDocument(doc(0, "CNT-infused fiber as a self shielding wire for enhanced power transmission line",
                 "A wire includes a plurality of carbon nanotube infused fibers in which the infused carbon nanotubes are aligned parallel to the fiber axes. An electromagnetic shield for a wire includes a plurality of carbon nanotube infused fibers, in which the infused carbon nanotubes are aligned radially about the fiber axes. The plurality of carbon nanotube infused fibers are arranged circumferentially about the wire with the fiber axes parallel to the wire. A self-shielded wire includes 1) a wire that includes a plurality of carbon nanotube infused fibers in which the infused carbon nanotubes are aligned parallel to the fiber axes; and 2) an electromagnetic shield that includes a plurality of carbon nanotube infused fibers in which the carbon nanotubes are aligned radially about the fiber axes. The axes of the carbon nanotube infused fibers of the wire and the carbon nanotube infused fibers of the electromagnetic shield share are parallel."));
@@ -58,7 +59,7 @@ public class BM25FQueryTest {
 
         IndexReader reader = DirectoryReader.open(index);
         IndexSearcher searcher = new IndexSearcher(reader);
-        TopScoreDocCollector collector = TopScoreDocCollector.create(5);
+        TopScoreDocCollector collector = TopScoreDocCollector.create(5, true);
 
         searcher.search(new MatchAllDocsQuery(), collector);
         System.out.println(collector.getTotalHits());
