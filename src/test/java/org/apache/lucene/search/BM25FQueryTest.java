@@ -61,22 +61,39 @@ public class BM25FQueryTest {
         IndexReader reader = DirectoryReader.open(index);
         IndexSearcher searcher = new IndexSearcher(reader);
         searcher.setSimilarity(new BM25FSimilarity());
-        TopScoreDocCollector collector = TopScoreDocCollector.create(5, true);
+
+
+        final Map<String, Float> weights = new HashMap<>();
+        weights.put("abs", 1.5f);
+        weights.put("title", 0.5f);
 
         final List<Query> queries = new ArrayList<>();
         queries.add(new TermBM25FQuery(new Term("title", "system")));
         queries.add(new TermBM25FQuery(new Term("abs", "system")));
-        final Map<String, Float> weights = new HashMap<>();
-        weights.put("abs", 1.5f);
-        weights.put("title", 0.5f);
         final BM25FQuery query = new BM25FQuery(queries, weights);
 
+        final TopScoreDocCollector collector = TopScoreDocCollector.create(5, true);
         searcher.search(query, collector);
         ScoreDoc[] bScoreDocs = collector.topDocs().scoreDocs;
         double[] scores = new double[bScoreDocs.length];
         for (int i = 0; i < bScoreDocs.length; ++i) {
             scores[i] = bScoreDocs[i].score;
             System.out.println(bScoreDocs[i].doc + " " + scores[i]);
+        }
+        assertEquals(5, collector.getTotalHits());
+
+        final List<Query> queries2 = new ArrayList<>();
+        queries2.add(new TermBM25FQuery(new Term("title", "device")));
+        queries2.add(new TermBM25FQuery(new Term("abs", "device")));
+        final BM25FQuery query2 = new BM25FQuery(queries2, weights);
+
+        final TopScoreDocCollector collector2 = TopScoreDocCollector.create(5, true);
+        searcher.search(query2, collector2);
+        ScoreDoc[] bScoreDocs2 = collector2.topDocs().scoreDocs;
+        double[] scores2 = new double[bScoreDocs2.length];
+        for (int i = 0; i < bScoreDocs2.length; ++i) {
+            scores2[i] = bScoreDocs2[i].score;
+            System.out.println(bScoreDocs2[i].doc + " " + scores2[i]);
         }
         assertEquals(5, collector.getTotalHits());
     }
