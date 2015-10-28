@@ -73,7 +73,7 @@ public class BM25FQuery extends DisjunctionMaxQuery {
         private float avgdl;
         private float doclen;
         private float weight;
-        private int sumFreq;
+        private float sumFreq;
 
         protected BM25FScorer(Weight weight, Scorer[] subScorers, IndexSearcher searcher) {
             super(weight, subScorers);
@@ -91,7 +91,7 @@ public class BM25FQuery extends DisjunctionMaxQuery {
             avgdl = 0.0f;
             doclen = 0.0f;
             weight = 1.0f;
-            sumFreq = 0;
+            sumFreq = 0.0f;
         }
 
         @Override
