@@ -14,10 +14,12 @@ import java.util.Map;
 public class BM25FQuery extends DisjunctionMaxQuery {
 
     private final Map<String, Float> fieldWeights;
+    private final Map<String, Float> normFactors;
 
-    public BM25FQuery(Collection<Query> perFieldQueries, Map<String, Float> fieldWeights) {
+    public BM25FQuery(Collection<Query> perFieldQueries, Map<String, Float> fieldWeights, Map<String, Float> normFactors) {
         super(perFieldQueries, 0.0f);
         this.fieldWeights = fieldWeights;
+        this.normFactors = normFactors;
     }
 
     @Override
@@ -74,6 +76,7 @@ public class BM25FQuery extends DisjunctionMaxQuery {
         private float doclen;
         private float weight;
         private float sumFreq;
+        private float normFactor;
 
         protected BM25FScorer(Weight weight, Scorer[] subScorers, IndexSearcher searcher) {
             super(weight, subScorers);
@@ -88,10 +91,9 @@ public class BM25FQuery extends DisjunctionMaxQuery {
         @Override
         protected void reset() {
             idf = 0.0f;
-            avgdl = 0.0f;
-            doclen = 0.0f;
             weight = 1.0f;
             sumFreq = 0.0f;
+            normFactor = 1.0f;
         }
 
         @Override
@@ -106,18 +108,20 @@ public class BM25FQuery extends DisjunctionMaxQuery {
                 if (fieldWeights.containsKey(field)) {
                     weight = fieldWeights.get(field);
                 }
-                idf = stats.getIdf().getValue();
+                if (normFactors.containsKey(field)) {
+                    normFactor = normFactors.get(field);
+                }
                 final BM25FSimilarity.BM25DocScorer docScorer = (BM25FSimilarity.BM25DocScorer) ((TermBM25FQuery.TermBM25FScorer) subScorer).getDocScorer();
                 doclen = docScorer.calculateDocLen(subScorer.docID());
-                sumFreq += subScorer.freq() * weight;
+                final float normalisedTF = subScorer.freq() / (1.0f + normFactor * ((1.0f * doclen) / avgdl - 1.0f));
+                idf = stats.getIdf().getValue();
+                sumFreq += normalisedTF * weight;
             }
         }
 
         @Override
         protected float getFinal() {
-            return idf * ((sumFreq * (k1 + 1.0f)) / (sumFreq + k1 * (1.0f - b + b * (1.0f * doclen / avgdl))));
+            return (1.0f * idf * sumFreq) / (k1 + sumFreq);
         }
     }
-
-
 }
