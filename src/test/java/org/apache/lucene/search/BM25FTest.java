@@ -66,7 +66,7 @@ public class BM25FTest {
         final Map<String, Float> weights = new HashMap<>();
         weights.put("title_en", 1.5f);
         weights.put("title_de", 0.5f);
-        final BM25FQuery query = new BM25FQuery(queries, weights);
+        final BM25FQuery query = new BM25FQuery(queries, weights, new HashMap<>());
 
         TopScoreDocCollector collector = TopScoreDocCollector.create(50, true);
         indexSearcher.setSimilarity(new BM25FSimilarity());
