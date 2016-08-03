@@ -1,4 +1,4 @@
-package org.mystic.lucene;
+package org.mystic;
 
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.Tokenizer;

@@ -1,4 +1,4 @@
-package org.mystic.lucene;
+package org.mystic;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,7 +41,7 @@ public class PresicionStepIndexing {
             //Create an index
             Directory dir = FSDirectory.open(Paths.get(INDEX_PATH));
             Analyzer analyzer = new StandardAnalyzer();
-            IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
+            IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_4_10_4, analyzer);
             iwc.setOpenMode(OpenMode.CREATE);
             IndexWriter writer = new IndexWriter(dir, iwc);
 
@@ -57,7 +57,7 @@ public class PresicionStepIndexing {
             final FieldType type = new FieldType();
             type.setNumericPrecisionStep(4);
             type.setStored(true);
-            type.setIndexOptions(IndexOptions.DOCS);
+            type.setIndexOptions(FieldInfo.IndexOptions.DOCS_ONLY);
             type.setNumericType(FieldType.NumericType.LONG);
             doc.add(new LongField("BirthDate", parseDate("1969/01/31 16:17:18").getTime(), type));
             writer.addDocument(doc);
