@@ -25,8 +25,8 @@ public class SplitTokenByChar {
     public static void main(String[] args) throws IOException {
 
         String theSentence = "GD52KHC GFD3 sdfsdf";
-        Tokenizer whitespaceTokenizer = new WhitespaceTokenizer();
-        whitespaceTokenizer.setReader(new StringReader(theSentence));
+        final StringReader input = new StringReader(theSentence);
+        Tokenizer whitespaceTokenizer = new WhitespaceTokenizer(input);
         TokenStream tokenStream = new CharDelimeterTokenFilter(whitespaceTokenizer);
         final CharTermAttribute charTermAttribute = tokenStream.addAttribute(CharTermAttribute.class);
 

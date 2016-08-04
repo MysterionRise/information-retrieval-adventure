@@ -24,8 +24,7 @@ public class StopWordsStemmingAnalyzer {
 
         String theSentence = "this is a mouse more mouses and thing things thoughts think thinks thinked";
         StringReader reader = new StringReader(theSentence);
-        Tokenizer whitespaceTokenizer = new WhitespaceTokenizer();
-        whitespaceTokenizer.setReader(reader);
+        Tokenizer whitespaceTokenizer = new WhitespaceTokenizer(reader);
         TokenStream tokenStream = new StopFilter(whitespaceTokenizer, StopAnalyzer.ENGLISH_STOP_WORDS_SET);
         tokenStream = new PorterStemFilter(tokenStream);
 

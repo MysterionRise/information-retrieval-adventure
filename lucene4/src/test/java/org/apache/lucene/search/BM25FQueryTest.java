@@ -63,14 +63,9 @@ public class BM25FQueryTest {
         searcher.setSimilarity(new BM25FSimilarity());
         TopScoreDocCollector collector = TopScoreDocCollector.create(5, true);
 
-        final Map<String, Float> norms = new HashMap<>();
-        norms.put("abs", 1.5f);
-        norms.put("title", 0.5f);
-
         final List<Query> queries = new ArrayList<>();
         queries.add(new TermBM25FQuery(new Term("title", "system")));
         queries.add(new TermBM25FQuery(new Term("abs", "system")));
-        final BM25FQuery query = new BM25FQuery(queries, weights, norms);
 
         final Map<String, Float> weights = new HashMap<>();
         weights.put("abs", 1.1f);
@@ -90,8 +85,7 @@ public class BM25FQueryTest {
             scores[i] = bScoreDocs[i].score;
             System.out.println(bScoreDocs[i].doc + " " + scores[i]);
             assertEquals(expectedScores[i], scores[i], 1e-3);
-        System.out.println();
-        final BM25FQuery query2 = new BM25FQuery(queries2, weights, norms);
+            System.out.println();
         }
         assertEquals(5, collector.getTotalHits());
     }

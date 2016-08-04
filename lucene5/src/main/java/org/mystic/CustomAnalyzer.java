@@ -15,10 +15,11 @@ import java.io.Reader;
  */
 public class CustomAnalyzer extends Analyzer {
 
+
     @Override
-    protected TokenStreamComponents createComponents(String s, Reader reader) {
+    protected TokenStreamComponents createComponents(String s) {
         // provide your own tokenizer, that will split input string as you want it
-        final Tokenizer standardTokenizer = new MyStandardTokenizer(reader);
+        final Tokenizer standardTokenizer = new MyStandardTokenizer();
 
         TokenStream tok = new StandardFilter(standardTokenizer);
         // make everything lowercase, remove if not needed
@@ -30,8 +31,8 @@ public class CustomAnalyzer extends Analyzer {
 
     private class MyStandardTokenizer extends Tokenizer {
 
-        protected MyStandardTokenizer(Reader input) {
-            super(input);
+        protected MyStandardTokenizer() {
+            super( );
         }
 
         public boolean incrementToken() throws IOException {

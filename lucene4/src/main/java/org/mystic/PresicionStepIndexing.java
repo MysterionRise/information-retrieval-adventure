@@ -1,7 +1,5 @@
 package org.mystic;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Date;
 
@@ -39,7 +37,7 @@ public class PresicionStepIndexing {
     public static void main(String[] args) {
         try {
             //Create an index
-            Directory dir = FSDirectory.open(Paths.get(INDEX_PATH));
+            Directory dir = FSDirectory.open(Paths.get(INDEX_PATH).toFile());
             Analyzer analyzer = new StandardAnalyzer();
             IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_4_10_4, analyzer);
             iwc.setOpenMode(OpenMode.CREATE);
@@ -66,7 +64,7 @@ public class PresicionStepIndexing {
 
             //Now do searching
 
-            IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(INDEX_PATH)));
+            IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(INDEX_PATH).toFile()));
             IndexSearcher searcher = new IndexSearcher(reader);
 
             Query query = NumericRangeQuery.newLongRange("BirthDate",
