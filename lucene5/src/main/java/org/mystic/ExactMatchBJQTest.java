@@ -71,16 +71,16 @@ public class ExactMatchBJQTest {
 
         // i want to find out all products of the query red m dress
         BooleanQuery.Builder builder = new BooleanQuery.Builder();
-        BooleanQuery childQuery = builder.
+        BooleanQuery childQuery = builder.build();
         ToParentBlockJoinQuery parentQuery = new ToParentBlockJoinQuery(childQuery, new QueryBitSetProducer(new TermQuery(new Term("type", "product"))), ScoreMode.Avg);
 
 
-        System.out.println("query: " + query);
+        System.out.println("query: " + parentQuery);
 
-        TopDocs results = searcher.search(query, 100);
+        TopDocs results = searcher.search(parentQuery, 100);
         ScoreDoc[] scoreDocs = results.scoreDocs;
         for (int i = 0; i < scoreDocs.length; ++i) {
-            System.out.println(searcher.explain(query, scoreDocs[i].doc));
+            System.out.println(searcher.explain(parentQuery, scoreDocs[i].doc));
         }
 
 
