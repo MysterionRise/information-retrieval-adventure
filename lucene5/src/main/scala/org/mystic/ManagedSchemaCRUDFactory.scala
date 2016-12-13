@@ -1,13 +1,14 @@
 package org.mystic
 
 import java.util
+
 import org.apache.lucene.analysis.core.{KeywordTokenizerFactory, LowerCaseFilterFactory}
 import org.apache.lucene.analysis.util.TokenFilterFactory
 import org.apache.solr.analysis.TokenizerChain
 import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.request.SolrQueryRequest
 import org.apache.solr.response.SolrQueryResponse
-import org.apache.solr.schema.{SchemaField, IndexSchema, TextField}
+import org.apache.solr.schema.{IndexSchema, TextField}
 import org.apache.solr.update.AddUpdateCommand
 import org.apache.solr.update.processor.{UpdateRequestProcessor, UpdateRequestProcessorFactory}
 

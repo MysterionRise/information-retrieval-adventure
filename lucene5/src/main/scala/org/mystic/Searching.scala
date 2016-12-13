@@ -1,12 +1,13 @@
 package org.mystic
 
+import java.io.IOException
 import java.nio.file.Paths
 
-import org.apache.lucene.store.FSDirectory
-import java.io.{IOException, File}
-import scala.Console._
 import org.apache.lucene.index.{DirectoryReader, IndexReader}
+import org.apache.lucene.store.FSDirectory
 import org.apache.lucene.util.BytesRef
+
+import scala.Console._
 
 object Searching {
   // @todo this should be configurable

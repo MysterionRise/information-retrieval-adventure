@@ -1,6 +1,6 @@
 package org.mystic
 
-import org.apache.solr.client.solrj.{SolrClient, SolrServer}
+import org.apache.solr.client.solrj.SolrClient
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.core.CoreContainer

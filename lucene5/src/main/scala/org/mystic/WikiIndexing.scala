@@ -1,15 +1,17 @@
 package org.mystic
 
-import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
-import org.apache.solr.client.solrj.{SolrServerException}
-import javax.xml.stream.{XMLStreamException, XMLEventReader, XMLInputFactory}
+import java.io.IOException
 import java.net.URL
+import java.util
+import javax.xml.stream.events.XMLEvent
+import javax.xml.stream.{XMLEventReader, XMLInputFactory, XMLStreamException}
+
+import org.apache.solr.client.solrj.SolrServerException
+import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.core.CoreContainer
+
 import scala.Console._
-import javax.xml.stream.events.XMLEvent
-import java.util
-import java.io.IOException
 
 /**
  *         Connects to localhost Solr, and then index small part of russian wikipedia titles
