@@ -27,10 +27,11 @@ object SynonymsAndStopwords {
       server = new EmbeddedSolrServer(container, "non-english-synonyms")
       println(server.ping())
       val doc1 = new SolrInputDocument()
-      doc1.addField("id", "1");
+      doc1.addField("id", "1")
       doc1.addField("ru", "spidermen")
+      server.add(doc1)
       val doc2 = new SolrInputDocument()
-      doc2.addField("id", "2");
+      doc2.addField("id", "2")
       doc2.addField("ru", "stop word spiderman")
       server.add(doc2)
       val hindi = List("मैं भारत का रहने वाला हूँ", "मैं हिसंदुस्तान का रहने वाला  हूँ", "मैं india का रहने वाला हूँ", "मैं hindustan का रहने हूँ", "मैं bharat का रहने हूँ")

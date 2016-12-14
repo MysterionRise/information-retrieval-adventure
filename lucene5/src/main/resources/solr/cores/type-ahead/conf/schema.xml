@@ -2,8 +2,9 @@
 <schema name="example" version="1.5">
     <fields>
         <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
-        <field name="url" type="string" indexed="true" stored="true"/>
+        <field name="text" type="string" indexed="true" stored="true"/>
         <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
+        <field name="title" type="string" indexed="true" stored="true" multiValued="true"/>
         <field name="title_prefix" type="prefix_text" indexed="true" stored="false" multiValued="true"/>
         <field name="title_ngram" type="ngram_text" indexed="true" stored="false" multiValued="true"/>
     </fields>
@@ -14,22 +15,24 @@
 
         <fieldType name="prefix_text" class="solr.TextField" positionIncrementGap="100">
             <analyzer type="index">
-                <tokenizer class="solr.LowerCaseTokenizerFactory"/>
+                <tokenizer class="solr.WhitespaceTokenizerFactory" rule="unicode" />
             </analyzer>
             <analyzer type="query">
-                <tokenizer class="solr.LowerCaseTokenizerFactory"/>
+                <tokenizer class="solr.WhitespaceTokenizerFactory" rule="unicode" />
             </analyzer>
         </fieldType>
 
 
         <fieldType name="ngram_text" class="solr.TextField" positionIncrementGap="100">
             <analyzer type="index">
-                <tokenizer class="solr.LowerCaseTokenizerFactory"/>
-                <filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="15" side="front"/>
+                <tokenizer class="org.mystic.ShinglesNGramTokenizerFactory"/>
             </analyzer>
             <analyzer type="query">
-                <tokenizer class="solr.LowerCaseTokenizerFactory"/>
+                <tokenizer class="org.mystic.ShinglesNGramTokenizerFactory"/>
             </analyzer>
         </fieldType>
     </types>
+
+    <copyField source="title" dest="title_prefix"/>
+    <copyField source="title" dest="title_ngram"/>
 </schema>

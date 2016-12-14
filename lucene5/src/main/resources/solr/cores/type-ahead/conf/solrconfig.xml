@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
 
-    <luceneMatchVersion>4.10</luceneMatchVersion>
+    <luceneMatchVersion>5.5.3</luceneMatchVersion>
 
 
     <lib dir="../../../contrib/extraction/lib" regex=".*\.jar"/>
@@ -165,7 +165,7 @@
         <processor class="solr.ParseLongFieldUpdateProcessorFactory"/>
         <processor class="solr.ParseDoubleFieldUpdateProcessorFactory"/>
         <processor class="org.mystic.ManagedSchemaCRUDFactory"/>
-        <processor class="solr.LogUpdateProcessorFactory"/>
+        <!--<processor class="solr.LogUpdateProcessorFactory"/>-->
         <processor class="solr.RunUpdateProcessorFactory"/>
     </updateRequestProcessorChain>
 

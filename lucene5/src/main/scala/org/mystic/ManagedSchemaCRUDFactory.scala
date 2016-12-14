@@ -33,7 +33,7 @@ class ManagedSchemaCRUDProcessor(indexSchema: IndexSchema, next: UpdateRequestPr
     indexSchema.refreshAnalyzers()
     indexSchema.getFieldTypes.put("testFieldType", field)
     indexSchema.refreshAnalyzers()
-    JavaConversions.mapAsScalaMap( indexSchema.getFieldTypes).foreach(println)
+    //JavaConversions.mapAsScalaMap( indexSchema.getFieldTypes).foreach(println)
     val doc: SolrInputDocument = cmd.getSolrInputDocument
     val updatedDoc = addExtraFields(doc)
     doc
