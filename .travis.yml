@@ -1,0 +1,16 @@
+---
+language: java
+language: scala
+
+script: mvn clean test
+
+jdk:
+  - oraclejdk8
+
+notifications:
+  # Email notifications are disabled to not annoy anybody.
+  email: false
+
+os:
+  - linux
+  - macosx
