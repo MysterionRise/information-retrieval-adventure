@@ -63,7 +63,6 @@ object TypeAhead {
       val rand = new Random()
       val solrDir = TypeAhead.getClass.getResource("/solr").getPath
       val container = new CoreContainer(solrDir)
-      println(solrDir)
       container.load()
       server = new EmbeddedSolrServer(container, "type-ahead")
 

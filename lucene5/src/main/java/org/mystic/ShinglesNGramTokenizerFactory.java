@@ -9,13 +9,7 @@ import java.util.Map;
 
 public class ShinglesNGramTokenizerFactory extends TokenizerFactory {
 
-
-    /**
-     * Initialize this factory via a set of key-value pairs.
-     *
-     * @param args
-     */
-    protected ShinglesNGramTokenizerFactory(Map<String, String> args) {
+    public ShinglesNGramTokenizerFactory(Map<String, String> args) {
         super(args);
         System.out.println(args);
     }

@@ -16,7 +16,6 @@
     <lib dir="../../../contrib/velocity/lib" regex=".*\.jar"/>
     <lib dir="../../../dist/" regex="solr-velocity-\d.*\.jar"/>
 
-
     <dataDir>${solr.data.dir:}</dataDir>
 
 
