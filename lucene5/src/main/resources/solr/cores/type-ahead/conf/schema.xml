@@ -15,20 +15,22 @@
 
         <fieldType name="prefix_text" class="solr.TextField" positionIncrementGap="100">
             <analyzer type="index">
-                <tokenizer class="solr.WhitespaceTokenizerFactory" rule="unicode" />
+                <tokenizer class="solr.WhitespaceTokenizerFactory" rule="unicode"/>
             </analyzer>
             <analyzer type="query">
-                <tokenizer class="solr.WhitespaceTokenizerFactory" rule="unicode" />
+                <tokenizer class="solr.WhitespaceTokenizerFactory" rule="unicode"/>
             </analyzer>
         </fieldType>
 
 
-        <fieldType name="ngram_text" class="solr.TextField" positionIncrementGap="100">
+        <fieldType name="ngram_text" class="solr.TextField" positionIncrementGap="0">
             <analyzer type="index">
-                <tokenizer class="org.mystic.ShinglesNGramTokenizerFactory"/>
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="org.mystic.SuffixShingleFactory"/>
+                <filter class="solr.EdgeNGramFilterFactory" maxGramSize="100"/>
             </analyzer>
             <analyzer type="query">
-                <tokenizer class="org.mystic.ShinglesNGramTokenizerFactory"/>
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
             </analyzer>
         </fieldType>
     </types>

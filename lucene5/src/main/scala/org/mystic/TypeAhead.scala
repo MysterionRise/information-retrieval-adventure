@@ -51,7 +51,7 @@ object TypeAhead {
     for (i <- 0 until 10000) {
       val doc = new SolrInputDocument()
       doc.addField("id", i)
-      doc.addField("title", combineTitle(rand))
+      doc.addField("title_ngram", combineTitle(rand))
       server.add(doc)
     }
     server.commit()
@@ -66,12 +66,10 @@ object TypeAhead {
       container.load()
       server = new EmbeddedSolrServer(container, "type-ahead")
 
-      println(server.ping())
-
       addDocsToIndex(rand)
 
-      // M approach
-      for (i <- 0 until 10) {
+      /*println("M approach")
+      for (i <- 0 until 5) {
         val title = possibleTitles.toList.apply(rand.nextInt(possibleTitles.size))
         val query = title.substring(0, rand.nextInt(title.length / 2) + 5)
         val q = new ModifiableSolrParams()
@@ -80,13 +78,36 @@ object TypeAhead {
         val resp = server.query(q).getResults
         println(s"query = ${queryS.trim}")
         println(s"numFound = ${resp.size()}")
+        for (i <- 0 until resp.size()) {
+          println(resp.get(i))
+        }
+      }*/
+
+
+      println("K approach")
+      for (i <- 0 until 10) {
+        val title = possibleTitles.toList.apply(rand.nextInt(possibleTitles.size))
+        var query = ""
+        if (rand.nextBoolean()) {
+          query = title.substring(0, rand.nextInt(title.length / 2) + 5).trim
+        } else {
+          val of = title.indexOf(" ")
+          query = title.substring(of, Math.min(title.length, title.length / 2 + 5)).trim
+        }
+        val q = new ModifiableSolrParams()
+        q.add("q", s"""title_ngram:"${query}"""")
+        val resp = server.query(q).getResults
+        println(s"title = ${title}")
+        println(s"query = ${query}")
+        println(s"numFound = ${resp.getNumFound()}")
+        assert(resp.getNumFound > 0)
         for (i <- 0 until resp.size()) {
           println(resp.get(i))
         }
       }
 
-      // K approach
-      for (i <- 0 until 10) {
+      /*println("G approach")
+      for (i <- 0 until 5) {
         val title = possibleTitles.toList.apply(rand.nextInt(possibleTitles.size))
         val query = title.substring(0, rand.nextInt(title.length / 2) + 5)
         val q = new ModifiableSolrParams()
@@ -98,22 +119,7 @@ object TypeAhead {
         for (i <- 0 until resp.size()) {
           println(resp.get(i))
         }
-      }
-
-      // G approach
-      for (i <- 0 until 10) {
-        val title = possibleTitles.toList.apply(rand.nextInt(possibleTitles.size))
-        val query = title.substring(0, rand.nextInt(title.length / 2) + 5)
-        val q = new ModifiableSolrParams()
-        val queryS = query.split(" ").toList.foldLeft("")((pos: String, b: String) => s"$pos +$b") + "*"
-        q.add("q", s"""title_prefix:(${queryS.trim})""")
-        val resp = server.query(q).getResults
-        println(s"query = ${queryS.trim}")
-        println(s"numFound = ${resp.size()}")
-        for (i <- 0 until resp.size()) {
-          println(resp.get(i))
-        }
-      }
+      }*/
 
 
 
