@@ -5,8 +5,8 @@ import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class SuffixShingleTokenFilter extends TokenFilter {
 
@@ -31,12 +31,9 @@ public class SuffixShingleTokenFilter extends TokenFilter {
             }
             if (tokens.length - 1 - index < 0)
                 return false;
-            final StringBuilder sb = new StringBuilder();
-            for (int i = index; i < tokens.length; i++) {
-                sb.append(tokens[i]);
-                sb.append(" ");
-            }
-            termAtt.copyBuffer(sb.toString().trim().toCharArray(), 0, sb.toString().trim().length());
+            final String suffix =
+                    IntStream.range(index, tokens.length).mapToObj(i -> tokens[i]).collect(Collectors.joining(" "));
+            termAtt.copyBuffer(suffix.toCharArray(), 0, suffix.length());
             index += 1;
             return true;
         }
