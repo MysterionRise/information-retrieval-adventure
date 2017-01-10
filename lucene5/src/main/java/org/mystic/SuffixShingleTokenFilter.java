@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class SuffixShingleTokenFilter extends TokenFilter {
+public final class SuffixShingleTokenFilter extends TokenFilter {
 
     private final CharTermAttribute termAtt = addAttribute(CharTermAttribute.class);
     private String[] tokens;
