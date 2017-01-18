@@ -38,8 +38,6 @@ object AutoDelete {
       doc3.addField("id", "3")
       server.add(doc3)
 
-      server.commit()
-
       Thread.sleep(10000)
 
       val q1 = new ModifiableSolrParams()
