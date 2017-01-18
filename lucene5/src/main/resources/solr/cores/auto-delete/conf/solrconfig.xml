@@ -173,7 +173,6 @@
             <int name="autoDeletePeriodSeconds">5</int>
             <str name="ttlFieldName">ttl</str>
             <str name="expirationFieldName">eDate</str>
-            <null name="ttlParamName"/>
         </processor>
         <processor class="solr.LogUpdateProcessorFactory"/>
         <processor class="solr.RunUpdateProcessorFactory"/>
