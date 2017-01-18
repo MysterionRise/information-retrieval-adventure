@@ -10,7 +10,7 @@ import scala.Console._
 import scala.util.Random
 
 /**
-  * @see
+  * @see http://stackoverflow.com/q/41711740/2663985
   */
 object AutoDelete {
 
