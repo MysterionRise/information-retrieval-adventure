@@ -160,7 +160,7 @@
 
 
     <updateRequestProcessorChain name="add">
-        <processor class="solr.UUIDUpdateProcessorFactory" />
+        <processor class="solr.UUIDUpdateProcessorFactory"/>
         <processor class="solr.ParseBooleanFieldUpdateProcessorFactory"/>
         <processor class="solr.ParseLongFieldUpdateProcessorFactory"/>
         <processor class="solr.ParseDoubleFieldUpdateProcessorFactory"/>
