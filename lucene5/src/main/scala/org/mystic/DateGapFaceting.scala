@@ -31,18 +31,27 @@ object DateGapFaceting {
 
       val doc1 = new SolrInputDocument()
       doc1.addField("id", "1")
+      doc1.addField("color", "blue")
       doc1.addField("date", "2017-01-01T00:00:00Z")
       server.add(doc1)
 
       val doc2 = new SolrInputDocument()
       doc2.addField("id", "2")
+      doc2.addField("color", "blue")
       doc2.addField("date", "2017-01-02T00:00:00Z")
       server.add(doc2)
 
       val doc3 = new SolrInputDocument()
       doc3.addField("id", "3")
+      doc3.addField("color", "red")
       doc3.addField("date", "2017-01-03T00:00:00Z")
       server.add(doc3)
+
+      val doc4 = new SolrInputDocument()
+      doc4.addField("id", "4")
+      doc4.addField("color", "red")
+      doc4.addField("date", "2017-01-04T00:00:00Z")
+      server.add(doc4)
 
       server.commit()
 
@@ -54,8 +63,10 @@ object DateGapFaceting {
       q.add("facet.range.start", "NOW/DAY-30DAYS")
       q.add("facet.range.end", "NOW/DAY+30DAYS")
       q.add("facet.range.gap", "+1DAY")
-      val res = server.query(q).getFacetRanges
-      val rangeFacet: RangeFacet[Date, Date] = res.get(0).asInstanceOf[RangeFacet[Date, Date]]
+      q.add("facet.pivot", "color,date")
+      q.add("facet.pivot", "date,color")
+      val res = server.query(q)
+      val rangeFacet: RangeFacet[Date, Date] = res.getFacetRanges.get(0).asInstanceOf[RangeFacet[Date, Date]]
       val counts = rangeFacet.getCounts
       for (i <- 0 until counts.size())
         if (counts.get(i).getCount > 0) {
