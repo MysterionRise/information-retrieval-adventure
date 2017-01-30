@@ -11,9 +11,9 @@ import scala.collection.mutable
 import scala.util.Random
 
 /**
-  * @see http://stackoverflow.com/q/41586031/2663985
+  * @see http://stackoverflow.com/q/41924306/2663985
   */
-object SearchMetricUntis {
+object SearchArabicWords {
 
   var server: SolrClient = null
 
@@ -25,27 +25,32 @@ object SearchMetricUntis {
       val solrDir = TypeAhead.getClass.getResource("/solr").getPath
       val container = new CoreContainer(solrDir)
       container.load()
-      server = new EmbeddedSolrServer(container, "metric-units")
+      server = new EmbeddedSolrServer(container, "arabic-words")
 
       val doc1 = new SolrInputDocument()
       doc1.addField("id", "1")
-      doc1.addField("units", "screwdriver 10 mm")
+      doc1.addField("text", " إ ")
       server.add(doc1)
 
       val doc2 = new SolrInputDocument()
       doc2.addField("id", "2")
-      doc2.addField("units", "10mm")
+      doc2.addField("text", " أ ")
       server.add(doc2)
 
       val doc3 = new SolrInputDocument()
       doc3.addField("id", "3")
-      doc3.addField("units", "10 mm")
+      doc3.addField("text", " آ ")
       server.add(doc3)
+
+      val doc4 = new SolrInputDocument()
+      doc4.addField("id", "4")
+      doc4.addField("text", " ا ")
+      server.add(doc4)
 
       server.commit()
 
       val q = new ModifiableSolrParams()
-      q.add("q", "units:10mm")
+      q.add("q", "text: ا ")
       val res = server.query(q).getResults
 
       for (i <-0 until res.size()) {
