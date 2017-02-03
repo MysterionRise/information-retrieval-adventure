@@ -9,6 +9,7 @@
     <modules>
         <module>lucene4</module>
         <module>lucene5</module>
+        <module>lucene6</module>
     </modules>
 
     <properties>
