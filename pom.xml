@@ -10,6 +10,7 @@
         <module>lucene4</module>
         <module>lucene5</module>
         <module>lucene6</module>
+        <module>elasticsearch</module>
     </modules>
 
     <properties>
