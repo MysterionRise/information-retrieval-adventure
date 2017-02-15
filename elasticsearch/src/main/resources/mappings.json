@@ -1,0 +1,52 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "english_default": {
+          "type": "custom",
+          "char_filter": [
+            "html_strip"
+          ],
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "products": {
+      "properties": {
+        "prdId": {
+          "type": "keyword"
+        },
+        "title": {
+          "type": "keyword"
+        },
+        "department": {
+          "type": "keyword"
+        },
+        "brand": {
+          "type": "keyword"
+        },
+        "category": {
+          "type": "keyword"
+        },
+        "product": {
+          "type": "keyword"
+        },
+        "desc": {
+          "type": "text",
+          "analyzer": "english_default"
+        },
+        "displayColor": {
+          "type": "keyword"
+        },
+        "color_refine": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}
