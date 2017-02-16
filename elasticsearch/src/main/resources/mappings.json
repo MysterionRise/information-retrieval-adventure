@@ -22,19 +22,26 @@
           "type": "keyword"
         },
         "title": {
-          "type": "keyword"
+          "type": "text",
+          "analyzer": "english_default"
         },
         "department": {
-          "type": "keyword"
+          "type": "text",
+          "analyzer": "english_default"
         },
         "brand": {
           "type": "keyword"
         },
-        "category": {
+        "variations": {
           "type": "keyword"
         },
+        "category": {
+          "type": "text",
+          "analyzer": "english_default"
+        },
         "product": {
-          "type": "keyword"
+          "type": "text",
+          "analyzer": "english_default"
         },
         "desc": {
           "type": "text",
