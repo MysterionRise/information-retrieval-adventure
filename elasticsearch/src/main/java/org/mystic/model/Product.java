@@ -3,6 +3,7 @@ package org.mystic.model;
 import org.json.JSONWriter;
 
 import java.io.StringWriter;
+import java.util.List;
 
 public class Product {
 
@@ -12,18 +13,22 @@ public class Product {
     private final String category;
     private final String product;
     private final String desc;
-    private final String displayColor;
-    private final String color_refine;
+    private final List<String> displayColors;
+    private final List<String> color_refines;
+    private final String variations;
+    private final String title;
 
-    public Product(String prdId, String department, String brand, String category, String product, String desc, String displayColor, String color_refine) {
+    public Product(String prdId, String department, String brand, String category, String product, String desc, List<String> displayColor, List<String> color_refine, String variations, String title) {
         this.prdId = prdId;
         this.department = department;
         this.brand = brand;
         this.category = category;
         this.product = product;
         this.desc = desc;
-        this.displayColor = displayColor;
-        this.color_refine = color_refine;
+        this.displayColors = displayColor;
+        this.color_refines = color_refine;
+        this.variations = variations;
+        this.title = title;
     }
 
     public String getPrdId() {
@@ -50,12 +55,20 @@ public class Product {
         return desc;
     }
 
-    public String getDisplayColor() {
-        return displayColor;
+    public List<String> getDisplayColors() {
+        return displayColors;
     }
 
-    public String getColor_refine() {
-        return color_refine;
+    public List<String> getColor_refines() {
+        return color_refines;
+    }
+
+    public String getVariations() {
+        return variations;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     @Override
@@ -71,9 +84,12 @@ public class Product {
         if (category != null ? !category.equals(product1.category) : product1.category != null) return false;
         if (product != null ? !product.equals(product1.product) : product1.product != null) return false;
         if (desc != null ? !desc.equals(product1.desc) : product1.desc != null) return false;
-        if (displayColor != null ? !displayColor.equals(product1.displayColor) : product1.displayColor != null)
+        if (displayColors != null ? !displayColors.equals(product1.displayColors) : product1.displayColors != null)
             return false;
-        return color_refine != null ? color_refine.equals(product1.color_refine) : product1.color_refine == null;
+        if (color_refines != null ? !color_refines.equals(product1.color_refines) : product1.color_refines != null)
+            return false;
+        if (variations != null ? !variations.equals(product1.variations) : product1.variations != null) return false;
+        return title != null ? title.equals(product1.title) : product1.title == null;
     }
 
     @Override
@@ -84,15 +100,17 @@ public class Product {
         result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (product != null ? product.hashCode() : 0);
         result = 31 * result + (desc != null ? desc.hashCode() : 0);
-        result = 31 * result + (displayColor != null ? displayColor.hashCode() : 0);
-        result = 31 * result + (color_refine != null ? color_refine.hashCode() : 0);
+        result = 31 * result + (displayColors != null ? displayColors.hashCode() : 0);
+        result = 31 * result + (color_refines != null ? color_refines.hashCode() : 0);
+        result = 31 * result + (variations != null ? variations.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         final StringWriter w = new StringWriter();
-        new JSONWriter(w)
+        final JSONWriter obj = new JSONWriter(w)
                 .object()
                 .key("prdId")
                 .value(prdId)
@@ -104,13 +122,21 @@ public class Product {
                 .value(category)
                 .key("product")
                 .value(product)
+                .key("title")
+                .value(title)
+                .key("variations")
+                .value(variations)
                 .key("desc")
-                .value(desc)
-                .key("displayColor")
-                .value(displayColor)
-                .key("color_refine")
-                .value(color_refine)
-                .endObject();
+                .value(desc);
+        JSONWriter colors1 = obj.key("displayColor").array();
+        for (String displayColor: displayColors) {
+            colors1 = colors1.value(displayColor);
+        }
+        colors1 = colors1.endArray().key("color_refine").array();
+        for (String color_refine: color_refines) {
+            colors1 = colors1.value(color_refine);
+        }
+        colors1.endArray().endObject();
         return w.toString();
     }
 }
