@@ -2,7 +2,7 @@
   "settings": {
     "analysis": {
       "analyzer": {
-        "english_default": {
+        "english_text": {
           "type": "custom",
           "char_filter": [
             "html_strip"
@@ -11,57 +11,82 @@
           "filter": [
             "lowercase"
           ]
+        },
+        "english_lowercase": {
+          "type": "custom",
+          "tokenizer": "keyword",
+          "filter": [
+            "lowercase"
+          ]
         }
       }
     }
   },
   "mappings": {
-    "products": {
+    "product": {
       "properties": {
         "prdId": {
           "type": "keyword"
         },
         "title": {
           "type": "text",
-          "analyzer": "english_default"
+          "analyzer": "english_text"
         },
         "department": {
           "type": "text",
-          "analyzer": "english_default",
+          "analyzer": "english_text",
           "fields": {
-            "facet": {
+            "keyword": {
               "type": "keyword"
             }
           }
         },
         "brand": {
-          "type": "keyword"
+          "type": "text",
+          "analyzer": "english_lowercase",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
         },
         "variations": {
           "type": "keyword"
         },
         "category": {
           "type": "text",
-          "analyzer": "english_default"
+          "analyzer": "english_text"
         },
         "product": {
           "type": "text",
-          "analyzer": "english_default",
+          "analyzer": "english_text",
           "fields": {
-            "facet": {
+            "keyword": {
               "type": "keyword"
             }
           }
         },
         "desc": {
           "type": "text",
-          "analyzer": "english_default"
+          "analyzer": "english_text"
         },
         "displayColor": {
-          "type": "keyword"
+          "type": "text",
+          "analyzer": "english_lowercase",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
         },
         "color_refine": {
-          "type": "keyword"
+          "type": "text",
+          "analyzer": "english_lowercase",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
         }
       }
     }
