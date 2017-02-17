@@ -27,7 +27,12 @@
         },
         "department": {
           "type": "text",
-          "analyzer": "english_default"
+          "analyzer": "english_default",
+          "fields": {
+            "facet": {
+              "type": "keyword"
+            }
+          }
         },
         "brand": {
           "type": "keyword"
@@ -41,7 +46,12 @@
         },
         "product": {
           "type": "text",
-          "analyzer": "english_default"
+          "analyzer": "english_default",
+          "fields": {
+            "facet": {
+              "type": "keyword"
+            }
+          }
         },
         "desc": {
           "type": "text",
