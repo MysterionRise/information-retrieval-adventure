@@ -12,6 +12,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 import org.apache.lucene.util.automaton.Automata;
+import org.apache.solr.parser.QueryParser;
 
 import java.io.IOException;
 
