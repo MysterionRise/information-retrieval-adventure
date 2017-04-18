@@ -1,0 +1,4 @@
+couch,sofa,divan
+teh => the
+huge,ginormous,humungous => large
+small => tiny,teeny,weeny
