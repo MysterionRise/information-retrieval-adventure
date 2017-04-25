@@ -1,9 +1,25 @@
+import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.core.WhitespaceTokenizer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.synonym.SynonymGraphFilter;
 import org.apache.lucene.analysis.synonym.SynonymMap;
 import org.apache.lucene.analysis.tokenattributes.*;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.TextField;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TermAutomatonQuery;
+import org.apache.lucene.search.TokenStreamToTermAutomatonQuery;
+import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.CharsRefBuilder;
 
 import java.io.IOException;
@@ -22,12 +38,7 @@ public class SynonymGraphFilterTest {
      */
 
     private static String getGraph(String input) throws IOException {
-        Tokenizer inputStream = new WhitespaceTokenizer();
-        inputStream.setReader(new StringReader(input));
-
-        TokenStream tokenStream = new SynonymGraphFilter(inputStream,
-                builder.build(),
-                true);
+        TokenStream tokenStream = getTokenStream(input);
         PositionIncrementAttribute posIncAtt = tokenStream.addAttribute(PositionIncrementAttribute.class);
         PositionLengthAttribute posLenAtt = tokenStream.addAttribute(PositionLengthAttribute.class);
         CharTermAttribute termAtt = tokenStream.addAttribute(CharTermAttribute.class);
@@ -41,6 +52,7 @@ public class SynonymGraphFilterTest {
         b.append("  initial -> 0\n");
 
         while (tokenStream.incrementToken()) {
+            System.out.println(termAtt.toString());
             int posInc = posIncAtt.getPositionIncrement();
             if (posInc != 0) {
                 srcNode += posInc;
@@ -65,14 +77,65 @@ public class SynonymGraphFilterTest {
         return b.toString();
     }
 
+    private static TokenStream getTokenStream(String input) throws IOException {
+        Tokenizer inputStream = new WhitespaceTokenizer();
+        inputStream.setReader(new StringReader(input));
+
+        return new SynonymGraphFilter(inputStream,
+                builder.build(),
+                true);
+    }
+
 
     public static void main(String[] args) throws Exception {
         add("teh", "the", true);
-        add("calvin klein", "ralph loren", true);
+//        add("calvin klein jeans", "ckj", true);
+        add("calvin klein", "ck", true);
         add("jeans", "pants", true);
         add("jeans", "trousers", true);
 
-        System.out.println(getGraph("teh silver calvin klein jeans"));
+        System.out.println(getGraph("teh calvin klein jeans"));
+
+
+        Directory dir = new RAMDirectory();
+        Analyzer analyzer = new StandardAnalyzer();
+        IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
+        iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+        IndexWriter writer = new IndexWriter(dir, iwc);
+
+        Document doc = new Document();
+        doc.add(new TextField("text", "calvin klein jeans", Field.Store.YES));
+        writer.addDocument(doc);
+        doc = new Document();
+        doc.add(new TextField("text", "calvin klein pants", Field.Store.YES));
+        writer.addDocument(doc);
+        doc = new Document();
+        doc.add(new TextField("text", "ralph loren", Field.Store.YES));
+        writer.addDocument(doc);
+        doc = new Document();
+        doc.add(new TextField("text", "ralph loren pants", Field.Store.YES));
+        writer.addDocument(doc);
+        doc = new Document();
+        doc.add(new TextField("text", "ralph loren jeans", Field.Store.YES));
+        writer.addDocument(doc);
+        doc = new Document();
+        doc.add(new TextField("text", "ralph loren trousers", Field.Store.YES));
+        writer.addDocument(doc);
+        writer.close();
+
+        IndexReader reader = DirectoryReader.open(dir);
+
+        IndexSearcher searcher = new IndexSearcher(reader);
+
+        TokenStreamToTermAutomatonQuery q = new TokenStreamToTermAutomatonQuery();
+        final TermAutomatonQuery query = q.toQuery("text", getTokenStream("calvin klein jeans"));
+        final TopDocs response = searcher.search(query, 10);
+
+        ScoreDoc[] scoreDocs = response.scoreDocs;
+        for (int i = 0; i < scoreDocs.length; ++i) {
+            System.out.println(searcher.doc(scoreDocs[i].doc));
+            System.out.println(scoreDocs[i].doc + " " + scoreDocs[i].score);
+        }
     }
 
     private static void add(String input, String output, boolean keepOrig) {
