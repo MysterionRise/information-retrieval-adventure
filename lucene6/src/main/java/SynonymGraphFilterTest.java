@@ -88,14 +88,10 @@ public class SynonymGraphFilterTest {
 
 
     public static void main(String[] args) throws Exception {
-        add("teh", "the", true);
-//        add("calvin klein jeans", "ckj", true);
-        add("calvin klein", "ck", true);
-        add("jeans", "pants", true);
-        add("jeans", "trousers", true);
+        add("wedding trio", "bridal set", true);
+        add("wedding trio sets", "3-stone rings", true);
 
-        System.out.println(getGraph("teh calvin klein jeans"));
-
+        System.out.println(getGraph("wedding trio sets"));
 
         Directory dir = new RAMDirectory();
         Analyzer analyzer = new StandardAnalyzer();
