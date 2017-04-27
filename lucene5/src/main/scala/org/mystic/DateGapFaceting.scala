@@ -24,7 +24,7 @@ object DateGapFaceting {
 
     try {
       val rand = new Random()
-      val solrDir = DateGapFaceting.getClass.getResource("/solr").getPath.substring(1)
+      val solrDir = DateGapFaceting.getClass.getResource("/solr").getPath
       val container = new CoreContainer(solrDir)
       container.load()
       server = new EmbeddedSolrServer(container, "date-gap")
