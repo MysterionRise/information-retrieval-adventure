@@ -88,10 +88,14 @@ public class SynonymGraphFilterTest {
 
 
     public static void main(String[] args) throws Exception {
-        add("wedding trio", "bridal set", true);
-        add("wedding trio sets", "3-stone rings", true);
+        add("coffee mug", "coffee cup", true);
+        add("coffee mug", "expresso cup", true);
+        add("coffee mug", "creme cup", true);
 
-        System.out.println(getGraph("wedding trio sets"));
+        add("mug holder", "cup stand", true);
+        add("mug holder", "cup rack", true);
+
+        System.out.println(getGraph("coffee mug holder"));
 
         Directory dir = new RAMDirectory();
         Analyzer analyzer = new StandardAnalyzer();

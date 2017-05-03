@@ -17,29 +17,37 @@ object ThesaurusAnalyzer {
     val phrases = new mutable.HashSet[String]
     for (i <- 0 until synonyms.size) {
       synonyms(i).children.size match {
+        //multi-way
         case 2 => {
-//          synonyms(i).children.apply(0).children.foreach(value => {
-//            phrases.add(value.asInstanceOf[JString].s.trim)
-//          })
+          synonyms(i).children.apply(0).children.foreach(value => {
+            phrases.add(value.asInstanceOf[JString].s.trim)
+          })
         }
+        //one way
         case 3 => {
-//          synonyms(i).children.apply(1).children.foreach(value => {
-//            phrases.add(value.asInstanceOf[JString].s.trim)
-//          })
-//          if (synonyms(i).children.apply(2).asInstanceOf[JString].s.equalsIgnoreCase("multi-way")) {
-            phrases.add(synonyms(i).children.apply(0).asInstanceOf[JString].s.trim)
-//          }
+          phrases.add(synonyms(i).children.apply(0).asInstanceOf[JString].s.trim)
         }
         case _ => {
           println(synonyms(i).children)
         }
       }
     }
-    val sorted = phrases.toList.sorted.toArray
-    for (i <- 0 until sorted.length) {
-      for (j <- i + 1 until sorted.length) {
-        if (sorted(j).length != sorted(i).length && sorted(j).startsWith(sorted(i))) {
-          println(s"${sorted(i)} # ${sorted(j)}")
+    val sorted = phrases.toList.sorted.toArray.filter(_.contains(" "))
+    val length = sorted.length
+    for (i <- 0 until length) {
+      for (j <- 0 until length) {
+        if (i != j && sorted(j).startsWith(sorted(i).split(" ").apply(sorted(i).split(" ").length - 1))) {
+          println(s"${sorted(i)} | ${sorted(j)}")
+        }
+      }
+    }
+    //
+    for (i <- 0 until length) {
+      for (j <- 0 until length) {
+        for (k <- 0 until length) {
+          if (i != k && i != j && j != k && sorted(k).startsWith(sorted(i)) && sorted(k).endsWith(sorted(j))) {
+            println(s"${sorted(i)} | ${sorted(k)} | ${sorted(j)}")
+          }
         }
       }
     }
