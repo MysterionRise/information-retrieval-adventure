@@ -49,9 +49,6 @@ public class ClosestNumberScore {
     IndexReader reader = IndexReader.open(dir);
     IndexSearcher searcher = new IndexSearcher(reader);
 
-
-    Query query = NumericRangeQuery.newIntRange("weight", 1, 1000, true, true);
-
     Query q = new FunctionQuery(new DistanceDualFloatFunction(new IntFieldSource("weight"), new ConstValueSource(245)));
 
     final ScoreDoc[] scoreDocs = searcher.search(q, 10).scoreDocs;
@@ -73,7 +70,7 @@ public class ClosestNumberScore {
 
     @Override
     protected float func(int doc, FunctionValues aVals, FunctionValues bVals) {
-      return Math.abs(aVals.intVal(doc) - bVals.intVal(doc));
+      return 1000 - Math.abs(aVals.intVal(doc) - bVals.intVal(doc));
     }
   }
 
