@@ -8,12 +8,16 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.BooleanClause.Occur;
+import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermInSetQuery;
+import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.BytesRef;
@@ -38,7 +42,7 @@ public class OverlappingScoring {
         doc.add(new TextField("text", "architecture logic programming", Field.Store.YES));
         writer.addDocument(doc);
         doc = new Document();
-        doc.add(new TextField("text", "sytem architecture engineering", Field.Store.YES));
+        doc.add(new TextField("text", "system architecture engineering", Field.Store.YES));
         writer.addDocument(doc);
         writer.close();
 
@@ -46,7 +50,10 @@ public class OverlappingScoring {
 
         IndexSearcher searcher = new IndexSearcher(reader);
 
-        Query query = new TermInSetQuery("text", new BytesRef("system"), new BytesRef("architecture"));
+        Query query = new BooleanQuery.Builder()
+            .add(new TermQuery(new Term("text", "system")), Occur.SHOULD)
+            .add(new TermQuery(new Term("text", "architecture")), Occur.SHOULD)
+            .build();
 
         final ScoreDoc[] scoreDocs = searcher.search(query, 10).scoreDocs;
         for (ScoreDoc d: scoreDocs) {
