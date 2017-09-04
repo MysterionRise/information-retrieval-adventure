@@ -44,7 +44,7 @@ object DateRangeHotels {
       //fq={!field f=dateRange op=Contains}[2017 TO 2017]
       val q = new ModifiableSolrParams()
       q.add("q", "*:*")
-      q.add("fq", "{!field f=date op=Contains}[2017 TO 2017]")
+      q.add("fq", "{!field f=date op=Within}[2017 TO 2017]")
       val res = server.query(q).getResults
 
       for (i <-0 until res.size()) {
