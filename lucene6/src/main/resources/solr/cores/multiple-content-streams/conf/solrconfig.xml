@@ -113,6 +113,13 @@
         <httpCaching never304="true"/>
     </requestDispatcher>
 
+    <requestHandler name="/update/extract" class="org.apache.solr.handler.extraction.ExtractingRequestHandler">
+        <lst name="defaults">
+            <str name="fmap.Last-Modified">last_modified</str>
+            <str name="uprefix">ignored_</str>
+        </lst>
+    </requestHandler>
+
 
     <requestHandler name="/select" class="solr.SearchHandler">
 
