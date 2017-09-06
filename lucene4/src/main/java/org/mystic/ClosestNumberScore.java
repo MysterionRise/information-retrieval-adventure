@@ -17,16 +17,13 @@ import org.apache.lucene.queries.function.valuesource.ConstValueSource;
 import org.apache.lucene.queries.function.valuesource.DualFloatFunction;
 import org.apache.lucene.queries.function.valuesource.IntFieldSource;
 import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.NumericRangeQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
-/**
- * @see https://stackoverflow.com/q/45773559/2663985
- */
+/** @see https://stackoverflow.com/q/45773559/2663985 */
 public class ClosestNumberScore {
 
   public static void main(String[] args) throws IOException {
@@ -49,10 +46,12 @@ public class ClosestNumberScore {
     IndexReader reader = IndexReader.open(dir);
     IndexSearcher searcher = new IndexSearcher(reader);
 
-    Query q = new FunctionQuery(new DistanceDualFloatFunction(new IntFieldSource("weight"), new ConstValueSource(245)));
+    Query q =
+        new FunctionQuery(
+            new DistanceDualFloatFunction(new IntFieldSource("weight"), new ConstValueSource(245)));
 
     final ScoreDoc[] scoreDocs = searcher.search(q, 10).scoreDocs;
-    for (ScoreDoc doc: scoreDocs) {
+    for (ScoreDoc doc : scoreDocs) {
       System.out.println(reader.document(doc.doc).getField("title") + " " + doc.score);
     }
   }
@@ -80,6 +79,4 @@ public class ClosestNumberScore {
     doc.add(new IntField("weight", value, Store.YES));
     writer.addDocument(doc);
   }
-
-
 }

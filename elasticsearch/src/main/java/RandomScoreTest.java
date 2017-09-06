@@ -6,10 +6,10 @@ import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
 
 public class RandomScoreTest {
 
-    public static void main(String[] args) {
-        final BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-        final FunctionScoreQueryBuilder functionScoreQueryBuilder = QueryBuilders
-                .functionScoreQuery(boolQuery, ScoreFunctionBuilders.randomFunction(1))
-                .boostMode(CombineFunction.REPLACE);
-    }
+  public static void main(String[] args) {
+    final BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+    final FunctionScoreQueryBuilder functionScoreQueryBuilder =
+        QueryBuilders.functionScoreQuery(boolQuery, ScoreFunctionBuilders.randomFunction(1))
+            .boostMode(CombineFunction.REPLACE);
+  }
 }
