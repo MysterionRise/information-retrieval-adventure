@@ -10,7 +10,8 @@ import scala.Console._
 import scala.util.Random
 
 /**
-  * @see http://stackoverflow.com/q/41711740/2663985
+  * @see https://stackoverflow.com/q/41711740/2663985
+  * @see https://stackoverflow.com/q/46584073/2663985
   */
 object AutoDelete {
 
@@ -28,6 +29,7 @@ object AutoDelete {
 
       val doc1 = new SolrInputDocument()
       doc1.addField("id", "1")
+      doc1.addField("ttl", "+20SECONDS")
       server.add(doc1)
 
       val doc2 = new SolrInputDocument()
@@ -50,7 +52,7 @@ object AutoDelete {
 
       server.commit()
 
-      Thread.sleep(10000)
+      Thread.sleep(15000)
 
       val q2 = new ModifiableSolrParams()
       q2.add("q", "*:*")
