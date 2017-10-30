@@ -13,7 +13,6 @@ import org.elasticsearch.test.ESIntegTestCase;
 import org.junit.Test;
 import org.mystic.model.User;
 
-
 @ESIntegTestCase.ClusterScope(scope = ESIntegTestCase.Scope.SUITE)
 @ThreadLeakScope(ThreadLeakScope.Scope.NONE)
 public class TermsScoringTest extends ESIntegTestCase {
