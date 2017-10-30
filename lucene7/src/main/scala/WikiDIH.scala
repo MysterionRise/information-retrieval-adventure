@@ -13,6 +13,9 @@ import scala.Console._
 import scala.util.Random
 import scalaj.http._
 
+/**
+  * @see https://stackoverflow.com/q/46993727/2663985
+  */
 object WikiDIH {
 
   var server: SolrClient = null
@@ -28,7 +31,8 @@ object WikiDIH {
       println(server.request(new GenericSolrRequest(SolrRequest.METHOD.POST, "/dataimport", new ModifiableSolrParams()
         .add("command", "full-import")
         .add("synchronous", "true")
-        .add("onError", "continue"))))
+        .add("onError", "continue")
+        .add("commit", "true"))))
 
       TimeUnit.SECONDS.sleep(5)
 
