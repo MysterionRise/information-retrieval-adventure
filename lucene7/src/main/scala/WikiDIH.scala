@@ -1,17 +1,12 @@
-import java.util.Collections
 import java.util.concurrent.TimeUnit
 
-import org.apache.solr.client.solrj.{SolrClient, SolrRequest}
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
-import org.apache.solr.client.solrj.request.{FieldAnalysisRequest, GenericSolrRequest}
-import org.apache.solr.common.SolrInputDocument
+import org.apache.solr.client.solrj.request.GenericSolrRequest
+import org.apache.solr.client.solrj.{SolrClient, SolrRequest}
 import org.apache.solr.common.params.ModifiableSolrParams
-import org.apache.solr.common.util.NamedList
 import org.apache.solr.core.CoreContainer
 
 import scala.Console._
-import scala.util.Random
-import scalaj.http._
 
 /**
   * @see https://stackoverflow.com/q/46993727/2663985

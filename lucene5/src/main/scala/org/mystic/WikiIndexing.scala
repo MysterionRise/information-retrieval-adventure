@@ -14,10 +14,10 @@ import org.apache.solr.core.CoreContainer
 import scala.Console._
 
 /**
- *         Connects to localhost Solr, and then index small part of russian wikipedia titles
- */
+  * Connects to localhost Solr, and then index small part of russian wikipedia titles
+  */
 object WikiIndexing {
-  private final val XML_FILE_PATH: String = "http://dumps.wikimedia.org/ruwiki/latest/ruwiki-latest-abstract4.xml"
+  private final val XML_FILE_PATH: String = "https://dumps.wikimedia.org/ruwiki/latest/ruwiki-latest-abstract4.xml"
   private final val MAX_SIZE: Int = 1000
 
   def main(a: Array[String]) {
@@ -77,13 +77,13 @@ object WikiIndexing {
     }
     catch {
       case e: SolrServerException => {
-        println("Error in Solr" + e.getRootCause)
+        println("Error in Solr " + e.getRootCause)
       }
       case e: IOException => {
-        println("Error while IO operation" + e.getCause)
+        println("Error while IO operation " + e.getCause)
       }
       case e: XMLStreamException => {
-        println("Error while reading XML file" + e.getCause)
+        println("Error while reading XML file " + e.getCause)
       }
     }
   }
