@@ -46,6 +46,7 @@ object RangeDateFacets {
       q.add("facet.range", "active")
       q.add("facet.range.start", "NOW/MONTH")
       q.add("facet.range.end", "NOW/MONTH+1MONTH")
+      q.add("facet.range.include", "outer")
       q.add("facet.range.gap", "+1DAY")
       var resp = server.query(q)
       println(resp.getResults.getNumFound)
