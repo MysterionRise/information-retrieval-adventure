@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="example" version="1.6">
+
+    <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
+    <field name="active" type="range_date" indexed="true" stored="false"/>
+    <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
+
+    <uniqueKey>id</uniqueKey>
+
+    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="date" class="solr.TrieDateField" />
+    <fieldType name="range_date" class="solr.DateRangeField" />
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
+
+
+</schema>
