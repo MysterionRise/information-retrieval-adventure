@@ -3,6 +3,7 @@
 
     <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
     <field name="active" type="range_date" indexed="true" stored="false"/>
+    <field name="interests" type="string" indexed="true" stored="false" multiValued="true"/>
     <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
 
     <uniqueKey>id</uniqueKey>
