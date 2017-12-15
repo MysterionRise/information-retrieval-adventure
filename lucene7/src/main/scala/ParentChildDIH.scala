@@ -1,0 +1,57 @@
+import java.util.concurrent.TimeUnit
+
+import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
+import org.apache.solr.client.solrj.request.GenericSolrRequest
+import org.apache.solr.client.solrj.{SolrClient, SolrRequest}
+import org.apache.solr.common.params.ModifiableSolrParams
+import org.apache.solr.core.CoreContainer
+
+import scala.Console._
+
+/**
+  * @see
+  */
+object ParentChildDIH {
+
+  var server: SolrClient = null
+
+  def main(a: Array[String]) {
+
+    try {
+      val solrDir = ParentChildDIH.getClass.getResource("/solr").getPath
+      val container = new CoreContainer(solrDir)
+      container.load()
+      server = new EmbeddedSolrServer(container, "dih-bjq")
+
+      println(server.request(new GenericSolrRequest(SolrRequest.METHOD.POST, "/dataimport", new ModifiableSolrParams()
+        .add("command", "full-import")
+        .add("synchronous", "true")
+        .add("onError", "continue")
+        .add("commit", "true"))))
+
+      TimeUnit.SECONDS.sleep(5)
+
+      println(server.request(new GenericSolrRequest(SolrRequest.METHOD.POST, "/dataimport", new ModifiableSolrParams().add("command", "status"))))
+
+      TimeUnit.SECONDS.sleep(5)
+
+      println(server.request(new GenericSolrRequest(SolrRequest.METHOD.POST, "/dataimport", new ModifiableSolrParams().add("command", "status"))))
+
+      val q = new ModifiableSolrParams()
+      q.add("q", "*:*")
+      val resp = server.query(q).getResults
+      println(resp.getNumFound)
+      for (i <- 0 until resp.size()) {
+        out.println(resp.get(i))
+      }
+
+    } catch {
+      case e: Exception => println(e)
+    }
+    finally {
+      server.close()
+    }
+    return
+  }
+
+}
