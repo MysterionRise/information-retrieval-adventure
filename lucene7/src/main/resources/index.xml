@@ -1,0 +1,40 @@
+<objects type="array">
+  <object>
+    <sno>1</sno>
+    <name>XXX</name>
+    <attributes type="array">
+      <attribute>
+        <name>Term1</name>
+        <value>50</value>
+      </attribute>
+      <attribute>
+        <name>Term2</name>
+        <value>30</value>
+      </attribute>
+      <attribute>
+        <name>Term3</name>
+        <value>20</value>
+      </attribute>
+    </attributes>
+    <createdAt type="integer">1512016450886</createdAt>
+  </object>
+  <object>
+    <sno>2</sno>
+    <name>YYY</name>
+    <attributes type="array">
+      <attribute>
+        <name>Term1</name>
+        <value>20</value>
+      </attribute>
+      <attribute>
+        <name>Term2</name>
+        <value>30</value>
+      </attribute>
+      <attribute>
+        <name>Term3</name>
+        <value>50</value>
+      </attribute>
+    </attributes>
+    <createdAt type="integer">1512016450886</createdAt>
+  </object>
+</objects>

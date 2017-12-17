@@ -1,0 +1,37 @@
+<dataConfig>
+    <script><![CDATA[
+    function f2c(row) {
+      var log = java.util.logging.Logger.getLogger("transformer");
+      var LEVEL = java.util.logging.Level.INFO;
+      log.log(LEVEL, "hello world")
+      var x, y;
+      x = row.get('name');
+      y = row.get('value');
+      log.log(LEVEL, row);
+      row.put(x, y);
+      row.remove('value');
+      return row;
+    }
+    ]]>
+    </script>
+    <dataSource type="FileDataSource"/>
+    <document>
+        <entity name="apigee"
+                url="lucene7/src/main/resources/index.xml"
+                processor="XPathEntityProcessor"
+                forEach="/objects/object"
+                transformer="script:f2c">
+            <field column="sno" xpath="/objects/object/sno"/>
+            <field column="name" xpath="/objects/object/name"/>
+
+            <entity name="attrs"
+                    url="lucene7/src/main/resources/index.xml"
+                    processor="XPathEntityProcessor"
+                    forEach="/objects/object/attributes/attribute"
+                    transformer="script:f2c">
+                <field column="name" xpath="/objects/object[sno=${apigee.sno}]/attributes/attribute/name"/>
+                <field column="value" xpath="/objects/object[sno=${apigee.sno}]/attributes/attribute/value"/>
+            </entity>
+        </entity>
+    </document>
+</dataConfig>
