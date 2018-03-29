@@ -9,7 +9,7 @@ import org.apache.solr.core.CoreContainer
 import scala.Console._
 
 /**
-  * @see
+  * @see https://stackoverflow.com/q/47807517/2663985
   */
 object ParentChildDIH {
 

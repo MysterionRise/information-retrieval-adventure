@@ -19,7 +19,7 @@ object SynonymsWithBrackets {
   def main(a: Array[String]) {
 
     try {
-      val solrDir = WikiDIH.getClass.getResource("/solr").getPath.substring(1)
+      val solrDir = SynonymsWithBrackets.getClass.getResource("/solr").getPath.substring(1)
       val container = new CoreContainer(solrDir)
       container.load()
       server = new EmbeddedSolrServer(container, "wiki-dih")

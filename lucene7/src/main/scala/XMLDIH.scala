@@ -18,7 +18,7 @@ object XMLDIH {
   def main(a: Array[String]) {
 
     try {
-      val solrDir = XMLDIH.getClass.getResource("/solr").getPath.substring(1)
+      val solrDir = XMLDIH.getClass.getResource("/solr").getPath
       val container = new CoreContainer(solrDir)
       container.load()
       server = new EmbeddedSolrServer(container, "xml-dih")
