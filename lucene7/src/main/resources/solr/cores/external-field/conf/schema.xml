@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="example" version="1.6">
+
+    <uniqueKey>id</uniqueKey>
+
+    <types>
+        <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true"/>
+
+        <fieldType name="account1" keyField="id" defVal="false" stored="false" indexed="false"
+                   class="solr.ExternalFileField"/>
+    </types>
+
+
+    <fields>
+
+        <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
+        <field name="brand" type="string" indexed="true" stored="false"/>
+
+        <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
+    </fields>
+
+
+</schema>

@@ -7,58 +7,56 @@ import org.apache.solr.core.CoreContainer
 import scala.Console._
 
 /**
-  * @see https://stackoverflow.com/q/47591065/2663985
+  * using external file field to filter stuff out
   */
-object Facets {
+object ExternalFileField {
 
   var server: SolrClient = null
 
   def main(a: Array[String]) {
 
     try {
-      val solrDir = Facets.getClass.getResource("/solr").getPath
+      val solrDir = ExternalFileField.getClass.getResource("/solr").getPath
       val container = new CoreContainer(solrDir)
       container.load()
-      server = new EmbeddedSolrServer(container, "facets")
+      server = new EmbeddedSolrServer(container, "external-field")
 
       val doc1 = new SolrInputDocument()
-      doc1.addField("id", "1")
-      doc1.addField("brand", "Aaaa")
+      doc1.addField("id", "prod1")
+      doc1.addField("brand", "aaa")
       server.add(doc1)
 
       val doc2 = new SolrInputDocument()
-      doc2.addField("id", "2")
-      doc2.addField("brand", "Bbbb")
+      doc2.addField("id", "prod2")
+      doc2.addField("brand", "aaa")
+
       server.add(doc2)
 
       val doc3 = new SolrInputDocument()
-      doc3.addField("id", "3")
-      doc3.addField("brand", "Cccc")
+      doc3.addField("id", "prod3")
+      doc3.addField("brand", "aaa")
+
       server.add(doc3)
 
       val doc4 = new SolrInputDocument()
-      doc4.addField("id", "4")
-      doc4.addField("brand", "abbb")
+      doc4.addField("id", "prod4")
+      doc4.addField("brand", "aaa")
       server.add(doc4)
 
       val doc5 = new SolrInputDocument()
-      doc5.addField("id", "5")
-      doc5.addField("brand", "aBbb")
+      doc5.addField("id", "prod5")
+      doc5.addField("brand", "aaa")
       server.add(doc5)
 
       server.commit()
 
       val q = new ModifiableSolrParams()
       q.add("q", "*:*")
-      q.add("facet", "true")
-      q.add("facet.field", "brand")
-      q.add("facet.field", "brand_text")
-      q.add("facet.sort", "index")
-      var resp = server.query(q)
+      val resp = server.query(q)
       println("---------------------------------------------")
       println(resp.getResults.getNumFound)
-      println(resp.getFacetFields)
       println("---------------------------------------------")
+
 
     } catch {
       case e: Exception => println(e)
