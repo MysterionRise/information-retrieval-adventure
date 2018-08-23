@@ -7,12 +7,14 @@
         <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
         <fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true"/>
 
-        <fieldType name="account1" keyField="id" defVal="false" stored="false" indexed="false"
-                   class="solr.ExternalFileField"/>
+        <fieldType name="accountType" keyField="id" defVal="false" stored="false" indexed="false"
+                   class="solr.ExternalFileField" valType="boolean"/>
     </types>
 
 
     <fields>
+
+        <field name="account1" type="accountType"  indexed="false" stored="false"/>
 
         <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
         <field name="brand" type="string" indexed="true" stored="false"/>
