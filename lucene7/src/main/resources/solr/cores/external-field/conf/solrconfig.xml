@@ -101,7 +101,7 @@
        replication is in use, this should match the replication
        configuration.
     -->
-  <dataDir>./data</dataDir>
+  <dataDir>lucene7/target/classes/solr/cores/external-field/conf/data/</dataDir>
 
 
   <!-- Configure the schema factory
