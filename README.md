@@ -7,3 +7,4 @@ Contains some plays with Solr, Lucene, Elasticsearch
 * Managed schema feature
 * Some try outs appeared after questions on Stackoverflow
 * Features sub-modules, to allow different versions of Lucene/Solr/Elasticsearch
+* Work with external file field
