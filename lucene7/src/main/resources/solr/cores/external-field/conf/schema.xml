@@ -15,6 +15,7 @@
     <fields>
 
         <field name="account1" type="accountType"  indexed="false" stored="false"/>
+        <field name="account2" type="accountType"  indexed="false" stored="false"/>
 
         <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
         <field name="brand" type="string" indexed="true" stored="false"/>

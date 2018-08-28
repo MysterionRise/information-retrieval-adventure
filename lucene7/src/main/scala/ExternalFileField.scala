@@ -52,7 +52,7 @@ object ExternalFileField {
 
       val q = new ModifiableSolrParams()
       q.add("q", "*:*")
-      q.add("fq", "{!frange l=1}account1")
+      q.add("fq", " {!frange l=1}account2 OR {!frange l=1}account1")
       val resp = server.query(q)
       println("---------------------------------------------")
       println(resp.getResults.getNumFound)
