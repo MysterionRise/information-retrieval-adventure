@@ -56,6 +56,7 @@ object ExternalFileField {
       }
 
       server.commit()
+      server.optimize()
 
       val q = new ModifiableSolrParams()
       q.add("q", "*:*")
