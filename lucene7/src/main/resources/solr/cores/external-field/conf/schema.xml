@@ -14,6 +14,9 @@
 
     <fields>
 
+        <field name="account" type="string"  indexed="false" stored="false"/>
+        <field name="quantity" type="long"  indexed="false" stored="false"/>
+
         <field name="account1" type="accountType"  indexed="false" stored="false"/>
         <field name="account2" type="accountType"  indexed="false" stored="false"/>
 
@@ -21,6 +24,7 @@
         <field name="brand" type="string" indexed="true" stored="false"/>
 
         <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
+        <field name="_root_" type="string" indexed="true" stored="false"/>
     </fields>
 
 
