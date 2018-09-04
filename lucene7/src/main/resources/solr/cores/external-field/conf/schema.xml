@@ -13,6 +13,7 @@
 
 
     <fields>
+        <field name="scope" type="string"  indexed="false" stored="false"/>
 
         <field name="account" type="string"  indexed="false" stored="false"/>
         <field name="quantity" type="long"  indexed="false" stored="false"/>
