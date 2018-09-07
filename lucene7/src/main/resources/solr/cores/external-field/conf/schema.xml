@@ -57,7 +57,66 @@
         <field name="account37" type="accountType"  indexed="false" stored="false"/>
         <field name="account38" type="accountType"  indexed="false" stored="false"/>
         <field name="account39" type="accountType"  indexed="false" stored="false"/>
-
+        <field name="account40" type="accountType"  indexed="false" stored="false"/>
+        <field name="account41" type="accountType"  indexed="false" stored="false"/>
+        <field name="account42" type="accountType"  indexed="false" stored="false"/>
+        <field name="account43" type="accountType"  indexed="false" stored="false"/>
+        <field name="account44" type="accountType"  indexed="false" stored="false"/>
+        <field name="account45" type="accountType"  indexed="false" stored="false"/>
+        <field name="account46" type="accountType"  indexed="false" stored="false"/>
+        <field name="account47" type="accountType"  indexed="false" stored="false"/>
+        <field name="account48" type="accountType"  indexed="false" stored="false"/>
+        <field name="account49" type="accountType"  indexed="false" stored="false"/>
+        <field name="account50" type="accountType"  indexed="false" stored="false"/>
+        <field name="account51" type="accountType"  indexed="false" stored="false"/>
+        <field name="account52" type="accountType"  indexed="false" stored="false"/>
+        <field name="account53" type="accountType"  indexed="false" stored="false"/>
+        <field name="account54" type="accountType"  indexed="false" stored="false"/>
+        <field name="account55" type="accountType"  indexed="false" stored="false"/>
+        <field name="account56" type="accountType"  indexed="false" stored="false"/>
+        <field name="account57" type="accountType"  indexed="false" stored="false"/>
+        <field name="account58" type="accountType"  indexed="false" stored="false"/>
+        <field name="account59" type="accountType"  indexed="false" stored="false"/>
+        <field name="account60" type="accountType"  indexed="false" stored="false"/>
+        <field name="account61" type="accountType"  indexed="false" stored="false"/>
+        <field name="account62" type="accountType"  indexed="false" stored="false"/>
+        <field name="account63" type="accountType"  indexed="false" stored="false"/>
+        <field name="account64" type="accountType"  indexed="false" stored="false"/>
+        <field name="account65" type="accountType"  indexed="false" stored="false"/>
+        <field name="account66" type="accountType"  indexed="false" stored="false"/>
+        <field name="account67" type="accountType"  indexed="false" stored="false"/>
+        <field name="account68" type="accountType"  indexed="false" stored="false"/>
+        <field name="account69" type="accountType"  indexed="false" stored="false"/>
+        <field name="account60" type="accountType"  indexed="false" stored="false"/>
+        <field name="account71" type="accountType"  indexed="false" stored="false"/>
+        <field name="account72" type="accountType"  indexed="false" stored="false"/>
+        <field name="account73" type="accountType"  indexed="false" stored="false"/>
+        <field name="account74" type="accountType"  indexed="false" stored="false"/>
+        <field name="account75" type="accountType"  indexed="false" stored="false"/>
+        <field name="account76" type="accountType"  indexed="false" stored="false"/>
+        <field name="account77" type="accountType"  indexed="false" stored="false"/>
+        <field name="account78" type="accountType"  indexed="false" stored="false"/>
+        <field name="account79" type="accountType"  indexed="false" stored="false"/>
+        <field name="account70" type="accountType"  indexed="false" stored="false"/>
+        <field name="account81" type="accountType"  indexed="false" stored="false"/>
+        <field name="account82" type="accountType"  indexed="false" stored="false"/>
+        <field name="account83" type="accountType"  indexed="false" stored="false"/>
+        <field name="account84" type="accountType"  indexed="false" stored="false"/>
+        <field name="account85" type="accountType"  indexed="false" stored="false"/>
+        <field name="account86" type="accountType"  indexed="false" stored="false"/>
+        <field name="account87" type="accountType"  indexed="false" stored="false"/>
+        <field name="account88" type="accountType"  indexed="false" stored="false"/>
+        <field name="account89" type="accountType"  indexed="false" stored="false"/>
+        <field name="account80" type="accountType"  indexed="false" stored="false"/>
+        <field name="account91" type="accountType"  indexed="false" stored="false"/>
+        <field name="account92" type="accountType"  indexed="false" stored="false"/>
+        <field name="account93" type="accountType"  indexed="false" stored="false"/>
+        <field name="account94" type="accountType"  indexed="false" stored="false"/>
+        <field name="account95" type="accountType"  indexed="false" stored="false"/>
+        <field name="account96" type="accountType"  indexed="false" stored="false"/>
+        <field name="account97" type="accountType"  indexed="false" stored="false"/>
+        <field name="account98" type="accountType"  indexed="false" stored="false"/>
+        <field name="account99" type="accountType"  indexed="false" stored="false"/>
 
         <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
         <field name="brand" type="string" indexed="true" stored="false"/>
