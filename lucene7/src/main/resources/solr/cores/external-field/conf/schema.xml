@@ -22,6 +22,42 @@
         <field name="account2" type="accountType"  indexed="false" stored="false"/>
         <field name="account3" type="accountType"  indexed="false" stored="false"/>
         <field name="account4" type="accountType"  indexed="false" stored="false"/>
+        <field name="account5" type="accountType"  indexed="false" stored="false"/>
+        <field name="account6" type="accountType"  indexed="false" stored="false"/>
+        <field name="account7" type="accountType"  indexed="false" stored="false"/>
+        <field name="account8" type="accountType"  indexed="false" stored="false"/>
+        <field name="account9" type="accountType"  indexed="false" stored="false"/>
+        <field name="account10" type="accountType"  indexed="false" stored="false"/>
+        <field name="account11" type="accountType"  indexed="false" stored="false"/>
+        <field name="account12" type="accountType"  indexed="false" stored="false"/>
+        <field name="account13" type="accountType"  indexed="false" stored="false"/>
+        <field name="account14" type="accountType"  indexed="false" stored="false"/>
+        <field name="account15" type="accountType"  indexed="false" stored="false"/>
+        <field name="account16" type="accountType"  indexed="false" stored="false"/>
+        <field name="account17" type="accountType"  indexed="false" stored="false"/>
+        <field name="account18" type="accountType"  indexed="false" stored="false"/>
+        <field name="account19" type="accountType"  indexed="false" stored="false"/>
+        <field name="account20" type="accountType"  indexed="false" stored="false"/>
+        <field name="account21" type="accountType"  indexed="false" stored="false"/>
+        <field name="account22" type="accountType"  indexed="false" stored="false"/>
+        <field name="account23" type="accountType"  indexed="false" stored="false"/>
+        <field name="account24" type="accountType"  indexed="false" stored="false"/>
+        <field name="account25" type="accountType"  indexed="false" stored="false"/>
+        <field name="account26" type="accountType"  indexed="false" stored="false"/>
+        <field name="account27" type="accountType"  indexed="false" stored="false"/>
+        <field name="account28" type="accountType"  indexed="false" stored="false"/>
+        <field name="account29" type="accountType"  indexed="false" stored="false"/>
+        <field name="account30" type="accountType"  indexed="false" stored="false"/>
+        <field name="account31" type="accountType"  indexed="false" stored="false"/>
+        <field name="account32" type="accountType"  indexed="false" stored="false"/>
+        <field name="account33" type="accountType"  indexed="false" stored="false"/>
+        <field name="account34" type="accountType"  indexed="false" stored="false"/>
+        <field name="account35" type="accountType"  indexed="false" stored="false"/>
+        <field name="account36" type="accountType"  indexed="false" stored="false"/>
+        <field name="account37" type="accountType"  indexed="false" stored="false"/>
+        <field name="account38" type="accountType"  indexed="false" stored="false"/>
+        <field name="account39" type="accountType"  indexed="false" stored="false"/>
+
 
         <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
         <field name="brand" type="string" indexed="true" stored="false"/>

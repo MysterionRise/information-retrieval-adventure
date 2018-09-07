@@ -21,16 +21,16 @@ object ExternalFileField {
   val rand = new Random()
 
   def main(a: Array[String]) {
-    for (i <- 1 to maxAcc / 100) {
-      val out = new PrintWriter(new BufferedOutputStream(new FileOutputStream("external_account" + i)))
-      for (i <- 1 to maxProd) {
-        if (rand.nextInt(4) < 1) {
-          out.println("prod" + i + "=1")
-        }
-      }
-      out.flush()
-      out.close()
-    }
+//    for (i <- 1 to maxAcc / 100) {
+//      val out = new PrintWriter(new BufferedOutputStream(new FileOutputStream("external_account" + i)))
+//      for (i <- 1 to maxProd) {
+//        if (rand.nextInt(4) < 1) {
+//          out.println("prod" + i + "=1")
+//        }
+//      }
+//      out.flush()
+//      out.close()
+//    }
 
     try {
       val solrDir = ExternalFileField.getClass.getResource("/solr").getPath
@@ -65,7 +65,7 @@ object ExternalFileField {
 
       val q = new ModifiableSolrParams()
       q.add("q", "{!parent which=scope:product}quantity:[5 TO 10]")
-      q.add("fq", "filter({!frange l=1}account1 OR {!frange l=1}account2 OR {!frange l=1}account3 OR {!frange l=1}account4)")
+      q.add("fq", "filter({!frange l=1}account1 OR {!frange l=1}account2 OR {!frange l=1}account3 OR {!frange l=1}account4 OR {!frange l=1}account5 OR {!frange l=1}account6)")
       val resp = server.query(q)
       println("---------------------------------------------")
       println(resp.getResults.getNumFound)
