@@ -21,7 +21,7 @@ object ExternalFileField {
   val rand = new Random()
 
   def main(a: Array[String]) {
-    for (i <- 1 to maxProd) {
+    for (i <- 1 to maxAcc / 100) {
       val out = new PrintWriter(new BufferedOutputStream(new FileOutputStream("external_account" + i)))
       for (i <- 1 to maxProd) {
         if (rand.nextInt(4) < 1) {
