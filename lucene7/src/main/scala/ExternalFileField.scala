@@ -21,14 +21,16 @@ object ExternalFileField {
   val rand = new Random()
 
   def main(a: Array[String]) {
-    //    val out = new PrintWriter(new BufferedOutputStream(new FileOutputStream("account.txt")))
-    //    for (i <- 1 to maxProd) {
-    //      if (rand.nextInt(3) < 1) {
-    //        out.println("prod" + i + "=1")
-    //      }
-    //    }
-    //    out.flush()
-    //    out.close()
+    for (i <- 1 to maxProd) {
+      val out = new PrintWriter(new BufferedOutputStream(new FileOutputStream("external_account" + i)))
+      for (i <- 1 to maxProd) {
+        if (rand.nextInt(4) < 1) {
+          out.println("prod" + i + "=1")
+        }
+      }
+      out.flush()
+      out.close()
+    }
 
     try {
       val solrDir = ExternalFileField.getClass.getResource("/solr").getPath
