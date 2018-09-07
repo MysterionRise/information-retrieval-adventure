@@ -13,13 +13,15 @@
 
 
     <fields>
-        <field name="scope" type="string"  indexed="false" stored="false"/>
+        <field name="scope" type="string"  indexed="true" stored="false"/>
 
-        <field name="account" type="string"  indexed="false" stored="false"/>
-        <field name="quantity" type="long"  indexed="false" stored="false"/>
+        <field name="account" type="string"  indexed="true" stored="false"/>
+        <field name="quantity" type="long"  indexed="true" stored="false"/>
 
         <field name="account1" type="accountType"  indexed="false" stored="false"/>
         <field name="account2" type="accountType"  indexed="false" stored="false"/>
+        <field name="account3" type="accountType"  indexed="false" stored="false"/>
+        <field name="account4" type="accountType"  indexed="false" stored="false"/>
 
         <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
         <field name="brand" type="string" indexed="true" stored="false"/>

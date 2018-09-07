@@ -36,34 +36,34 @@ object ExternalFileField {
       container.load()
       server = new EmbeddedSolrServer(container, "external-field")
 
-      for (i <- 1 to maxProd) {
-        val doc = new SolrInputDocument()
-        doc.addField("id", "prod" + i)
-        doc.addField("scope", "product")
-        doc.addField("brand", rand.nextString(4))
-        val childDocs = new util.ArrayList[SolrInputDocument]()
-        for (j <- 1 to Math.round((rand.nextFloat() / 2.0f) * maxAcc)) {
-          val child = new SolrInputDocument()
-          child.addField("id", "chd%d_%d".format(i, j))
-          child.addField("scope", "child")
-          child.addField("account", "account" + j)
-          child.addField("quantity", rand.nextInt(5000))
-          childDocs.add(child)
-        }
-        doc.addChildDocuments(childDocs)
-        server.add(doc)
-        if (i % 1000 == 0) {
-          println("commiting doc at iteration " + i)
-          server.commit()
-        }
-      }
-
-      server.commit()
-      server.optimize()
+//      for (i <- 1 to maxProd) {
+//        val doc = new SolrInputDocument()
+//        doc.addField("id", "prod" + i)
+//        doc.addField("scope", "product")
+//        doc.addField("brand", rand.nextString(4))
+//        val childDocs = new util.ArrayList[SolrInputDocument]()
+//        for (j <- 1 to Math.round((rand.nextFloat() / 2.0f) * maxAcc)) {
+//          val child = new SolrInputDocument()
+//          child.addField("id", "chd%d_%d".format(i, j))
+//          child.addField("scope", "child")
+//          child.addField("account", "account" + j)
+//          child.addField("quantity", rand.nextInt(5000))
+//          childDocs.add(child)
+//        }
+//        doc.addChildDocuments(childDocs)
+//        server.add(doc)
+//        if (i % 1000 == 0) {
+//          println("commiting doc at iteration " + i)
+//          server.commit()
+//        }
+//      }
+//
+//      server.commit()
+//      server.optimize()
 
       val q = new ModifiableSolrParams()
-      q.add("q", "{!parent which=scope:product}quantity:[10 TO 1000]")
-      q.add("fq", "filter({!frange l=1}account2 OR {!frange l=1}account1)")
+      q.add("q", "{!parent which=scope:product}quantity:[5 TO 10]")
+      q.add("fq", "filter({!frange l=1}account1 OR {!frange l=1}account2 OR {!frange l=1}account3 OR {!frange l=1}account4)")
       val resp = server.query(q)
       println("---------------------------------------------")
       println(resp.getResults.getNumFound)
