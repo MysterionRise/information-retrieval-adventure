@@ -77,7 +77,6 @@
         <field name="account57" type="accountType"  indexed="false" stored="false"/>
         <field name="account58" type="accountType"  indexed="false" stored="false"/>
         <field name="account59" type="accountType"  indexed="false" stored="false"/>
-        <field name="account60" type="accountType"  indexed="false" stored="false"/>
         <field name="account61" type="accountType"  indexed="false" stored="false"/>
         <field name="account62" type="accountType"  indexed="false" stored="false"/>
         <field name="account63" type="accountType"  indexed="false" stored="false"/>
