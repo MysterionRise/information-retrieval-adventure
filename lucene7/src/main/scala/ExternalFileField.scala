@@ -6,6 +6,9 @@ import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.common.params.ModifiableSolrParams
 import org.apache.solr.core.CoreContainer
+import java.util.concurrent._
+import java.util.concurrent.atomic.AtomicInteger
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics
 
 import scala.Console._
 import scala.util.Random
@@ -17,7 +20,9 @@ object ExternalFileField {
 
   var server: SolrClient = null
   val maxProd = 80000
+  val numQueries = 1000
   val maxAcc = 40000
+  val nThreads = 10
   val rand = new Random()
 
   def main(a: Array[String]) {
@@ -32,20 +37,33 @@ object ExternalFileField {
     //      out.close()
     //    }
 
+    var solrDir = ""
+    if (a.length > 1) {
+      solrDir = a(1)
+      println(a(1))
+    } else {
+      solrDir = ExternalFileField.getClass.getResource("/solr").getPath
+      println("solrDir=" + solrDir)
+    }
+    val container = new CoreContainer(solrDir)
+    container.load()
+    server = new EmbeddedSolrServer(container, "external-field")
 
-    try {
-      var solrDir = ""
-      if (a.length > 0) {
-        solrDir = a(0)
-        println(a(0))
-      } else {
-        solrDir = ExternalFileField.getClass.getResource("/solr").getPath
-      }
-      val container = new CoreContainer(solrDir)
-      container.load()
-      server = new EmbeddedSolrServer(container, "external-field")
+    val z = new AtomicInteger(1)
+    val cmd = a(0)
+    cmd match {
+      case "1" => {
+        // generate index
 
-            for (i <- 1 to maxProd) {
+        val executor = Executors.newFixedThreadPool(nThreads)
+
+        val runnable = new Runnable {
+          override def run(): Unit = {
+            val start = z.getAndIncrement()
+            val size = maxProd / nThreads
+            println("start = " + ((start - 1) * size))
+            println("finish = " + ((start * size) - 1))
+            for (i <- (start - 1) * size to (start * size) - 1) {
               val doc = new SolrInputDocument()
               doc.addField("id", "prod" + i)
               doc.addField("scope", "product")
@@ -61,50 +79,60 @@ object ExternalFileField {
               }
               doc.addChildDocuments(childDocs)
               server.add(doc)
-              if (i % 1000 == 0) {
+              if (i % 123 == 0) {
                 println("commiting doc at iteration " + i)
                 server.commit()
               }
             }
 
-      server.commit()
-      server.optimize()
-
-      val q = new ModifiableSolrParams()
-      for (_ <- 0 until 1000) {
-        val ac = rand.nextInt(10)
-        val low = rand.nextInt(100)
-        val high = low + rand.nextInt(1000)
-        val sb = new StringBuilder
-        val sb2 = new StringBuilder
-        sb.append("(")
-        for (j <- 1 to ac) {
-          val accNum = rand.nextInt(99) + 1
-          sb2.append("{!frange l=1}account" + accNum)
-          sb.append("account:account" + accNum)
-          if (j != ac) {
-            sb.append(" OR ")
-            sb2.append(" OR ")
+            server.commit()
+            server.optimize()
           }
         }
-        sb.append("))")
-        q.add("q", "{!parent which=scope:product}(quantity:[" + low + " TO " + high + "] AND " + sb.toString())
-        q.add("fq", "filter(" + sb2.toString + ")")
-        val resp = server.query(q)
-        println("---------------------------------------------")
-        println(q.toQueryString)
-        println(resp.getResults.getNumFound)
-        println(resp.getQTime)
-        println("---------------------------------------------")
+
+        for (_ <- 0 until nThreads)
+          executor.execute(runnable)
+
+        executor.shutdown()
+
+
       }
+      case "2" => {
+        // do query testing
 
+        val stats = new DescriptiveStatistics
+        val q = new ModifiableSolrParams()
+        for (_ <- 0 until numQueries) {
+          val ac = rand.nextInt(10)
+          val low = rand.nextInt(100)
+          val high = low + rand.nextInt(1000)
+          val sb = new StringBuilder
+          val sb2 = new StringBuilder
+          sb.append("(")
+          for (j <- 1 to ac) {
+            val accNum = rand.nextInt(99) + 1
+            sb2.append("{!frange l=1}account" + accNum)
+            sb.append("account:account" + accNum)
+            if (j != ac) {
+              sb.append(" OR ")
+              sb2.append(" OR ")
+            }
+          }
+          sb.append("))")
+          q.add("q", "{!parent which=scope:product}(quantity:[" + low + " TO " + high + "] AND " + sb.toString())
+          q.add("fq", "filter(" + sb2.toString + ")")
+          val resp = server.query(q)
+          stats.addValue(resp.getQTime)
+          println("---------------------------------------------")
+          println(q.toQueryString)
+          println(resp.getResults.getNumFound)
+          println(resp.getQTime)
+          println("---------------------------------------------")
+        }
+        println("mean qtime = " + stats.getMean)
+      }
+    }
 
-    } catch {
-      case e: Exception => println(e)
-    }
-    finally {
-      server.close()
-    }
     return
   }
 
