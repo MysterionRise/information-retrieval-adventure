@@ -1,14 +1,13 @@
-import java.io.{BufferedOutputStream, FileOutputStream, PrintWriter}
 import java.util
+import java.util.concurrent._
+import java.util.concurrent.atomic.AtomicInteger
 
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics
 import org.apache.solr.client.solrj.SolrClient
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.common.params.ModifiableSolrParams
 import org.apache.solr.core.CoreContainer
-import java.util.concurrent._
-import java.util.concurrent.atomic.AtomicInteger
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics
 
 import scala.Console._
 import scala.util.Random
@@ -86,7 +85,7 @@ object ExternalFileField {
             }
 
             server.commit()
-            server.optimize()
+            server.optimize(null, true, true, 5)
           }
         }
 

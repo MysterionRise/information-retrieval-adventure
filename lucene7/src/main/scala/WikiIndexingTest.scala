@@ -3,12 +3,12 @@ import java.net.URL
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import java.util
+
 import javax.net.ssl.{HttpsURLConnection, SSLContext, TrustManager, X509TrustManager}
 import javax.xml.stream.events.XMLEvent
 import javax.xml.stream.{XMLEventReader, XMLInputFactory, XMLStreamException}
-
+import org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrClient
 import org.apache.solr.client.solrj.{SolrClient, SolrServerException}
-import org.apache.solr.client.solrj.impl.{ConcurrentUpdateSolrClient, HttpSolrClient}
 import org.apache.solr.common.SolrInputDocument
 
 import scala.Console._

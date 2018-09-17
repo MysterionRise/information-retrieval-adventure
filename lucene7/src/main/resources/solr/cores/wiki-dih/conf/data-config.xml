@@ -1,19 +1,19 @@
 <dataConfig>
-  <dataSource type="FileDataSource" encoding="utf-8"/>
-  <document>
-    <entity name="page"
-      processor="XPathEntityProcessor"
-      stream="true"
-      url="/home/kperikov/projects/information-retrieval-adventure/lucene7/src/main/resources/wiki.xml"
-      forEach="/mediawiki/page"
-      transformer="DateFormatTransformer">
+    <dataSource type="FileDataSource" encoding="utf-8"/>
+    <document>
+        <entity name="page"
+                processor="XPathEntityProcessor"
+                stream="true"
+                url="/home/kperikov/projects/information-retrieval-adventure/lucene7/src/main/resources/wiki.xml"
+                forEach="/mediawiki/page"
+                transformer="DateFormatTransformer">
 
-      <field column="id" xpath="/mediawiki/page/id"/>
-      <field column="title" xpath="/mediawiki/page/title"/>
-      <field column="text" xpath="/mediawiki/page/revision/text"/>
-      <field column="colaborador" xpath="/mediawiki/page/revision/contributor/username"/>
-      <field column="lastrevision" xpath="/mediawiki/page/revision/timestamp"
-        dateTimeFormat="YYYY-MM-DD'T'hh:mm:ss'Z'"/>
-    </entity>
-  </document>
+            <field column="id" xpath="/mediawiki/page/id"/>
+            <field column="title" xpath="/mediawiki/page/title"/>
+            <field column="text" xpath="/mediawiki/page/revision/text"/>
+            <field column="colaborador" xpath="/mediawiki/page/revision/contributor/username"/>
+            <field column="lastrevision" xpath="/mediawiki/page/revision/timestamp"
+                   dateTimeFormat="YYYY-MM-DD'T'hh:mm:ss'Z'"/>
+        </entity>
+    </document>
 </dataConfig>

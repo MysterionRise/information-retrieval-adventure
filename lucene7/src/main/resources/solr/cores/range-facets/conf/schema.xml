@@ -9,8 +9,8 @@
     <uniqueKey>id</uniqueKey>
 
     <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
-    <fieldType name="date" class="solr.TrieDateField" />
-    <fieldType name="range_date" class="solr.DateRangeField" />
+    <fieldType name="date" class="solr.TrieDateField"/>
+    <fieldType name="range_date" class="solr.DateRangeField"/>
     <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
 
 

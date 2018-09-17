@@ -1,14 +1,14 @@
 <mediawiki>
-  <page>
-    <title>Astronomia</title>
-    <id>220</id>
-  </page>
-  <page>
-    <title>América Latina</title>
-    <id>223</id>
-  </page>
-  <page>
-    <title>Latina</title>
-    <id>23</id>
-  </page>
+    <page>
+        <title>Astronomia</title>
+        <id>220</id>
+    </page>
+    <page>
+        <title>América Latina</title>
+        <id>223</id>
+    </page>
+    <page>
+        <title>Latina</title>
+        <id>23</id>
+    </page>
 </mediawiki>

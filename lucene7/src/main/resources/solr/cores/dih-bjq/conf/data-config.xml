@@ -1,19 +1,19 @@
 <dataConfig>
-<dataSource type="FileDataSource" encoding="utf-8" />
-<document>
-  <entity name="entity"
-          url="/Users/perikovk/projects/information-retrieval-adventure/lucene7/src/main/resources/api.xml"
-          processor="XPathEntityProcessor"
-          forEach="/hash/entity">
-    <field column="id" name="id" xpath="/hash/entity/name" />
-    <field column="createdBy" name="createdBy" xpath="/hash/entity/createdBy" />
-    <field column="createdAt" name="createdAt" xpath="/hash/entity/createdAt" />
-    <entity name="attributes"
-            url="/Users/perikovk/projects/information-retrieval-adventure/lucene7/src/main/resources/api.xml"
-            child="true" processor="XPathEntityProcessor" forEach="/hash/entity/attributes/attribute">
-      <field column="name" xpath="/hash/entity/attributes/attribute/name" />
-      <field column="value" xpath="/hash/entity/attributes/attribute/value" />
-    </entity>
-  </entity>
-</document>
+    <dataSource type="FileDataSource" encoding="utf-8"/>
+    <document>
+        <entity name="entity"
+                url="/Users/perikovk/projects/information-retrieval-adventure/lucene7/src/main/resources/api.xml"
+                processor="XPathEntityProcessor"
+                forEach="/hash/entity">
+            <field column="id" name="id" xpath="/hash/entity/name"/>
+            <field column="createdBy" name="createdBy" xpath="/hash/entity/createdBy"/>
+            <field column="createdAt" name="createdAt" xpath="/hash/entity/createdAt"/>
+            <entity name="attributes"
+                    url="/Users/perikovk/projects/information-retrieval-adventure/lucene7/src/main/resources/api.xml"
+                    child="true" processor="XPathEntityProcessor" forEach="/hash/entity/attributes/attribute">
+                <field column="name" xpath="/hash/entity/attributes/attribute/name"/>
+                <field column="value" xpath="/hash/entity/attributes/attribute/value"/>
+            </entity>
+        </entity>
+    </document>
 </dataConfig>
