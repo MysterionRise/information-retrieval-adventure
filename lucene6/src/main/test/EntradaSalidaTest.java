@@ -11,7 +11,6 @@ import org.apache.lucene.util.CharsRef;
 import org.apache.lucene.util.CharsRefBuilder;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 

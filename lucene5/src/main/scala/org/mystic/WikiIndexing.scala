@@ -3,9 +3,9 @@ package org.mystic
 import java.io.IOException
 import java.net.URL
 import java.util
+
 import javax.xml.stream.events.XMLEvent
 import javax.xml.stream.{XMLEventReader, XMLInputFactory, XMLStreamException}
-
 import org.apache.solr.client.solrj.SolrServerException
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.common.SolrInputDocument

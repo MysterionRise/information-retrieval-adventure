@@ -3,14 +3,10 @@ import java.util.Collections
 import org.apache.solr.client.solrj.SolrClient
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.client.solrj.request.FieldAnalysisRequest
-import org.apache.solr.common.SolrInputDocument
-import org.apache.solr.common.params.ModifiableSolrParams
 import org.apache.solr.common.util.NamedList
 import org.apache.solr.core.CoreContainer
 
 import scala.Console._
-import scala.util.Random
-import scalaj.http._
 
 object SynonymGraph {
 

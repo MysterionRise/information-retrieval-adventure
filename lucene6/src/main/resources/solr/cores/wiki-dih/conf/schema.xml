@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="example" version="1.6">
 
-  <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
-  <field name="text" type="text" indexed="true" stored="true"/>
-  <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
+    <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
+    <field name="text" type="text" indexed="true" stored="true"/>
+    <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
 
-  <uniqueKey>id</uniqueKey>
+    <uniqueKey>id</uniqueKey>
 
-  <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
-  <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
+    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
 
-  <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
-    <analyzer type="index">
-      <tokenizer class="solr.StandardTokenizerFactory"/>
-      <filter class="solr.SynonymGraphFilterFactory" synonyms="mysynonyms.txt"/>
-      <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-    </analyzer>
-    <analyzer type="query">
-      <tokenizer class="solr.StandardTokenizerFactory"/>
-      <filter class="solr.SynonymGraphFilterFactory" synonyms="mysynonyms.txt"/>
-    </analyzer>
-  </fieldType>
+    <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.SynonymGraphFilterFactory" synonyms="mysynonyms.txt"/>
+            <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.SynonymGraphFilterFactory" synonyms="mysynonyms.txt"/>
+        </analyzer>
+    </fieldType>
 
 </schema>

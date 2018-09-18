@@ -1,7 +1,7 @@
 package org.apache.lucene.search;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Set;
 import org.apache.lucene.index.*;
 import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.util.Bits;

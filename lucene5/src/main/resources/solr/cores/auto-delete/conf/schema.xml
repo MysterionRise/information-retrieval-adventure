@@ -4,8 +4,8 @@
         <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
         <field name="text" type="string" indexed="true" stored="true"/>
         <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
-        <field name="eDate" type="date" multiValued="false" indexed="true" stored="true" />
-        <field name="ttl" type="string" multiValued="false" indexed="true" stored="true" />
+        <field name="eDate" type="date" multiValued="false" indexed="true" stored="true"/>
+        <field name="ttl" type="string" multiValued="false" indexed="true" stored="true"/>
     </fields>
     <uniqueKey>id</uniqueKey>
     <types>

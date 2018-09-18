@@ -1,6 +1,5 @@
 import org.apache.solr.client.solrj.SolrClient
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
-import org.apache.solr.client.solrj.request.UpdateRequest
 import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.common.params.ModifiableSolrParams
 import org.apache.solr.core.CoreContainer
@@ -48,7 +47,7 @@ object DateRangeHotels {
       q.add("fq", "{!field f=date op=Within}[2017 TO 2017]")
       val res = server.query(q).getResults
 
-      for (i <-0 until res.size()) {
+      for (i <- 0 until res.size()) {
         println(res.get(i))
       }
 

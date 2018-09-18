@@ -4,12 +4,11 @@ import org.apache.solr.client.solrj.SolrClient
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.client.solrj.response.RangeFacet
 import org.apache.solr.client.solrj.response.RangeFacet.Date
+import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.common.params.ModifiableSolrParams
-import org.apache.solr.common.{SolrDocumentList, SolrInputDocument}
 import org.apache.solr.core.CoreContainer
 
 import scala.Console._
-import scala.collection.mutable
 import scala.util.Random
 
 /**

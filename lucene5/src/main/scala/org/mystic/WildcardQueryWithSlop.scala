@@ -9,8 +9,8 @@ import org.apache.solr.core.CoreContainer
 import scala.Console._
 
 /**
- * @see http://stackoverflow.com/q/26415156/2663985
- */
+  * @see http://stackoverflow.com/q/26415156/2663985
+  */
 object WildcardQueryWithSlop {
 
   def main(a: Array[String]) {
@@ -36,7 +36,7 @@ object WildcardQueryWithSlop {
       server.commit()
 
       val q = new ModifiableSolrParams()
-//      q.add("q", "lastName:play* AND lastName:'Bars Warehouse'")
+      //      q.add("q", "lastName:play* AND lastName:'Bars Warehouse'")
       q.add("q", "test:\"Warehouse\"")
       val results: SolrDocumentList = server.query(q).getResults
       out.println(results.getNumFound)

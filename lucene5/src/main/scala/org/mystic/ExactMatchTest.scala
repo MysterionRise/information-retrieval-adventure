@@ -9,8 +9,8 @@ import org.apache.solr.core.CoreContainer
 import scala.Console._
 
 /**
- * @see  http://stackoverflow.com/q/26415156/2663985
- */
+  * @see http://stackoverflow.com/q/26415156/2663985
+  */
 object ExactMatchTest {
 
   def main(a: Array[String]) {

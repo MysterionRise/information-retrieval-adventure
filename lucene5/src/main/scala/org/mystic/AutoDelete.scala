@@ -46,7 +46,7 @@ object AutoDelete {
       q1.add("q", "*:*")
       val res1 = server.query(q1).getResults
 
-      for (i <-0 until res1.size()) {
+      for (i <- 0 until res1.size()) {
         println(res1.get(i))
       }
 
@@ -60,7 +60,7 @@ object AutoDelete {
 
       assert(res2.isEmpty)
 
-      for (i <-0 until res2.size()) {
+      for (i <- 0 until res2.size()) {
         println(res2.get(i))
       }
 

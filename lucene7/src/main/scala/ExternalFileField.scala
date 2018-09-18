@@ -19,7 +19,7 @@ object ExternalFileField {
 
   var server: SolrClient = null
   val maxProd = 80000
-  val numQueries = 1000
+  val numQueries = 10000
   val maxAcc = 40000
   val nThreads = 10
   val rand = new Random()
@@ -51,6 +51,9 @@ object ExternalFileField {
     val z = new AtomicInteger(1)
     val cmd = a(0)
     cmd match {
+      case "0" => {
+        server.optimize(null, true, true, 5)
+      }
       case "1" => {
         // generate index
 
@@ -100,24 +103,15 @@ object ExternalFileField {
         // do query testing
 
         val stats = new DescriptiveStatistics
-        val q = new ModifiableSolrParams()
         for (_ <- 0 until numQueries) {
-          val ac = rand.nextInt(10)
-          val low = rand.nextInt(100)
+          val q = new ModifiableSolrParams()
+          val low = rand.nextInt(1000)
           val high = low + rand.nextInt(1000)
           val sb = new StringBuilder
           val sb2 = new StringBuilder
-          sb.append("(")
-          for (j <- 1 to ac) {
-            val accNum = rand.nextInt(99) + 1
-            sb2.append("{!frange l=1}account" + accNum)
-            sb.append("account:account" + accNum)
-            if (j != ac) {
-              sb.append(" OR ")
-              sb2.append(" OR ")
-            }
-          }
-          sb.append("))")
+          val accNum = rand.nextInt(99) + 1
+          sb2.append("{!frange l=1}account" + accNum)
+          sb.append("account:account" + accNum).append(")")
           q.add("q", "{!parent which=scope:product}(quantity:[" + low + " TO " + high + "] AND " + sb.toString())
           q.add("fq", "filter(" + sb2.toString + ")")
           val resp = server.query(q)
