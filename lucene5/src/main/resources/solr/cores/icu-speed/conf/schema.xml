@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="example" version="1.5">
+    <fields>
+        <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
+        <field name="text" type="tp-text" indexed="true" stored="true"/>
+        <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
+    </fields>
+    <uniqueKey>id</uniqueKey>
+    <types>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
+        <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+
+        <fieldType name="tp-text" class="solr.TextField" sortMissingLast="true" positionIncrementGap="100">
+            <analyzer>
+                <charFilter class="solr.HTMLStripCharFilterFactory"/>
+
+                <!-- These are ©, ®, ℠ and ™ respectively -->
+                <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="[\u00A9\u00AE\u2120\u2122]"
+                            replacement=""/>
+
+                <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="[\u0300-\u036f]" replacement=""/>
+                <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="([\u2200-\u22ff]|[\u20AC])" replacement=" $1 "/>
+                <tokenizer class="solr.StandardTokenizerFactory"/>
+                <!--<filter class="solr.ICUFoldingFilterFactory"/>-->
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ASCIIFoldingFilterFactory"/>
+                <filter class="solr.EnglishPossessiveFilterFactory"/>
+                <filter class="solr.ElisionFilterFactory" ignoreCase="true"/>
+                <filter class="solr.PatternReplaceFilterFactory" pattern="#" replacement=""/>
+                <filter class="solr.PatternReplaceFilterFactory" pattern="'" replacement=""/>
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+                <filter class="solr.LengthFilterFactory" min="1" max="100000"/>
+            </analyzer>
+        </fieldType>
+
+    </types>
+
+</schema>
