@@ -1,24 +1,17 @@
-import com.ibm.icu.text.CollationKey;
-import com.ibm.icu.text.Collator;
-import com.ibm.icu.text.RawCollationKey;
-import com.ibm.icu.util.ULocale;
-import com.ibm.icu.util.VersionInfo;
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.collation.ICUCollationDocValuesField;
-import org.apache.lucene.collation.ICUCollationKeyAnalyzer;
-import org.apache.lucene.document.*;
-import org.apache.lucene.index.*;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.*;
-import org.apache.lucene.store.*;
-import org.apache.lucene.util.BytesRef;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.store.NoLockFactory;
 
 import java.io.IOException;
 import java.nio.file.Paths;
 
 /**
- * @see https://stackoverflow.com/q/53438426/2663985
+ * @see https://stackoverflow.com/q/53327304/2663985
  */
 public class ReadOnlyIndex {
 
@@ -46,16 +39,8 @@ public class ReadOnlyIndex {
         Directory index = FSDirectory.open(Paths.get("/tmp/test"), NoLockFactory.INSTANCE);
         IndexReader reader = DirectoryReader.open(index);
 
-
         IndexSearcher searcher = new IndexSearcher(reader);
-        Query query = new BooleanQuery.Builder()
-                .add(new ConstantScoreQuery(new TermQuery(new Term("text", "bloom"))), BooleanClause.Occur.SHOULD)
-                .add(new ConstantScoreQuery(new TermQuery(new Term("text", "bubble"))), BooleanClause.Occur.SHOULD)
-                .build();
-
-//        String querystr = "bubble^=1.0 bloom^=1.0c";
-//        Query query = new QueryParser("text", new StandardAnalyzer()).parse(querystr);
-
+        Query query = new MatchAllDocsQuery();
 
         TopDocs results = searcher.search(query, 5);
         final ScoreDoc[] scoreDocs = results.scoreDocs;
