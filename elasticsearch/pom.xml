@@ -19,13 +19,13 @@
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
-            <version>5.1.2</version>
+            <version>5.3.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.elasticsearch.test</groupId>
             <artifactId>framework</artifactId>
-            <version>5.1.2</version>
+            <version>5.3.1</version>
             <scope>test</scope>
         </dependency>
 
