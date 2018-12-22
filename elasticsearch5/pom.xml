@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>elasticsearch</artifactId>
+    <artifactId>elasticsearch5</artifactId>
 
     <properties>
         <lucene.version>6.4.0</lucene.version>
