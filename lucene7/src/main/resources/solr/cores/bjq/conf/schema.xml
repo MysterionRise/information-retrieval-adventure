@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="example" version="1.6">
+
+    <field name="id" type="string" indexed="true" stored="false" required="true" multiValued="false"/>
+
+    <field name="type" type="string" indexed="true" stored="true"/>
+    <field name="name" type="string" indexed="true" stored="true"/>
+    <field name="service_id" type="string" indexed="true" stored="true"/>
+    <field name="data_id" type="string" indexed="true" stored="true"/>
+
+    <field name="_root_" type="string" indexed="true" stored="false"/>
+    <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
+
+    <uniqueKey>id</uniqueKey>
+
+    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true"/>
+
+</schema>
