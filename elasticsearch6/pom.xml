@@ -13,7 +13,7 @@
 
     <properties>
         <lucene.version>6.4.0</lucene.version>
-        <elastic.version>6.5.2</elastic.version>
+        <elastic.version>6.5.4</elastic.version>
     </properties>
 
     <dependencies>
@@ -55,6 +55,18 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-client</artifactId>
+            <version>${elastic.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>${elastic.version}</version>
+        </dependency>
+
 
     </dependencies>
 
