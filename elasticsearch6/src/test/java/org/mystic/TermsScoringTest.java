@@ -77,10 +77,10 @@ public class TermsScoringTest extends ESIntegTestCase {
             .actionGet();
     SearchHit[] hits = response.getHits().getHits();
     for (SearchHit searchHit : hits) {
-      System.out.println(searchHit.id() + " " + searchHit.score());
+      System.out.println(searchHit.getId() + " " + searchHit.getScore());
     }
 
     assertThat("hits should be equal to 3", hits.length, equalTo(3));
-    assertThat("2 matched terms over 1", hits[0].id(), equalTo("2"));
+    assertThat("2 matched terms over 1", hits[0].getId(), equalTo("2"));
   }
 }

@@ -9,7 +9,7 @@ public class RandomScoreTest {
   public static void main(String[] args) {
     final BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
     final FunctionScoreQueryBuilder functionScoreQueryBuilder =
-        QueryBuilders.functionScoreQuery(boolQuery, ScoreFunctionBuilders.randomFunction(1))
+        QueryBuilders.functionScoreQuery(boolQuery, ScoreFunctionBuilders.randomFunction())
             .boostMode(CombineFunction.REPLACE);
   }
 }

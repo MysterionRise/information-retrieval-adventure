@@ -54,7 +54,8 @@ public class SortingInvestigationTest extends ESIntegTestCase {
                     + "        }\n"
                     + "      }\n"
                     + "    }\n"
-                    + "  }")
+                    + "  }",
+                XContentType.JSON)
             .mapping(
                 TYPE,
                 "{\n"
@@ -159,7 +160,7 @@ public class SortingInvestigationTest extends ESIntegTestCase {
     //    assertThat(hits.length, equalTo(1));
 
     for (SearchHit hit : hits) {
-      System.out.println(hit.getSource());
+      System.out.println(hit);
     }
   }
 }
