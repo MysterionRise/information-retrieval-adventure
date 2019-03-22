@@ -28,6 +28,7 @@ public class CustomPriceCollector extends DelegatingCollector {
     this.rb = rb;
     this.fcontext = fcontext;
     ids.clear();
+    setDelegate(new EnricherCollector(rb, fcontext));
   }
 
   @Override
@@ -42,12 +43,11 @@ public class CustomPriceCollector extends DelegatingCollector {
     // TODO this has been called on the end of the segment, it's time to do a batch to price system with ids
     // we also need to evaluate through collected ids and collect them with delegate
 
-
     Map<Object, Object> reqContext = SolrRequestInfo.getRequestInfo().getReq().getContext();
 
     // TODO or check fcontext?
 
-    for (Map.Entry<Integer, Integer> e: ids.entrySet()) {
+    for (Map.Entry<Integer, Integer> e : ids.entrySet()) {
       // TODO fix to use correct doc id
       // TODO use reqContext which is thread local to put data about actual prices there
       reqContext.put(e.getKey(), e.getValue());
@@ -63,7 +63,6 @@ public class CustomPriceCollector extends DelegatingCollector {
   public void finish() throws IOException {
     // we need to do last request to price system
     // since it will be called on the end og the last segment
-
 
     // TODO we could add something to the response here
     // TODO hack rb.rsp?

@@ -3,7 +3,6 @@ package org.custom.price;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.lucene.index.LeafReaderContext;
 import org.apache.lucene.queries.function.FunctionValues;
 import org.apache.lucene.queries.function.ValueSourceScorer;
