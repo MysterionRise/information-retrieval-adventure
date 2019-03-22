@@ -1376,6 +1376,8 @@
 
     <queryParser name="enrich" class="org.custom.price.EnricherPlugin"/>
 
+    <valueSourceParser name="myfunc" class="org.custom.price.PriceValueSourceParser" />
+
     <!-- Function Parsers
 
          http://wiki.apache.org/solr/FunctionQuery

@@ -1,11 +1,14 @@
 package org.custom.price;
 
+import org.apache.lucene.queries.function.ValueSource;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.solr.handler.component.ResponseBuilder;
 import org.apache.solr.request.SolrRequestInfo;
 import org.apache.solr.search.DelegatingCollector;
 import org.apache.solr.search.PostFilter;
+
+import java.util.Map;
 
 public class CustomPriceQuery extends Query implements PostFilter {
 
@@ -26,8 +29,9 @@ public class CustomPriceQuery extends Query implements PostFilter {
     if (info != null) {
       rb = info.getResponseBuilder();
     }
+    Map fcontext = ValueSource.newContext(searcher);
 
-    return new CustomPriceCollector(rb);
+    return new CustomPriceCollector(rb, fcontext);
   }
 
   @Override

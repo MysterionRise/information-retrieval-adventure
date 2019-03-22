@@ -2,6 +2,8 @@ package org.custom.price;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.lucene.index.LeafReaderContext;
 import org.apache.lucene.queries.function.FunctionValues;
 import org.apache.lucene.queries.function.ValueSourceScorer;
@@ -54,6 +56,17 @@ public class EnricherCollector extends DelegatingCollector {
   @Override
   public void finish() throws IOException {
     rb.rsp.add("bla", 20);
+
+    // TODO call price system
+    System.out.println("calling price system");
+    try {
+      TimeUnit.SECONDS.sleep(1);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    Map<Integer, Integer> res = (Map<Integer, Integer>) rb.rsp.getValues().get("ids");
+    rb.rsp.add("res", res.size());
+
     if (delegate instanceof DelegatingCollector) {
       ((DelegatingCollector) delegate).finish();
     }

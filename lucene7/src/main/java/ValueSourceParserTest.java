@@ -18,7 +18,7 @@ public class ValueSourceParserTest {
         @Override
         public ValueSource parse(FunctionQParser fp) throws SyntaxError {
             ValueSource source = fp.parseValueSource();
-            HashSet<Integer> topic_ids = new HashSet<Integer>();
+            HashSet<Integer> topic_ids = new HashSet<>();
             while(fp.hasMoreArguments()){
                 topic_ids.add(fp.parseInt());
             }
