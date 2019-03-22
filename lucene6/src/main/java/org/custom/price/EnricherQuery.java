@@ -1,7 +1,5 @@
 package org.custom.price;
 
-import java.util.Map;
-import org.apache.lucene.queries.function.ValueSource;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.solr.handler.component.ResponseBuilder;
@@ -25,9 +23,8 @@ public class EnricherQuery extends Query implements PostFilter {
       rb = info.getResponseBuilder();
     }
     if (rb == null) throw new IllegalStateException("rb is null in EnrichQuery");
-    Map fcontext = ValueSource.newContext(searcher);
 
-    return new EnricherCollector(rb, fcontext);
+    return new EnricherCollector(rb, SolrRequestInfo.getRequestInfo().getReq().getContext());
   }
 
   @Override

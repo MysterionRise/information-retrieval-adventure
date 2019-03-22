@@ -13,11 +13,5 @@ public class PriceValueSourceParser extends ValueSourceParser {
   @Override
   public ValueSource parse(FunctionQParser fp) throws SyntaxError {
     return new PriceValueSource();
-    //        ValueSource source = fp.parseValueSource();
-    //        HashSet<Integer> topic_ids = new HashSet<>();
-    //        while(fp.hasMoreArguments()){
-    //            topic_ids.add(fp.parseInt());
-    //        }
-    //        return new FloatFieldSource("test");
   }
 }
