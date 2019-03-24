@@ -34,7 +34,7 @@ public class EnricherCollector extends DelegatingCollector {
     }
     //    int o = (int) context.get(this.docBase + doc);
     //    if (o > 0) {
-      leafDelegate.collect(doc);
+    leafDelegate.collect(doc);
     //    }
     // TODO if know price we could filter document?
   }
