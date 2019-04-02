@@ -2,6 +2,7 @@ package org.custom.price;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Random;
 import org.apache.solr.handler.component.ResponseBuilder;
 import org.apache.solr.request.SolrRequestInfo;
 import org.apache.solr.search.DelegatingCollector;
@@ -10,10 +11,16 @@ public class EnricherCollector extends DelegatingCollector {
 
   private final ResponseBuilder rb;
   final Map fcontext;
+  private static final Random r = new Random();
 
   public EnricherCollector(ResponseBuilder rb, Map fcontext) {
     this.rb = rb;
     this.fcontext = fcontext;
+  }
+
+  @Override
+  public boolean needsScores() {
+    return true;
   }
 
   @Override
@@ -25,7 +32,9 @@ public class EnricherCollector extends DelegatingCollector {
     }
     //    int o = (int) context.get(this.docBase + doc);
     //    if (o > 0) {
-    super.collect(doc);
+    if (r.nextBoolean()) {
+      super.collect(doc);
+    }
     //    delegate.getLeafCollector(this.context).collect(doc);
     //    }
     // TODO if know price we could filter document?

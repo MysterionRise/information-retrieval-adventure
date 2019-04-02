@@ -34,31 +34,39 @@ public class CustomPriceCollector extends DelegatingCollector {
     this.context = context;
     this.docBase = context.docBase;
     leafDelegate = delegate.getLeafCollector(context);
+    rb.rsp.add("id size " + cnt, ids.size());
     if (this.scorer == null) {
       rb.rsp.add("segment#" + cnt, "scorer is null");
-    }
+    } else {
 
-    leafDelegate.setScorer(this.scorer);
-    //        leafDelegate = delegate.getLeafCollector(context);
-    // TODO this has been called on the end of the segment, it's time to do a batch to price system with ids
-    // we also need to evaluate through collected ids and collect them with delegate
+      leafDelegate.setScorer(this.scorer);
+      //        leafDelegate = delegate.getLeafCollector(context);
+      // TODO this has been called on the end of the segment, it's time to do a batch to price system with ids
+      // we also need to evaluate through collected ids and collect them with delegate
 
-    Map<Object, Object> reqContext = SolrRequestInfo.getRequestInfo().getReq().getContext();
+      Map<Object, Object> reqContext = SolrRequestInfo.getRequestInfo().getReq().getContext();
 
-    // TODO or check fcontext?
+      // TODO or check fcontext?
 
-    for (Map.Entry<Integer, Integer> e : ids.entrySet()) {
-      // TODO fix to use correct doc id
-      // TODO use reqContext which is thread local to put data about actual prices there
-      reqContext.put(e.getKey(), e.getValue());
-      if (delegate instanceof DelegatingCollector) {
-        ((DelegatingCollector) delegate).collect(e.getKey());
+      for (Map.Entry<Integer, Integer> e : ids.entrySet()) {
+        // TODO fix to use correct doc id
+        // TODO use reqContext which is thread local to put data about actual prices there
+        reqContext.put(e.getKey(), e.getValue());
+        rb.rsp.add("delegate to string", delegate.toString());
+        if (delegate instanceof DelegatingCollector) {
+          ((DelegatingCollector) delegate).collect(e.getKey());
+        }
       }
     }
 
     rb.rsp.add("bla-bla-do-set-next-reader" + r.nextInt(), cnt);
     ids.clear();
     cnt += 1;
+  }
+
+  @Override
+  public boolean needsScores() {
+    return true;
   }
 
   @Override
@@ -77,7 +85,9 @@ public class CustomPriceCollector extends DelegatingCollector {
       // TODO fix to use correct doc id
       // TODO use reqContext which is thread local to put data about actual prices there
       reqContext.put(e.getKey(), e.getValue());
-      delegate.getLeafCollector(context).collect(e.getKey());
+      if (delegate instanceof DelegatingCollector) {
+        ((DelegatingCollector) delegate).collect(e.getKey());
+      }
     }
 
     rb.rsp.add("bla-bla-finish" + r.nextInt(), cnt);
