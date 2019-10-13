@@ -37,7 +37,9 @@ object WildcardQueryWithSlop {
 
       val q = new ModifiableSolrParams()
       //      q.add("q", "lastName:play* AND lastName:'Bars Warehouse'")
-      q.add("q", "test:\"Warehouse\"")
+      q.add("q", "space OR blablabla")
+      q.add("defType", "edismax")
+      q.add("mm", "100")
       val results: SolrDocumentList = server.query(q).getResults
       out.println(results.getNumFound)
       val resp = results
