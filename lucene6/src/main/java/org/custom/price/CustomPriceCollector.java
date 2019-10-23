@@ -12,19 +12,11 @@ public class CustomPriceCollector extends DelegatingCollector {
   final Map<Integer, Integer> ids = new HashMap<>();
   final Random r = new Random();
   private final ResponseBuilder rb;
+  private static Integer cnt = 0;
   private final Map fcontext;
-  /*
-  if (postFilters != null) {
-    Collections.sort(postFilters, sortByCost);
-    for (int i = postFilters.size() - 1; i >= 0; i--) {
-      DelegatingCollector prev = pf.postFilter;
-      pf.postFilter = ((PostFilter) postFilters.get(i)).getFilterCollector(this);
-      if (prev != null) pf.postFilter.setDelegate(prev);
-    }
-  }
-   */
 
   public CustomPriceCollector(ResponseBuilder rb, Map fcontext) {
+    cnt = 0;
     this.rb = rb;
     this.fcontext = SolrRequestInfo.getRequestInfo().getReq().getContext();
     ids.clear();
@@ -34,28 +26,47 @@ public class CustomPriceCollector extends DelegatingCollector {
   public void collect(int doc) throws IOException {
     // TODO GET from doc the external ID from the document like doc values
     ids.put(doc, r.nextInt(1000));
-    //    super.collect(doc);
   }
 
   @Override
   protected void doSetNextReader(LeafReaderContext context) throws IOException {
-    super.doSetNextReader(context);
-    // TODO this has been called on the end of the segment, it's time to do a batch to price system with ids
-    // we also need to evaluate through collected ids and collect them with delegate
+    rb.rsp.add("segment" + cnt, "true");
+    this.context = context;
+    this.docBase = context.docBase;
+    leafDelegate = delegate.getLeafCollector(context);
+    rb.rsp.add("id size " + cnt, ids.size());
+    if (this.scorer == null) {
+      rb.rsp.add("segment#" + cnt, "scorer is null");
+    } else {
 
-    Map<Object, Object> reqContext = SolrRequestInfo.getRequestInfo().getReq().getContext();
+      leafDelegate.setScorer(this.scorer);
+      //        leafDelegate = delegate.getLeafCollector(context);
+      // TODO this has been called on the end of the segment, it's time to do a batch to price system with ids
+      // we also need to evaluate through collected ids and collect them with delegate
 
-    // TODO or check fcontext?
+      Map<Object, Object> reqContext = SolrRequestInfo.getRequestInfo().getReq().getContext();
 
-    for (Map.Entry<Integer, Integer> e : ids.entrySet()) {
-      // TODO fix to use correct doc id
-      // TODO use reqContext which is thread local to put data about actual prices there
-      reqContext.put(e.getKey(), e.getValue());
-      super.collect(e.getKey());
+      // TODO or check fcontext?
+
+      for (Map.Entry<Integer, Integer> e : ids.entrySet()) {
+        // TODO fix to use correct doc id
+        // TODO use reqContext which is thread local to put data about actual prices there
+        reqContext.put(e.getKey(), e.getValue());
+        rb.rsp.add("delegate to string", delegate.toString());
+        if (delegate instanceof DelegatingCollector) {
+          ((DelegatingCollector) delegate).collect(e.getKey());
+        }
+      }
     }
 
-    rb.rsp.add("bla-bla-bla" + r.nextInt(), 100);
+    rb.rsp.add("bla-bla-do-set-next-reader" + r.nextInt(), cnt);
     ids.clear();
+    cnt += 1;
+  }
+
+  @Override
+  public boolean needsScores() {
+    return true;
   }
 
   @Override
@@ -74,10 +85,12 @@ public class CustomPriceCollector extends DelegatingCollector {
       // TODO fix to use correct doc id
       // TODO use reqContext which is thread local to put data about actual prices there
       reqContext.put(e.getKey(), e.getValue());
-      delegate.getLeafCollector(context).collect(e.getKey());
+      if (delegate instanceof DelegatingCollector) {
+        ((DelegatingCollector) delegate).collect(e.getKey());
+      }
     }
 
-    rb.rsp.add("bla-bla-bla" + r.nextInt(), 100);
+    rb.rsp.add("bla-bla-finish" + r.nextInt(), cnt);
     rb.rsp.add("ids", ids);
     if (delegate instanceof DelegatingCollector) {
       ((DelegatingCollector) delegate).finish();
