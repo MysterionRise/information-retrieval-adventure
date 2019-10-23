@@ -11,6 +11,7 @@
         <module>lucene5</module>
         <module>lucene6</module>
         <module>lucene7</module>
+        <module>lucene8</module>
         <module>elasticsearch5</module>
         <module>elasticsearch6</module>
     </modules>
