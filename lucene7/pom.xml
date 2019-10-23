@@ -12,7 +12,7 @@
     <artifactId>lucene7</artifactId>
 
     <properties>
-        <lucene.version>7.6.0</lucene.version>
+        <lucene.version>8.2.0</lucene.version>
     </properties>
 
     <dependencies>
