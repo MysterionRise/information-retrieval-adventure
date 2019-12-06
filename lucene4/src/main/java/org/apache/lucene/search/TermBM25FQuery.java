@@ -87,7 +87,8 @@ public class TermBM25FQuery extends Query {
             : "no termstate found but term exists in reader term=" + term;
         return null;
       }
-      //System.out.println("LD=" + reader.getLiveDocs() + " set?=" + (reader.getLiveDocs() != null ? reader.getLiveDocs().get(0) : "null"));
+      // System.out.println("LD=" + reader.getLiveDocs() + " set?=" + (reader.getLiveDocs() != null
+      // ? reader.getLiveDocs().get(0) : "null"));
       final TermsEnum termsEnum = context.reader().terms(term.field()).iterator(null);
       termsEnum.seekExact(term.bytes(), state);
       return termsEnum;
@@ -95,7 +96,8 @@ public class TermBM25FQuery extends Query {
 
     private boolean termNotInReader(AtomicReader reader, Term term) throws IOException {
       // only called from assert
-      //System.out.println("TQ.termNotInReader reader=" + reader + " term=" + field + ":" + bytes.utf8ToString());
+      // System.out.println("TQ.termNotInReader reader=" + reader + " term=" + field + ":" +
+      // bytes.utf8ToString());
       return reader.docFreq(term) == 0;
     }
 

@@ -18,7 +18,7 @@ public class CustomAnalyzer extends Analyzer {
     TokenStream tok = new StandardFilter(standardTokenizer);
     // make everything lowercase, remove if not needed
     tok = new LowerCaseFilter(tok);
-    //provide stopwords if you want them
+    // provide stopwords if you want them
     //        tok = new StopFilter(tok, stopwords);
     return new TokenStreamComponents(standardTokenizer, tok);
   }
@@ -30,7 +30,7 @@ public class CustomAnalyzer extends Analyzer {
     }
 
     public boolean incrementToken() throws IOException {
-      //add your logic
+      // add your logic
       return false;
     }
   }

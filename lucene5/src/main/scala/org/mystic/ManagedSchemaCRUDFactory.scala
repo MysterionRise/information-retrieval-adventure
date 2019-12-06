@@ -36,7 +36,6 @@ class ManagedSchemaCRUDProcessor(indexSchema: IndexSchema, next: UpdateRequestPr
     //JavaConversions.mapAsScalaMap( indexSchema.getFieldTypes).foreach(println)
     val doc: SolrInputDocument = cmd.getSolrInputDocument
     val updatedDoc = addExtraFields(doc)
-    doc
     cmd.solrDoc = updatedDoc
     super.processAdd(cmd)
   }

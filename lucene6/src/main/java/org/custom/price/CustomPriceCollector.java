@@ -41,7 +41,8 @@ public class CustomPriceCollector extends DelegatingCollector {
 
       leafDelegate.setScorer(this.scorer);
       //        leafDelegate = delegate.getLeafCollector(context);
-      // TODO this has been called on the end of the segment, it's time to do a batch to price system with ids
+      // TODO this has been called on the end of the segment, it's time to do a batch to price
+      // system with ids
       // we also need to evaluate through collected ids and collect them with delegate
 
       Map<Object, Object> reqContext = SolrRequestInfo.getRequestInfo().getReq().getContext();

@@ -34,7 +34,7 @@ public class PresicionStepIndexing {
 
   public static void main(String[] args) {
     try {
-      //Create an index
+      // Create an index
       Directory dir = FSDirectory.open(Paths.get(INDEX_PATH).toFile());
       Analyzer analyzer = new StandardAnalyzer();
       IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_4_10_4, analyzer);
@@ -62,7 +62,7 @@ public class PresicionStepIndexing {
 
       writer.close();
 
-      //Now do searching
+      // Now do searching
 
       IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(INDEX_PATH).toFile()));
       IndexSearcher searcher = new IndexSearcher(reader);

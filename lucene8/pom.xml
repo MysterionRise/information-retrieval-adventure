@@ -5,14 +5,14 @@
     <parent>
         <artifactId>information-retrieval-adventure</artifactId>
         <groupId>org.mystic</groupId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>lucene8</artifactId>
 
     <properties>
-        <lucene.version>8.2.0</lucene.version>
+        <lucene.version>8.3.1</lucene.version>
     </properties>
 
     <dependencies>
