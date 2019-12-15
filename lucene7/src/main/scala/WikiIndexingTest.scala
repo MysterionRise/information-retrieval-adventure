@@ -24,23 +24,23 @@ object WikiIndexingTest {
 
   def main(a: Array[String]) {
 
-    val trust: TrustManager = new X509TrustManager {
-      override def checkServerTrusted(x509Certificates: Array[X509Certificate], s: String): Unit = println()
-
-      override def checkClientTrusted(x509Certificates: Array[X509Certificate], s: String): Unit = println()
-
-      override def getAcceptedIssuers: Array[X509Certificate] = return null
-    }
-
-    val trustAllCerts = Array(trust)
-
-    val sc = SSLContext.getInstance("TLS")
-    sc.init(null, trustAllCerts, new SecureRandom())
-    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory())
+//    val trust: TrustManager = new X509TrustManager {
+//      override def checkServerTrusted(x509Certificates: Array[X509Certificate], s: String): Unit = println()
+//
+//      override def checkClientTrusted(x509Certificates: Array[X509Certificate], s: String): Unit = println()
+//
+//      override def getAcceptedIssuers: Array[X509Certificate] = return null
+//    }
+//
+//    val trustAllCerts = Array(trust)
+//
+//    val sc = SSLContext.getInstance("TLS")
+//    sc.init(null, trustAllCerts, new SecureRandom())
+//    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory())
 
     // replace client if needed with
     //            val client = new HttpSolrClient.Builder().withBaseSolrUrl("http://localhost:8983/solr/wikipedia").allowCompression(true).build()
-    val client = new ConcurrentUpdateSolrClient.Builder("http://localhost:8983/solr/wikipedia").withThreadCount(THREAD_COUNT).withQueueSize(QUEUE_SIZE).build()
+    val client = new ConcurrentUpdateSolrClient.Builder("http://localhost:8983/solr/getttingstarted").withThreadCount(THREAD_COUNT).withQueueSize(QUEUE_SIZE).build()
     client.deleteByQuery("*:*")
     client.commit()
     val start: Long = System.currentTimeMillis
