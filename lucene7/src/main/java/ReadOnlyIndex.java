@@ -19,16 +19,20 @@ public class ReadOnlyIndex {
     //        IndexWriter writer = new IndexWriter(dir, iwc);
     //
     //        Document doc = new Document();
-    //        doc.add(new TextField("text", "bubble bloom is happening somewhere else", Field.Store.YES));
+    //        doc.add(new TextField("text", "bubble bloom is happening somewhere else",
+    // Field.Store.YES));
     //        writer.addDocument(doc);
     //        doc = new Document();
-    //        doc.add(new TextField("text", "here we have just bloom bloom like a spring", Field.Store.YES));
+    //        doc.add(new TextField("text", "here we have just bloom bloom like a spring",
+    // Field.Store.YES));
     //        writer.addDocument(doc);
     //        doc = new Document();
-    //        doc.add(new TextField("text", "i would be curious how bubble tea is bubble enough for me", Field.Store.YES));
+    //        doc.add(new TextField("text", "i would be curious how bubble tea is bubble enough for
+    // me", Field.Store.YES));
     //        writer.addDocument(doc);
     //        doc = new Document();
-    //        doc.add(new TextField("text", "i would be curious how bubble tea is bubble enough for me. Should I have more bubble ?", Field.Store.YES));
+    //        doc.add(new TextField("text", "i would be curious how bubble tea is bubble enough for
+    // me. Should I have more bubble ?", Field.Store.YES));
     //        writer.addDocument(doc);
     //        writer.close();
 

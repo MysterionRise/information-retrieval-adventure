@@ -49,14 +49,14 @@ public class TermsScoringTest extends ESIntegTestCase {
           client.admin().indices().prepareStats(INDEX).get();
       System.out.println(indicesStatsResponse.getIndices().get(INDEX).getTotal().docs.getCount());
       avg1 += System.nanoTime() - startTime;
-      //System.out.println(System.nanoTime() - startTime);
+      // System.out.println(System.nanoTime() - startTime);
 
       startTime = System.nanoTime();
       SearchResponse searchResponse =
           client.prepareSearch(INDEX).setQuery(QueryBuilders.matchAllQuery()).execute().actionGet();
       System.out.println(searchResponse.getHits().getHits().length);
       avg2 += System.nanoTime() - startTime;
-      //System.out.println(System.nanoTime() - startTime);
+      // System.out.println(System.nanoTime() - startTime);
 
     }
 

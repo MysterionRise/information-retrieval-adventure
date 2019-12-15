@@ -9,10 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>lucene7</artifactId>
+    <artifactId>lucene8</artifactId>
 
     <properties>
-        <lucene.version>7.7.2</lucene.version>
+        <lucene.version>8.3.1</lucene.version>
     </properties>
 
     <dependencies>

@@ -303,7 +303,8 @@ public class BM25FSimilarity extends Similarity {
 
     @Override
     public float getValueForNormalization() {
-      // we return a TF-IDF like normalization to be nice, but we don't actually normalize ourselves.
+      // we return a TF-IDF like normalization to be nice, but we don't actually normalize
+      // ourselves.
       final float queryWeight = idf.getValue() * queryBoost;
       return queryWeight * queryWeight;
     }
