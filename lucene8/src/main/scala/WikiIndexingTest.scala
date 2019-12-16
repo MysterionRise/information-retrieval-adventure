@@ -1,10 +1,7 @@
 import java.io.{FileInputStream, IOException}
-import java.net.URL
-import java.security.SecureRandom
-import java.security.cert.X509Certificate
+import java.nio.file.{Files, Paths}
 import java.util
 
-import javax.net.ssl.{HttpsURLConnection, SSLContext, TrustManager, X509TrustManager}
 import javax.xml.stream.events.XMLEvent
 import javax.xml.stream.{XMLEventReader, XMLInputFactory, XMLStreamException}
 import org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrClient
@@ -23,7 +20,10 @@ object WikiIndexingTest {
   private final val QUEUE_SIZE = 10000
 
   def main(a: Array[String]) {
-
+    if (Files.exists(Paths.get("config.env"))) {
+      val lines = Files.readAllLines(Paths.get(".", "config.env"))
+      println(lines)
+    }
     val client = new ConcurrentUpdateSolrClient.Builder("http://localhost:8983/solr/gettingstarted")
       .withThreadCount(THREAD_COUNT)
       .withQueueSize(QUEUE_SIZE)
