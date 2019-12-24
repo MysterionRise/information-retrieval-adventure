@@ -15,16 +15,23 @@ import scala.Console._
   */
 object WikiIndexingTest {
 
-  private final val MAX_SIZE: Int = 10000
-  private final val THREAD_COUNT: Int = 10
-  private final val QUEUE_SIZE = 10000
+  private var MAX_SIZE: Int = 10000
+  private var THREAD_COUNT: Int = 10
+  private var QUEUE_SIZE = 10000
+  private var XML_FILE_PATH: String = "/Users/konstantinp/Downloads/enwiki-latest-abstract1.xml"
+  private var SOLR_URL = "http://localhost:8983/solr/gettingstarted"
 
   def main(a: Array[String]) {
     if (Files.exists(Paths.get("config.env"))) {
       val lines = Files.readAllLines(Paths.get(".", "config.env"))
-      println(lines)
+      MAX_SIZE = Integer.parseInt(lines.get(0))
+      THREAD_COUNT = Integer.parseInt(lines.get(1))
+      QUEUE_SIZE = Integer.parseInt(lines.get(2))
+      XML_FILE_PATH = lines.get(3)
+    } else {
+      println("No config file was found - default settings are used")
     }
-    val client = new ConcurrentUpdateSolrClient.Builder("http://localhost:8983/solr/gettingstarted")
+    val client = new ConcurrentUpdateSolrClient.Builder(SOLR_URL)
       .withThreadCount(THREAD_COUNT)
       .withQueueSize(QUEUE_SIZE)
       .build()
@@ -37,7 +44,6 @@ object WikiIndexingTest {
     println("Indexing takes " + (System.currentTimeMillis - start) / 1000 + " seconds")
   }
 
-  private final val XML_FILE_PATH: String = "/Users/konstantinp/Downloads/enwiki-latest-abstract1.xml"
 
   def testIndexing(client: SolrClient): Unit = {
     try {

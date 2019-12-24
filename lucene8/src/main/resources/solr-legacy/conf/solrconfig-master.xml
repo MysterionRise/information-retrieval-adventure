@@ -42,14 +42,14 @@
     <!--
      <lib/> directives can be used to instruct Solr to load any Jars
            identified and use them to resolve any "plugins" specified in
-           your solrconfig.xml or schema.xml (ie: Analyzers, Request
+           your solrconfig-master.xml or schema.xml (ie: Analyzers, Request
            Handlers, etc...).
 
            All directories and paths are resolved relative to the
            instanceDir.
 
            Please note that <lib/> directives are processed in the order
-           that they appear in your solrconfig.xml file, and are "stacked"
+           that they appear in your solrconfig-master.xml file, and are "stacked"
            on top of each other when building a ClassLoader - so if you have
            plugin jars with dependencies on other jars, the "lower level"
            dependency jars should be loaded first.
@@ -311,6 +311,20 @@
      <jmx serviceUrl="service:jmx:rmi:///jndi/rmi://localhost:9999/solr"/>
 
     -->
+    <requestHandler name="/replication" class="solr.ReplicationHandler">
+        <lst name="master">
+            <str name="replicateAfter">optimize</str>
+            <str name="backupAfter">optimize</str>
+            <str name="confFiles">schema.xml,stopwords.txt,elevate.xml</str>
+        </lst>
+        <int name="maxNumberOfBackups">2</int>
+        <str name="commitReserveDuration">00:00:10</str>
+        <lst name="invariants">
+            <str name="maxWriteMBPerSec">16</str>
+        </lst>
+    </requestHandler>
+
+
     <!--  The default high-performance update handler  -->
     <updateHandler class="solr.DirectUpdateHandler2">
         <!--
@@ -489,7 +503,8 @@
         -->
         <documentCache class="solr.LRUCache" size="512" initialSize="512" autowarmCount="0"/>
         <!--  custom cache currently used by block join  -->
-        <cache name="perSegFilter" class="solr.search.LRUCache" size="10" initialSize="0" autowarmCount="10" regenerator="solr.NoOpRegenerator"/>
+        <cache name="perSegFilter" class="solr.search.LRUCache" size="10" initialSize="0" autowarmCount="10"
+               regenerator="solr.NoOpRegenerator"/>
         <!--
          Field Value Cache
 
@@ -615,7 +630,7 @@
                 <!--
 
                         <lst>
-                          <str name="q">static firstSearcher warming in solrconfig.xml</str>
+                          <str name="q">static firstSearcher warming in solrconfig-master.xml</str>
                         </lst>
 
                 -->
@@ -1199,7 +1214,7 @@
             <boundaryScanner name="default" default="true" class="solr.highlight.SimpleBoundaryScanner">
                 <lst name="defaults">
                     <str name="hl.bs.maxScan">10</str>
-                    <str name="hl.bs.chars">.,!? </str>
+                    <str name="hl.bs.chars">.,!?</str>
                 </lst>
             </boundaryScanner>
             <boundaryScanner name="breakIterator" class="solr.highlight.BreakIteratorBoundaryScanner">
@@ -1299,7 +1314,8 @@
     <!--
      The update.autoCreateFields property can be turned to false to disable schemaless mode
     -->
-    <updateRequestProcessorChain name="add-unknown-fields-to-the-schema" default="${update.autoCreateFields:true}" processor="uuid,remove-blank,field-name-mutating,parse-boolean,parse-long,parse-double,parse-date,add-schema-fields">
+    <updateRequestProcessorChain name="add-unknown-fields-to-the-schema" default="${update.autoCreateFields:true}"
+                                 processor="uuid,remove-blank,field-name-mutating,parse-boolean,parse-long,parse-double,parse-date,add-schema-fields">
         <processor class="solr.LogUpdateProcessorFactory"/>
         <processor class="solr.DistributedUpdateProcessorFactory"/>
         <processor class="solr.RunUpdateProcessorFactory"/>
