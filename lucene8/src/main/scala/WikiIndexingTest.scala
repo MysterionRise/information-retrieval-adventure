@@ -10,9 +10,6 @@ import org.apache.solr.common.SolrInputDocument
 
 import scala.Console._
 
-/**
-  *
-  */
 object WikiIndexingTest {
 
   private var MAX_SIZE: Int = 10000
@@ -20,6 +17,7 @@ object WikiIndexingTest {
   private var QUEUE_SIZE = 10000
   private var XML_FILE_PATH: String = "/Users/konstantinp/Downloads/enwiki-latest-abstract1.xml"
   private var SOLR_URL = "http://localhost:8983/solr/gettingstarted"
+  private var COMMAND = "index"
 
   def main(a: Array[String]) {
     if (Files.exists(Paths.get("config.env"))) {
@@ -28,6 +26,8 @@ object WikiIndexingTest {
       THREAD_COUNT = Integer.parseInt(lines.get(1))
       QUEUE_SIZE = Integer.parseInt(lines.get(2))
       XML_FILE_PATH = lines.get(3)
+      SOLR_URL = lines.get(4)
+      COMMAND = lines.get(5)
     } else {
       println("No config file was found - default settings are used")
     }
@@ -35,17 +35,19 @@ object WikiIndexingTest {
       .withThreadCount(THREAD_COUNT)
       .withQueueSize(QUEUE_SIZE)
       .build()
-    client.deleteByQuery("*:*")
-    client.commit()
-    val start: Long = System.currentTimeMillis
 
-    testIndexing(client)
+    COMMAND match {
+      case "index" => testIndexing(client)
+      case "reindex" => testReindexing(client)
+      case _ => throw new IllegalArgumentException(s"Command ${COMMAND} is unknown")
+    }
 
-    println("Indexing takes " + (System.currentTimeMillis - start) / 1000 + " seconds")
+
   }
 
+  def testReindexing(client: SolrClient): Unit = {
+    val start: Long = System.currentTimeMillis
 
-  def testIndexing(client: SolrClient): Unit = {
     try {
       val xmlInputFactory: XMLInputFactory = XMLInputFactory.newInstance
       val xmlEventReader: XMLEventReader = xmlInputFactory.createXMLEventReader(new FileInputStream(XML_FILE_PATH))
@@ -67,7 +69,7 @@ object WikiIndexingTest {
           }
         }
         else if (event.isCharacters && isDocs && !event.asCharacters.getData.trim.isEmpty) {
-          // TODO
+          // TODO add more fields
           if ("title".equalsIgnoreCase(fieldName) || "url".equalsIgnoreCase(fieldName) || "abstract".equalsIgnoreCase(fieldName)) {
             doc.addField(fieldName, event.asCharacters.getData)
           }
@@ -94,6 +96,8 @@ object WikiIndexingTest {
       client.add(docs)
       client.commit
       client.close()
+
+      println("Indexing takes " + (System.currentTimeMillis - start) / 1000 + " seconds")
     }
     catch {
       case e: SolrServerException => {
@@ -106,5 +110,13 @@ object WikiIndexingTest {
         println("Error while reading XML file" + e.getCause)
       }
     }
+  }
+
+  def testIndexing(client: SolrClient): Unit = {
+    client.deleteByQuery("*:*")
+    client.commit()
+
+    testReindexing(client)
+
   }
 }
