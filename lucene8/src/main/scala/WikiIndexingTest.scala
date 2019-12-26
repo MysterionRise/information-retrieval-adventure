@@ -1,12 +1,14 @@
 import java.io.{FileInputStream, IOException}
 import java.nio.file.{Files, Paths}
 import java.util
+import java.util.concurrent.TimeUnit
 
 import javax.xml.stream.events.XMLEvent
 import javax.xml.stream.{XMLEventReader, XMLInputFactory, XMLStreamException}
-import org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrClient
+import org.apache.solr.client.solrj.impl.{ConcurrentUpdateSolrClient, HttpSolrClient}
 import org.apache.solr.client.solrj.{SolrClient, SolrServerException}
 import org.apache.solr.common.SolrInputDocument
+import org.apache.solr.common.params.ModifiableSolrParams
 
 import scala.Console._
 
@@ -43,6 +45,27 @@ object WikiIndexingTest {
     }
 
 
+  }
+
+  def checkSlaves(slavesIps: List[String], expectedDocs: Long): Unit = {
+    val port = 8080
+    slavesIps.forall(ip => waitTillExpectedNumberOfDocs(
+      new HttpSolrClient.Builder(s"http://${ip}:${port}/solr/gettingstarted").build(),
+      expectedDocs
+    ))
+  }
+
+  def waitTillExpectedNumberOfDocs(client: SolrClient, expectedDocs: Long, collectionName: String = "gettingstarted"): Boolean = {
+    var found = 0L
+    while (found != expectedDocs) {
+      TimeUnit.MILLISECONDS.sleep(100)
+      val q = new ModifiableSolrParams()
+      q.add("q", "*:*")
+      client.query(collectionName, q)
+      val response = client.query(q).getResults
+      found = response.getNumFound
+    }
+    return true
   }
 
   def testReindexing(client: SolrClient): Unit = {

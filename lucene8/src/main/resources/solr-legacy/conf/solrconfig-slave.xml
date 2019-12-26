@@ -317,7 +317,7 @@
 
             <!-- fully qualified url for the replication handler of master. It is
                  possible to pass on this as a request param for the fetchindex command -->
-            <str name="masterUrl">http://remote_host:port/solr/core_name/replication</str>
+            <str name="masterUrl">http://localhost:8080/solr/gettingstarted/replication</str>
 
             <!-- Interval in which the slave should poll master.  Format is HH:mm:ss .
                  If this is absent slave does not poll automatically.

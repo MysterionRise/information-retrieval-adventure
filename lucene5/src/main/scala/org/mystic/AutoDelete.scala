@@ -1,5 +1,7 @@
 package org.mystic
 
+import java.util.concurrent.TimeUnit
+
 import org.apache.solr.client.solrj.SolrClient
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.common.SolrInputDocument
@@ -40,7 +42,7 @@ object AutoDelete {
       doc3.addField("id", "3")
       server.add(doc3)
 
-      Thread.sleep(10000)
+      TimeUnit.SECONDS.sleep(10)
 
       val q1 = new ModifiableSolrParams()
       q1.add("q", "*:*")
@@ -52,7 +54,7 @@ object AutoDelete {
 
       server.commit()
 
-      Thread.sleep(15000)
+      TimeUnit.SECONDS.sleep(15)
 
       val q2 = new ModifiableSolrParams()
       q2.add("q", "*:*")
