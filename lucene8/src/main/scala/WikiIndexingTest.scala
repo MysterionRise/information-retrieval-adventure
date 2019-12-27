@@ -20,6 +20,8 @@ object WikiIndexingTest {
   private var XML_FILE_PATH: String = "/Users/konstantinp/Downloads/enwiki-latest-abstract1.xml"
   private var SOLR_URL = "http://localhost:8983/solr/gettingstarted"
   private var COMMAND = "index"
+  private var TYPE = "legacy"
+  private var SLAVES = "ip1, ip2, ip3"
 
   def main(a: Array[String]) {
     if (Files.exists(Paths.get("config.env"))) {
@@ -30,6 +32,8 @@ object WikiIndexingTest {
       XML_FILE_PATH = lines.get(3)
       SOLR_URL = lines.get(4)
       COMMAND = lines.get(5)
+      TYPE = lines.get(6)
+      SLAVES = lines.get(7)
     } else {
       println("No config file was found - default settings are used")
     }
@@ -47,8 +51,7 @@ object WikiIndexingTest {
 
   }
 
-  def checkSlaves(slavesIps: List[String], expectedDocs: Long): Unit = {
-    val port = 8080
+  def checkSlaves(slavesIps: List[String], expectedDocs: Long, port: Int = 8080): Unit = {
     slavesIps.forall(ip => waitTillExpectedNumberOfDocs(
       new HttpSolrClient.Builder(s"http://${ip}:${port}/solr/gettingstarted").build(),
       expectedDocs
@@ -59,13 +62,22 @@ object WikiIndexingTest {
     var found = 0L
     while (found != expectedDocs) {
       TimeUnit.MILLISECONDS.sleep(100)
-      val q = new ModifiableSolrParams()
-      q.add("q", "*:*")
-      client.query(collectionName, q)
-      val response = client.query(q).getResults
-      found = response.getNumFound
+      found = getNumberOfDocs(client, collectionName)
+
     }
     return true
+  }
+
+  def getNumberOfDocs(client: SolrClient, collectionName: String = "gettingstarted"): Long = {
+    val q = new ModifiableSolrParams()
+    q.add("q", "*:*")
+    client.query(collectionName, q)
+    val response = client.query(q).getResults
+    return response.getNumFound
+  }
+
+  def createListFromString(SLAVES: String): List[String] = {
+    return SLAVES.split(",").map(_.trim).toList
   }
 
   def testReindexing(client: SolrClient): Unit = {
@@ -118,9 +130,24 @@ object WikiIndexingTest {
       println("-------------------Adding last chunk of docs to Solr-----------------")
       client.add(docs)
       client.commit
-      client.close()
 
       println("Indexing takes " + (System.currentTimeMillis - start) / 1000 + " seconds")
+
+      val replicationStart = System.currentTimeMillis
+
+      val expectedDocsCount = getNumberOfDocs(client)
+
+      client.close()
+
+      println("-------------------Waiting on replication to complete-----------------")
+      TYPE match {
+        case "legacy" => checkSlaves(createListFromString(SLAVES), expectedDocsCount)
+      }
+
+      println("--------Replication takes " + (System.currentTimeMillis - replicationStart) / 1000 + " seconds--------")
+
+
+      println("--------Total: " + (System.currentTimeMillis - start) / 1000 + " seconds--------")
     }
     catch {
       case e: SolrServerException => {
