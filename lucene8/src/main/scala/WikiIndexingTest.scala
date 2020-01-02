@@ -17,8 +17,8 @@ object WikiIndexingTest {
   private var MAX_SIZE: Int = 10000
   private var THREAD_COUNT: Int = 10
   private var QUEUE_SIZE = 10000
-  private var XML_FILE_PATH: String = "/Users/konstantinp/Downloads/enwiki-latest-abstract1.xml"
-  private var SOLR_URL = "http://localhost:8983/solr/gettingstarted"
+  private var XML_FILE_PATH: String = "/home/ubuntu/wiki/enwiki-latest-abstract.xml"
+  private var SOLR_URL = "http://localhost:8080/solr/gettingstarted"
   private var COMMAND = "index"
   private var TYPE = "legacy"
   private var SLAVES = "ip1, ip2, ip3"
@@ -58,20 +58,20 @@ object WikiIndexingTest {
     ))
   }
 
-  def waitTillExpectedNumberOfDocs(client: SolrClient, expectedDocs: Long, collectionName: String = "gettingstarted"): Boolean = {
+  def waitTillExpectedNumberOfDocs(client: SolrClient, expectedDocs: Long): Boolean = {
     var found = 0L
     while (found != expectedDocs) {
       TimeUnit.MILLISECONDS.sleep(100)
-      found = getNumberOfDocs(client, collectionName)
+      found = getNumberOfDocs(client)
 
     }
     return true
   }
 
-  def getNumberOfDocs(client: SolrClient, collectionName: String = "gettingstarted"): Long = {
+  def getNumberOfDocs(client: SolrClient): Long = {
     val q = new ModifiableSolrParams()
     q.add("q", "*:*")
-    client.query(collectionName, q)
+    client.query(q)
     val response = client.query(q).getResults
     return response.getNumFound
   }
