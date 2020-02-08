@@ -457,10 +457,12 @@
           -->
         <lst name="defaults">
             <str name="defType">dismax</str>
-            <!--<str name="bf">field(priority)</str>-->
-            <!--<str name="bq">docType:promotedSearch^1000.0 docType:trackingCta^500.0 docType:cta^250.0 docType:page^3.0 docType:externalSearch^3.0</str>-->
-            <!--<str name="facet">true</str>-->
-            <!--<str name="facet.field">docType</str>-->
+            <str name="bf">field(priority)</str>
+            <str name="bq">docType:promotedSearch^1000.0 docType:trackingCta^500.0 docType:cta^250.0 docType:page^3.0
+                docType:externalSearch^3.0
+            </str>
+            <str name="facet">true</str>
+            <str name="facet.field">docType</str>
         </lst>
         <arr name="last-components">
             <str>elevator</str>
@@ -586,30 +588,11 @@
     <requestHandler name="/elevate" class="solr.SearchHandler" startup="lazy">
         <lst name="defaults">
             <str name="echoParams">explicit</str>
-            <str name="df">content_en</str>
         </lst>
         <arr name="last-components">
             <str>elevator</str>
         </arr>
     </requestHandler>
-
-    <!-- Search Components
-
-         Search components are registered to SolrCore and used by
-         instances of SearchHandler (which can access them by name)
-
-         By default, the following components are available:
-
-         <searchComponent name="query"     class="solr.QueryComponent" />
-         <searchComponent name="facet"     class="solr.FacetComponent" />
-         <searchComponent name="mlt"       class="solr.MoreLikeThisComponent" />
-         <searchComponent name="highlight" class="solr.HighlightComponent" />
-         <searchComponent name="stats"     class="solr.StatsComponent" />
-         <searchComponent name="debug"     class="solr.DebugComponent" />
-
-       -->
-    <!-- Best Bets Config -->
-
 
     <!-- Terms Component
 

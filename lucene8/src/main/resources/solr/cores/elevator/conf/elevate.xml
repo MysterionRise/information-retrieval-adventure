@@ -1,10 +1,6 @@
 <elevate>
     <query text="services">
-        <doc id="/content/test/us/en/performance-test-run-500/performance-test-run-1015"/>
-        <doc id="/content/test/us/en/performance-test-run-10/performance-test-run-101"/>
-    </query>
-
-    <query text="express">
-        <doc id="/content/test/us/en/performance-test-run-100/performance-test-run-1012"/>
+        <doc id="id1"/>
+        <doc id="id2"/>
     </query>
 </elevate>
