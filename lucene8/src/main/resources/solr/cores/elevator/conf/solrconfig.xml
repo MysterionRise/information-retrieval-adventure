@@ -680,11 +680,13 @@
             <str name="buildOnStartup">false</str>
         </lst>
 
-        <!-- Language 8: English -->
+        <!-- Language 8: English
+        HighFrequencyDictionaryFactory
+        -->
         <lst name="suggester">
             <str name="name">suggester_en</str>
             <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
-            <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+            <str name="dictionaryImpl">HighFrequencyDictionaryFactory</str>
             <str name="field">metadata_en</str>
             <str name="contextField">site</str>
             <str name="suggestAnalyzerFieldType">text_en</str>
