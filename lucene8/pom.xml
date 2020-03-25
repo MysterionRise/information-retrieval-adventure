@@ -99,6 +99,12 @@
             <artifactId>commons-math3</artifactId>
             <version>3.6.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>8.3.1</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 

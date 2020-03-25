@@ -40,7 +40,7 @@ object ElevatorProblem {
       doc3.addField("id", "3")
       doc3.addField("crxPath", "1")
       doc3.addField("metadata_en", "Priority")
-      doc3.addField("site", "ae_is")
+      doc3.addField("site", "ae_es")
       server.add(doc3)
 
       val doc4 = new SolrInputDocument()
