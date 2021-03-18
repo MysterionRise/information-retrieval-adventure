@@ -13,7 +13,7 @@
 
     <properties>
         <lucene.version>8.5.1</lucene.version>
-        <elastic.version>7.8.0</elastic.version>
+        <elastic.version>7.11.2</elastic.version>
     </properties>
 
     <dependencies>
