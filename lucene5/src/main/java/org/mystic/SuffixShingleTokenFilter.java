@@ -2,7 +2,6 @@ package org.mystic;
 
 import java.io.IOException;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import org.apache.lucene.analysis.TokenFilter;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
@@ -30,9 +29,7 @@ public final class SuffixShingleTokenFilter extends TokenFilter {
       }
       if (tokens.length - 1 - index < 0) return false;
       final String suffix =
-          IntStream.range(index, tokens.length)
-              .mapToObj(i -> tokens[i])
-              .collect(Collectors.joining(" "));
+          java.util.Arrays.stream(tokens, index, tokens.length).collect(Collectors.joining(" "));
       termAtt.copyBuffer(suffix.toCharArray(), 0, suffix.length());
       index += 1;
       return true;

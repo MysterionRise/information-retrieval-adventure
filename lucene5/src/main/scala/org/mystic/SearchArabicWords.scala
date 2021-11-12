@@ -10,14 +10,14 @@ import scala.Console._
 import scala.util.Random
 
 /**
-  * @see http://stackoverflow.com/q/41924306/2663985
-  */
+ * @see http://stackoverflow.com/q/41924306/2663985
+ */
 object SearchArabicWords {
 
-  var server: SolrClient = null
+  var server: SolrClient = _
 
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
     try {
       val rand = new Random()
@@ -63,7 +63,6 @@ object SearchArabicWords {
     finally {
       server.shutdown()
     }
-    return
   }
 
 }

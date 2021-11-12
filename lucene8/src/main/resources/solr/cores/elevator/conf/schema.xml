@@ -16,1197 +16,1197 @@
  limitations under the License.
 -->
 <schema name="minimal" version="1.6">
-	<types>		
-		
-		<!-- Language 1: Arabic -->
-		<fieldType name="text_ar" class="solr.TextField" positionIncrementGap="100">
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="arabic" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="arabic" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		<dynamicField name="*" type="text_ar" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_ar" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="arabic" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="arabic" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>		
-		
-		<!-- Language 2: Bulgarian -->
-		<fieldType name="text_bg" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="bulgarian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="bulgarian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_bg" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_bg" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="bulgarian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="bulgarian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 3: BiH -->
-		<fieldType name="text_bs" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="bosnian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="bosnian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_bs" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_bs" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="bosnian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="bosnian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 4: Czech -->
-		<fieldType name="text_cs" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="czech" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="czech" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_cs" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_cs" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="czech" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="czech" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 5: Danish -->
-		<fieldType name="text_da" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="danish" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="danish" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>		
-		
-		<dynamicField name="*" type="text_da" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_da" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="danish" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="danish" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 6: German -->
-		<fieldType name="text_de" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="german" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="german" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_de" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_de" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="german" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="german" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 7: Greek -->
-		<fieldType name="text_el" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="greek" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="greek" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_el" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_el" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="greek" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="greek" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 8: English -->
-		<fieldType name="text_en" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="english" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="english" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_en" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_en" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="english" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="english" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>	
-			
-		
-		<!-- Language 9: Spanish -->
-		<fieldType name="text_es" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="spanish" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="spanish" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_es" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_es" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="spanish" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="spanish" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 10: Estonian -->
-		<fieldType name="text_et" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="estonian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="estonian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_et" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_et" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="estonian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="estonian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 11: Finnish -->
-		<fieldType name="text_fi" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="finnish" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="finnish" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_fi" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_fi" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="finnish" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="finnish" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 12: French -->
-		<fieldType name="text_fr" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="french" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="french" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_fr" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_fr" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="french" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="french" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 13: Croatian -->
-		<fieldType name="text_hr" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="croatian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="croatian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_hr" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_hr" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="croatian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="croatian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 14: Hungarian -->
-		<fieldType name="text_hu" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="hungarian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="hungarian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_hu" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_hu" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="hungarian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="hungarian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 15: Bahasa Indonesia -->
-		<fieldType name="text_id" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="indonesian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="indonesian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_id" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_id" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="indonesian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="indonesian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 16: Italian -->
-		<fieldType name="text_it" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="italian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="italian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_it" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_it" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="italian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="italian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 17: Japanese -->
-		<fieldType name="text_ja" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="japanese" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="japanese" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_ja" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_ja" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="japanese" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="japanese" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 18: Korean -->
-		<fieldType name="text_ko" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="korean" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="korean" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_ko" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_ko" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="korean" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="korean" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 19: Lithuanian -->
-		<fieldType name="text_lt" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="lithuanian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="lithuanian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_lt" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_lt" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="lithuanian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="lithuanian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 20: Latvian -->
-		<fieldType name="text_lv" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="latvian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="latvian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_lv" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_lv" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="latvian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="latvian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 21: Macedonian -->
-		<fieldType name="text_mk" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="macedonian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="macedonian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_mk" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_mk" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="macedonian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="macedonian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 22: Dutch -->
-		<fieldType name="text_nl" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="dutch" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="dutch" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_nl" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_nl" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="dutch" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="dutch" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 23: Norwegian -->
-		<fieldType name="text_no" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="norwegian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="norwegian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_no" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_no" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="norwegian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="norwegian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 24: Polish -->
-		<fieldType name="text_pl" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="polish" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="polish" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_pl" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_pl" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="polish" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="polish" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 25: Portuguese -->
-		<fieldType name="text_pt" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="portuguese" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="portuguese" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_pt" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_pt" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="portuguese" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="portuguese" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 26: Romanian -->
-		<fieldType name="text_ro" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="romanian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="romanian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_ro" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_ro" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="romanian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="romanian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 27: Russian -->
-		<fieldType name="text_ru" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="russian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="russian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_ru" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_ru" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="russian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="russian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 28: Slovak -->
-		<fieldType name="text_sk" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="slovak" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="slovak" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_sk" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_sk" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="slovak" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="slovak" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 29: Slovenian -->
-		<fieldType name="text_sl" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="slovenian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="slovenian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_sl" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_sl" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="slovenian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="slovenian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 30: Serbian -->
-		<fieldType name="text_sr" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="serbian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="serbian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_sr" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_sr" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="serbian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="serbian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 31: Swedish	-->
-		<fieldType name="text_sv" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="swedish" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="swedish" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_sv" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_sv" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="swedish" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="swedish" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 32: Thai -->
-		<fieldType name="text_th" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="thai" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="thai" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_th" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_th" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="thai" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="thai" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 33: Turkish -->
-		<fieldType name="text_tr" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="turkish" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="turkish" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_tr" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_tr" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="turkish" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="turkish" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 34: Ukrainian -->
-		<fieldType name="text_uk" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="ukrainian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="ukrainian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_uk" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_uk" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="ukrainian" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="ukrainian" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 35: Vietnamese -->
-		<fieldType name="text_vi" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="vietnamese" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="vietnamese" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_vi" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_vi" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="vietnamese" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="vietnamese" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<!-- Language 36: Chinese -->
-		<fieldType name="text_zh" class="solr.TextField" positionIncrementGap="100"> 
-			<analyzer type="index"> 
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="chinese" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="chinese" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<dynamicField name="*" type="text_zh" indexed="true" stored="true" multiValued="true"/>
-		
-		<fieldType name="keywords_zh" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-			<analyzer type="index"> 
-				<tokenizer class="solr.KeywordTokenizerFactory" />
-				<filter class="solr.LowerCaseFilterFactory"/>
-				<filter class="solr.ManagedStopFilterFactory" managed="chinese" />
-				<filter class="solr.ManagedSynonymGraphFilterFactory" managed="chinese" />
-				<filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
-				<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>				
-			</analyzer>			
-			<analyzer type="query">			
-				<tokenizer class="solr.KeywordTokenizerFactory" />			
-                <filter class="solr.LowerCaseFilterFactory"/>						
-			</analyzer>
-		</fieldType>
-		
-		<fieldType name="path" class="solr.TextField">
+    <types>
+
+        <!-- Language 1: Arabic -->
+        <fieldType name="text_ar" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="arabic"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="arabic"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+        <dynamicField name="*" type="text_ar" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_ar" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="arabic"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="arabic"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 2: Bulgarian -->
+        <fieldType name="text_bg" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="bulgarian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="bulgarian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_bg" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_bg" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="bulgarian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="bulgarian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 3: BiH -->
+        <fieldType name="text_bs" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="bosnian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="bosnian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_bs" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_bs" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="bosnian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="bosnian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 4: Czech -->
+        <fieldType name="text_cs" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="czech"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="czech"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_cs" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_cs" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="czech"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="czech"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 5: Danish -->
+        <fieldType name="text_da" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="danish"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="danish"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_da" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_da" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="danish"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="danish"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 6: German -->
+        <fieldType name="text_de" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="german"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="german"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_de" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_de" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="german"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="german"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 7: Greek -->
+        <fieldType name="text_el" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="greek"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="greek"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_el" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_el" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="greek"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="greek"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 8: English -->
+        <fieldType name="text_en" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="english"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="english"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_en" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_en" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="english"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="english"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+
+        <!-- Language 9: Spanish -->
+        <fieldType name="text_es" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="spanish"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="spanish"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_es" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_es" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="spanish"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="spanish"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 10: Estonian -->
+        <fieldType name="text_et" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="estonian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="estonian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_et" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_et" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="estonian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="estonian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 11: Finnish -->
+        <fieldType name="text_fi" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="finnish"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="finnish"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_fi" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_fi" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="finnish"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="finnish"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 12: French -->
+        <fieldType name="text_fr" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="french"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="french"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_fr" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_fr" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="french"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="french"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 13: Croatian -->
+        <fieldType name="text_hr" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="croatian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="croatian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_hr" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_hr" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="croatian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="croatian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 14: Hungarian -->
+        <fieldType name="text_hu" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="hungarian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="hungarian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_hu" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_hu" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="hungarian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="hungarian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 15: Bahasa Indonesia -->
+        <fieldType name="text_id" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="indonesian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="indonesian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_id" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_id" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="indonesian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="indonesian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 16: Italian -->
+        <fieldType name="text_it" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="italian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="italian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_it" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_it" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="italian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="italian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 17: Japanese -->
+        <fieldType name="text_ja" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="japanese"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="japanese"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_ja" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_ja" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="japanese"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="japanese"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 18: Korean -->
+        <fieldType name="text_ko" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="korean"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="korean"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_ko" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_ko" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="korean"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="korean"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 19: Lithuanian -->
+        <fieldType name="text_lt" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="lithuanian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="lithuanian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_lt" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_lt" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="lithuanian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="lithuanian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 20: Latvian -->
+        <fieldType name="text_lv" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="latvian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="latvian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_lv" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_lv" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="latvian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="latvian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 21: Macedonian -->
+        <fieldType name="text_mk" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="macedonian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="macedonian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_mk" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_mk" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="macedonian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="macedonian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 22: Dutch -->
+        <fieldType name="text_nl" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="dutch"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="dutch"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_nl" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_nl" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="dutch"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="dutch"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 23: Norwegian -->
+        <fieldType name="text_no" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="norwegian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="norwegian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_no" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_no" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="norwegian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="norwegian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 24: Polish -->
+        <fieldType name="text_pl" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="polish"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="polish"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_pl" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_pl" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="polish"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="polish"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 25: Portuguese -->
+        <fieldType name="text_pt" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="portuguese"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="portuguese"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_pt" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_pt" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="portuguese"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="portuguese"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 26: Romanian -->
+        <fieldType name="text_ro" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="romanian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="romanian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_ro" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_ro" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="romanian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="romanian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 27: Russian -->
+        <fieldType name="text_ru" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="russian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="russian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_ru" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_ru" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="russian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="russian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 28: Slovak -->
+        <fieldType name="text_sk" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="slovak"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="slovak"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_sk" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_sk" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="slovak"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="slovak"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 29: Slovenian -->
+        <fieldType name="text_sl" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="slovenian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="slovenian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_sl" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_sl" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="slovenian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="slovenian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 30: Serbian -->
+        <fieldType name="text_sr" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="serbian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="serbian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_sr" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_sr" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="serbian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="serbian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 31: Swedish	-->
+        <fieldType name="text_sv" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="swedish"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="swedish"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_sv" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_sv" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="swedish"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="swedish"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 32: Thai -->
+        <fieldType name="text_th" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="thai"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="thai"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_th" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_th" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="thai"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="thai"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 33: Turkish -->
+        <fieldType name="text_tr" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="turkish"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="turkish"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_tr" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_tr" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="turkish"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="turkish"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 34: Ukrainian -->
+        <fieldType name="text_uk" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="ukrainian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="ukrainian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_uk" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_uk" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="ukrainian"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="ukrainian"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 35: Vietnamese -->
+        <fieldType name="text_vi" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="vietnamese"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="vietnamese"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_vi" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_vi" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="vietnamese"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="vietnamese"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <!-- Language 36: Chinese -->
+        <fieldType name="text_zh" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="chinese"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="chinese"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.ClassicTokenizerFactory" maxTokenLength="100000"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <dynamicField name="*" type="text_zh" indexed="true" stored="true" multiValued="true"/>
+
+        <fieldType name="keywords_zh" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ManagedStopFilterFactory" managed="chinese"/>
+                <filter class="solr.ManagedSynonymGraphFilterFactory" managed="chinese"/>
+                <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <fieldType name="path" class="solr.TextField">
             <analyzer type="index">
                 <tokenizer class="solr.PathHierarchyTokenizerFactory" delimiter="/"/>
                 <filter class="solr.PatternCaptureGroupFilterFactory" pattern="((/).*)" preserve_original="false"/>
@@ -1215,252 +1215,360 @@
             <analyzer type="query">
                 <tokenizer class="solr.KeywordTokenizerFactory"/>
             </analyzer>
-        </fieldType>		
-		
-		<fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
-		
-		<fieldType name="float" class="solr.FloatPointField" docValues="true"/>
-		
-		<fieldType name="long" class="solr.LongPointField" docValues="true"/>
+        </fieldType>
 
-		<fieldType name="date" class="solr.DatePointField" docValues="true"/>
-		
-		<dynamicField name="*" type="path" indexed="true" stored="true" />
-		<dynamicField name="*" type="string" indexed="true" stored="true" />
-	</types>
-	<fields>        
-		<field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-		<field name="crxPath" type="path" indexed="true" stored="true" required="true" multiValued="false"/>
-		
-		<field name="fallbackPath" type="path" indexed="true" stored="true" required="false" multiValued="false"/>
-		<field name="fallbackId" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-		
-		<field name="publicUrl" type="path" indexed="true" stored="true" required="false" multiValued="false"/>
-		<field name="analyticsTitle" type="string" indexed="false" stored="true" required="false" multiValued="false" />
-		
-		<!-- Language 1: Arabic -->
-		<field name="title_ar" type="text_ar" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_ar" type="text_ar" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_ar" type="text_ar" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_ar" type="keywords_ar" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
 
-		<!-- Language 2: Bulgarian -->
-		<field name="title_bg" type="text_bg" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_bg" type="text_bg" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_bg" type="text_bg" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_bg" type="keywords_bg" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <fieldType name="float" class="solr.FloatPointField" docValues="true"/>
 
-		<!-- Language 3: BiH -->
-		<field name="title_bs" type="text_bs" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_bs" type="text_bs" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_bs" type="text_bs" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_bs" type="keywords_bs" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <fieldType name="long" class="solr.LongPointField" docValues="true"/>
 
-		<!-- Language 4: Czech -->
-		<field name="title_cs" type="text_cs" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_cs" type="text_cs" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_cs" type="text_cs" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_cs" type="keywords_cs" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <fieldType name="date" class="solr.DatePointField" docValues="true"/>
 
-		<!-- Language 5: Danish -->
-		<field name="title_da" type="text_da" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_da" type="text_da" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_da" type="text_da" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_da" type="keywords_da" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <dynamicField name="*" type="path" indexed="true" stored="true"/>
+        <dynamicField name="*" type="string" indexed="true" stored="true"/>
+    </types>
+    <fields>
+        <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
+        <field name="crxPath" type="path" indexed="true" stored="true" required="true" multiValued="false"/>
 
-		<!-- Language 6: German -->
-		<field name="title_de" type="text_de" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_de" type="text_de" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_de" type="text_de" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_de" type="keywords_de" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <field name="fallbackPath" type="path" indexed="true" stored="true" required="false" multiValued="false"/>
+        <field name="fallbackId" type="string" indexed="true" stored="true" required="false" multiValued="false"/>
 
-		<!-- Language 7: Greek -->
-		<field name="title_el" type="text_el" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_el" type="text_el" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_el" type="text_el" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_el" type="keywords_el" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <field name="publicUrl" type="path" indexed="true" stored="true" required="false" multiValued="false"/>
+        <field name="analyticsTitle" type="string" indexed="false" stored="true" required="false" multiValued="false"/>
 
-		<!-- Language 8: English -->
-		<field name="title_en" type="text_en" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_en" type="text_en" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_en" type="text_en" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_en" type="keywords_en" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 1: Arabic -->
+        <field name="title_ar" type="text_ar" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_ar" type="text_ar" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_ar" type="text_ar" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_ar" type="keywords_ar" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 9: Spanish -->
-		<field name="title_es" type="text_es" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_es" type="text_es" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_es" type="text_es" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_es" type="keywords_es" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 2: Bulgarian -->
+        <field name="title_bg" type="text_bg" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_bg" type="text_bg" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_bg" type="text_bg" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_bg" type="keywords_bg" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 10: Estonian -->
-		<field name="title_et" type="text_et" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_et" type="text_et" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_et" type="text_et" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_et" type="keywords_et" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 3: BiH -->
+        <field name="title_bs" type="text_bs" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_bs" type="text_bs" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_bs" type="text_bs" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_bs" type="keywords_bs" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 11: Finnish -->
-		<field name="title_fi" type="text_fi" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_fi" type="text_fi" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_fi" type="text_fi" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_fi" type="keywords_fi" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 4: Czech -->
+        <field name="title_cs" type="text_cs" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_cs" type="text_cs" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_cs" type="text_cs" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_cs" type="keywords_cs" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 12: French -->
-		<field name="title_fr" type="text_fr" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_fr" type="text_fr" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_fr" type="text_fr" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_fr" type="keywords_fr" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 5: Danish -->
+        <field name="title_da" type="text_da" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_da" type="text_da" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_da" type="text_da" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_da" type="keywords_da" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 13: Croatian -->
-		<field name="title_hr" type="text_hr" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_hr" type="text_hr" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_hr" type="text_hr" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_hr" type="keywords_hr" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 6: German -->
+        <field name="title_de" type="text_de" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_de" type="text_de" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_de" type="text_de" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_de" type="keywords_de" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 14: Hungarian -->
-		<field name="title_hu" type="text_hu" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_hu" type="text_hu" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_hu" type="text_hu" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_hu" type="keywords_hu" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 7: Greek -->
+        <field name="title_el" type="text_el" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_el" type="text_el" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_el" type="text_el" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_el" type="keywords_el" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 15: Bahasa Indonesia -->
-		<field name="title_id" type="text_id" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_id" type="text_id" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_id" type="text_id" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_id" type="keywords_id" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 8: English -->
+        <field name="title_en" type="text_en" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_en" type="text_en" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_en" type="text_en" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_en" type="keywords_en" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 16: Italian -->
-		<field name="title_it" type="text_it" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_it" type="text_it" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_it" type="text_it" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_it" type="keywords_it" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 9: Spanish -->
+        <field name="title_es" type="text_es" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_es" type="text_es" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_es" type="text_es" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_es" type="keywords_es" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 17: Japanese -->
-		<field name="title_ja" type="text_ja" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_ja" type="text_ja" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_ja" type="text_ja" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_ja" type="keywords_ja" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 10: Estonian -->
+        <field name="title_et" type="text_et" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_et" type="text_et" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_et" type="text_et" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_et" type="keywords_et" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 18: Korean -->
-		<field name="title_ko" type="text_ko" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_ko" type="text_ko" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_ko" type="text_ko" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_ko" type="keywords_ko" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 11: Finnish -->
+        <field name="title_fi" type="text_fi" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_fi" type="text_fi" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_fi" type="text_fi" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_fi" type="keywords_fi" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 19: Lithuanian -->
-		<field name="title_lt" type="text_lt" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_lt" type="text_lt" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_lt" type="text_lt" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_lt" type="keywords_lt" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 12: French -->
+        <field name="title_fr" type="text_fr" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_fr" type="text_fr" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_fr" type="text_fr" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_fr" type="keywords_fr" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 20: Latvian -->
-		<field name="title_lv" type="text_lv" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_lv" type="text_lv" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_lv" type="text_lv" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_lv" type="keywords_lv" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 13: Croatian -->
+        <field name="title_hr" type="text_hr" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_hr" type="text_hr" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_hr" type="text_hr" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_hr" type="keywords_hr" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 21: Macedonian -->
-		<field name="title_mk" type="text_mk" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_mk" type="text_mk" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_mk" type="text_mk" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_mk" type="keywords_mk" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 14: Hungarian -->
+        <field name="title_hu" type="text_hu" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_hu" type="text_hu" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_hu" type="text_hu" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_hu" type="keywords_hu" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 22: Dutch -->
-		<field name="title_nl" type="text_nl" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_nl" type="text_nl" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_nl" type="text_nl" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_nl" type="keywords_nl" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 15: Bahasa Indonesia -->
+        <field name="title_id" type="text_id" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_id" type="text_id" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_id" type="text_id" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_id" type="keywords_id" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 23: Norwegian -->
-		<field name="title_no" type="text_no" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_no" type="text_no" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_no" type="text_no" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_no" type="keywords_no" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 16: Italian -->
+        <field name="title_it" type="text_it" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_it" type="text_it" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_it" type="text_it" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_it" type="keywords_it" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 24: Polish -->
-		<field name="title_pl" type="text_pl" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_pl" type="text_pl" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_pl" type="text_pl" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_pl" type="keywords_pl" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 17: Japanese -->
+        <field name="title_ja" type="text_ja" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_ja" type="text_ja" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_ja" type="text_ja" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_ja" type="keywords_ja" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 25: Portuguese -->
-		<field name="title_pt" type="text_pt" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_pt" type="text_pt" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_pt" type="text_pt" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_pt" type="keywords_pt" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 18: Korean -->
+        <field name="title_ko" type="text_ko" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_ko" type="text_ko" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_ko" type="text_ko" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_ko" type="keywords_ko" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
+
+        <!-- Language 19: Lithuanian -->
+        <field name="title_lt" type="text_lt" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_lt" type="text_lt" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_lt" type="text_lt" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_lt" type="keywords_lt" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
+
+        <!-- Language 20: Latvian -->
+        <field name="title_lv" type="text_lv" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_lv" type="text_lv" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_lv" type="text_lv" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_lv" type="keywords_lv" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
+
+        <!-- Language 21: Macedonian -->
+        <field name="title_mk" type="text_mk" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_mk" type="text_mk" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_mk" type="text_mk" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_mk" type="keywords_mk" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
+
+        <!-- Language 22: Dutch -->
+        <field name="title_nl" type="text_nl" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_nl" type="text_nl" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_nl" type="text_nl" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_nl" type="keywords_nl" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
+
+        <!-- Language 23: Norwegian -->
+        <field name="title_no" type="text_no" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_no" type="text_no" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_no" type="text_no" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_no" type="keywords_no" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
+
+        <!-- Language 24: Polish -->
+        <field name="title_pl" type="text_pl" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_pl" type="text_pl" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_pl" type="text_pl" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_pl" type="keywords_pl" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
+
+        <!-- Language 25: Portuguese -->
+        <field name="title_pt" type="text_pt" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_pt" type="text_pt" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_pt" type="text_pt" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_pt" type="keywords_pt" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
 
-		<!-- Language 26: Romanian -->
-		<field name="title_ro" type="text_ro" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_ro" type="text_ro" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_ro" type="text_ro" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_ro" type="keywords_ro" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 26: Romanian -->
+        <field name="title_ro" type="text_ro" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_ro" type="text_ro" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_ro" type="text_ro" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_ro" type="keywords_ro" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 27: Russian -->
-		<field name="title_ru" type="text_ru" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_ru" type="text_ru" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_ru" type="text_ru" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_ru" type="keywords_ru" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
-		
-		<!-- Language 28: Slovak -->
-		<field name="title_sk" type="text_sk" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_sk" type="text_sk" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_sk" type="text_sk" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_sk" type="keywords_sk" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
-		
-		<!-- Language 29: Slovenian -->
-		<field name="title_sl" type="text_sl" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_sl" type="text_sl" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_sl" type="text_sl" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_sl" type="keywords_sl" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
-		
-		<!-- Language 30: Serbian -->
-		<field name="title_sr" type="text_sr" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_sr" type="text_sr" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_sr" type="text_sr" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_sr" type="keywords_sr" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
-		
-		<!-- Language 31: Swedish	-->
-		<field name="title_sv" type="text_sv" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_sv" type="text_sv" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_sv" type="text_sv" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_sv" type="keywords_sv" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 27: Russian -->
+        <field name="title_ru" type="text_ru" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_ru" type="text_ru" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_ru" type="text_ru" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_ru" type="keywords_ru" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 32: Thai -->
-		<field name="title_th" type="text_th" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_th" type="text_th" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_th" type="text_th" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_th" type="keywords_th" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 28: Slovak -->
+        <field name="title_sk" type="text_sk" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_sk" type="text_sk" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_sk" type="text_sk" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_sk" type="keywords_sk" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 33: Turkish -->
-		<field name="title_tr" type="text_tr" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_tr" type="text_tr" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_tr" type="text_tr" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_tr" type="keywords_tr" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
+        <!-- Language 29: Slovenian -->
+        <field name="title_sl" type="text_sl" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_sl" type="text_sl" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_sl" type="text_sl" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_sl" type="keywords_sl" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
 
-		<!-- Language 34: Ukrainian -->
-		<field name="title_uk" type="text_uk" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_uk" type="text_uk" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_uk" type="text_uk" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_uk" type="keywords_uk" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
-		
-		<!-- Language 35: Vietnamese -->
-		<field name="title_vi" type="text_vi" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_vi" type="text_vi" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_vi" type="text_vi" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_vi" type="keywords_vi" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
-		
-		<!-- Language 36: Chinese -->
-		<field name="title_zh" type="text_zh" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="description_zh" type="text_zh" indexed="true" stored="true" termVectors="true" termPositions="true" />
-		<field name="content_zh" type="text_zh" indexed="true" stored="true" termVectors="true" termPositions="true" multiValued="true"/>
-		<field name="metadata_zh" type="keywords_zh" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" />
-		
-		<field name="lastModified" type="date" indexed="true" stored="true"/>
-        <field name="site" type="string" indexed="true" stored="true"/>		
-		<field name="language" type="string" indexed="true" stored="true"/>	
-		<field name="docType" type="string" indexed="true" stored="true"/>		
+        <!-- Language 30: Serbian -->
+        <field name="title_sr" type="text_sr" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_sr" type="text_sr" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_sr" type="text_sr" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_sr" type="keywords_sr" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
+
+        <!-- Language 31: Swedish	-->
+        <field name="title_sv" type="text_sv" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_sv" type="text_sv" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_sv" type="text_sv" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_sv" type="keywords_sv" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
+
+        <!-- Language 32: Thai -->
+        <field name="title_th" type="text_th" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_th" type="text_th" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_th" type="text_th" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_th" type="keywords_th" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
+
+        <!-- Language 33: Turkish -->
+        <field name="title_tr" type="text_tr" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_tr" type="text_tr" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_tr" type="text_tr" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_tr" type="keywords_tr" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
+
+        <!-- Language 34: Ukrainian -->
+        <field name="title_uk" type="text_uk" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_uk" type="text_uk" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_uk" type="text_uk" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_uk" type="keywords_uk" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
+
+        <!-- Language 35: Vietnamese -->
+        <field name="title_vi" type="text_vi" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_vi" type="text_vi" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_vi" type="text_vi" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_vi" type="keywords_vi" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
+
+        <!-- Language 36: Chinese -->
+        <field name="title_zh" type="text_zh" indexed="true" stored="true" termVectors="true" termPositions="true"/>
+        <field name="description_zh" type="text_zh" indexed="true" stored="true" termVectors="true"
+               termPositions="true"/>
+        <field name="content_zh" type="text_zh" indexed="true" stored="true" termVectors="true" termPositions="true"
+               multiValued="true"/>
+        <field name="metadata_zh" type="keywords_zh" indexed="true" stored="true" multiValued="true" termVectors="true"
+               termPositions="true"/>
+
+        <field name="lastModified" type="date" indexed="true" stored="true"/>
+        <field name="site" type="string" indexed="true" stored="true"/>
+        <field name="language" type="string" indexed="true" stored="true"/>
+        <field name="docType" type="string" indexed="true" stored="true"/>
         <field name="priority" type="float" indexed="true" stored="true"/>
-		<field name="_version_" type="long" indexed="true" stored="true"/>
+        <field name="_version_" type="long" indexed="true" stored="true"/>
     </fields>
-    <uniqueKey>id</uniqueKey>	
+    <uniqueKey>id</uniqueKey>
 </schema>

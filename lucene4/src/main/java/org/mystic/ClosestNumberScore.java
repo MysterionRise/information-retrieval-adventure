@@ -56,6 +56,13 @@ public class ClosestNumberScore {
     }
   }
 
+  private static void addDocument(IndexWriter writer, String id, int value) throws IOException {
+    Document doc = new Document();
+    doc.add(new TextField("title", id, Store.YES));
+    doc.add(new IntField("weight", value, Store.YES));
+    writer.addDocument(doc);
+  }
+
   static class DistanceDualFloatFunction extends DualFloatFunction {
 
     public DistanceDualFloatFunction(ValueSource a, ValueSource b) {
@@ -71,12 +78,5 @@ public class ClosestNumberScore {
     protected float func(int doc, FunctionValues aVals, FunctionValues bVals) {
       return 1000 - Math.abs(aVals.intVal(doc) - bVals.intVal(doc));
     }
-  }
-
-  private static void addDocument(IndexWriter writer, String id, int value) throws IOException {
-    Document doc = new Document();
-    doc.add(new TextField("title", id, Store.YES));
-    doc.add(new IntField("weight", value, Store.YES));
-    writer.addDocument(doc);
   }
 }

@@ -9,11 +9,11 @@ import org.apache.solr.core.CoreContainer
 import scala.Console._
 
 /**
-  * @see http://stackoverflow.com/q/26415156/2663985
-  */
+ * @see http://stackoverflow.com/q/26415156/2663985
+ */
 object WildcardQueryWithSlop {
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
     var server: SolrClient = null
     try {
       val solrDir = ExactMatchTest.getClass.getResource("/solr").getPath
@@ -25,11 +25,17 @@ object WildcardQueryWithSlop {
         val doc = new SolrInputDocument()
         doc.addField("id", i)
         if (i % 5 == 0) {
-          doc.addField("test", "play" + " space space Bars Warehouse")
+          doc.addField("name_en", "play" + " week 5 later 2 space Bars Warehouse")
+          doc.addField("name", "play" + " space space Bars Warehouse")
+          doc.addField("genre", "play" + " later Bars Warehouse")
         } else if (i % 5 == 3) {
-          doc.addField("test", "play1" + " space space Bars Warehouse")
+          doc.addField("name_en", "play1" + " week later space space Bars Warehouse")
+          doc.addField("name", "play" + " space week Bars Warehouse")
+          doc.addField("genre", "play" + " later space Bars Warehouse")
         } else {
-          doc.addField("test", "play" + i + " space space Bars Warehouse")
+          doc.addField("name_en", "play" + i + " space later Bars Warehouse")
+          doc.addField("name", "play" + " week space Bars Warehouse")
+          doc.addField("genre", "play" + " space space Bars Warehouse")
         }
         server.add(doc)
       })
@@ -37,9 +43,13 @@ object WildcardQueryWithSlop {
 
       val q = new ModifiableSolrParams()
       //      q.add("q", "lastName:play* AND lastName:'Bars Warehouse'")
-      q.add("q", "space OR blablabla")
+      q.add("q", "week^5 later^2")
       q.add("defType", "edismax")
+      q.add("pf", "name_en^15.0")
+      q.add("qf", "name^10.0 genre^15.0")
       q.add("mm", "100")
+      q.add("fl", "*, score")
+      q.add("debugQuery", "true")
       val results: SolrDocumentList = server.query(q).getResults
       out.println(results.getNumFound)
       val resp = results
@@ -50,7 +60,6 @@ object WildcardQueryWithSlop {
     finally {
       server.shutdown()
     }
-    return
   }
 
 }

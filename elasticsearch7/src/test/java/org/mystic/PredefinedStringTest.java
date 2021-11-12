@@ -5,12 +5,16 @@ import static org.hamcrest.Matchers.equalTo;
 import com.carrotsearch.randomizedtesting.annotations.ThreadLeakScope;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.test.ESIntegTestCase;
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 /** @see http://stackoverflow.com/q/42255674/2663985 */
+
+/** DEPRECATED AND NOT RECOMMENDED TO USE */
 @ESIntegTestCase.ClusterScope(scope = ESIntegTestCase.Scope.SUITE)
 @ThreadLeakScope(ThreadLeakScope.Scope.NONE)
 public class PredefinedStringTest extends ESIntegTestCase {
@@ -18,14 +22,14 @@ public class PredefinedStringTest extends ESIntegTestCase {
   private static final String TYPE = "string";
   private static final String INDEX = "strings";
 
-  public void add(String string, String id) {
+  private void add(String string, String id) {
     IndexRequest indexRequest = new IndexRequest(INDEX, TYPE, id);
-    indexRequest.source(string);
+    indexRequest.source(string, XContentType.JSON);
     index(INDEX, TYPE, id, string);
   }
 
   @Test
-  public void scoring() throws Exception {
+  public void scoring() {
     add("{\"str\":\"string1\"}", "1");
     add("{\"str\":\"alice\"}", "2");
     add("{\"str\":\"bob\"}", "3");
@@ -33,10 +37,10 @@ public class PredefinedStringTest extends ESIntegTestCase {
     add("{\"str\":\"melanie\"}", "5");
     add("{\"str\":\"moana\"}", "6");
 
-    refresh(); // otherwise we would not find beers yet
+    refresh();
 
-    indexExists(INDEX); // verifies that index 'drinks' exists
-    ensureGreen(INDEX); // ensures cluster status is green
+    indexExists(INDEX);
+    ensureGreen(INDEX);
 
     SearchResponse searchResponse =
         client()
@@ -46,7 +50,7 @@ public class PredefinedStringTest extends ESIntegTestCase {
             .actionGet();
     SearchHit[] hits = searchResponse.getHits().getHits();
 
-    assertThat(hits.length, equalTo(1));
+    MatcherAssert.assertThat(hits.length, equalTo(1));
 
     for (SearchHit hit : hits) {
       System.out.println(hit);

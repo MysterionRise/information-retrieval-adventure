@@ -9,12 +9,12 @@ import org.apache.solr.core.CoreContainer
 import scala.Console._
 
 /**
-  * @see http://stackoverflow.com/q/27128070/2663985
-  * @see http://stackoverflow.com/q/28452690/2663985
-  *
-  *      +
-  * @see http://stackoverflow.com/q/28667629/2663985
-  */
+ * @see http://stackoverflow.com/q/27128070/2663985
+ * @see http://stackoverflow.com/q/28452690/2663985
+ *
+ *      +
+ * @see http://stackoverflow.com/q/28667629/2663985
+ */
 object SynonymsAndStopwords {
 
   def main(args: Array[String]): Unit = {
@@ -36,7 +36,7 @@ object SynonymsAndStopwords {
       val hindi = List("मैं भारत का रहने वाला हूँ", "मैं हिसंदुस्तान का रहने वाला  हूँ", "मैं india का रहने वाला हूँ", "मैं hindustan का रहने हूँ", "मैं bharat का रहने हूँ")
       var index = 2
       for (h <- hindi) {
-        val doc = new SolrInputDocument();
+        val doc = new SolrInputDocument()
         doc.addField("id", index)
         doc.addField("hi", h)
         index += 1
@@ -78,6 +78,5 @@ object SynonymsAndStopwords {
     } finally {
       server.shutdown()
     }
-    return
   }
 }

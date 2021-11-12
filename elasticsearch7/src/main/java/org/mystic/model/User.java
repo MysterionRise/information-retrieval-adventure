@@ -1,6 +1,7 @@
 package org.mystic.model;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class User {
   private final String id;
@@ -56,8 +57,8 @@ public class User {
 
     User user = (User) o;
 
-    if (id != null ? !id.equals(user.id) : user.id != null) return false;
-    if (name != null ? !name.equals(user.name) : user.name != null) return false;
+    if (!Objects.equals(id, user.id)) return false;
+    if (!Objects.equals(name, user.name)) return false;
     // Probably incorrect - comparing Object[] arrays with Arrays.equals
     return Arrays.equals(interests, user.interests);
   }

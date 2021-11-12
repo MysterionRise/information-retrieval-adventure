@@ -1,22 +1,21 @@
-import java.io.File
-
 import org.apache.solr.client.solrj.SolrClient
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.client.solrj.request.ContentStreamUpdateRequest
 import org.apache.solr.common.params.ModifiableSolrParams
 import org.apache.solr.core.CoreContainer
 
+import java.io.File
 import scala.Console._
 
 /**
-  * @see https://stackoverflow.com/q/46037040/2663985
-  *      It's actually not possible to index multiple files, they will be stored under different id or even will rewrite itself
-  */
+ * @see https://stackoverflow.com/q/46037040/2663985
+ *      It's actually not possible to index multiple files, they will be stored under different id or even will rewrite itself
+ */
 object MultipleContentStreams {
 
-  var server: SolrClient = null
+  var server: SolrClient = _
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
     try {
       val solrDir = SynonymGraph.getClass.getResource("/solr").getPath
@@ -45,7 +44,6 @@ object MultipleContentStreams {
     finally {
       server.close()
     }
-    return
   }
 
 }

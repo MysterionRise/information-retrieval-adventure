@@ -61,7 +61,7 @@ public class BM25FQuery extends DisjunctionMaxQuery {
         // only one sub-scorer in this segment
         return scorers.get(0);
       } else {
-        return new BM25FScorer(this, scorers.toArray(new Scorer[scorers.size()]), searcher);
+        return new BM25FScorer(this, scorers.toArray(new Scorer[0]), searcher);
       }
     }
   }
@@ -69,11 +69,8 @@ public class BM25FQuery extends DisjunctionMaxQuery {
   /** need to implement how to accumulate the score for different parts of queries */
   class BM25FScorer extends DisjunctionScorer {
 
-    private final float b;
     private final float k1;
     private float idf;
-    private float avgdl;
-    private float doclen;
     private float weight;
     private float sumFreq;
     private float normFactor;
@@ -85,7 +82,7 @@ public class BM25FQuery extends DisjunctionMaxQuery {
         throw new RuntimeException(
             "Wrong similarity is supplied! Only working with BM25FSimilarity");
       }
-      this.b = ((BM25FSimilarity) searcher.getSimilarity()).getB();
+      float b = ((BM25FSimilarity) searcher.getSimilarity()).getB();
       this.k1 = ((BM25FSimilarity) searcher.getSimilarity()).getK1();
     }
 
@@ -106,7 +103,7 @@ public class BM25FQuery extends DisjunctionMaxQuery {
             (TermBM25FQuery.TermBM25FWeight) subScorer.getWeight();
         final BM25FSimilarity.BM25FStats stats = (BM25FSimilarity.BM25FStats) termWeight.getStats();
         final TermContext termStates = termWeight.getTermStates();
-        avgdl = stats.getAvgdl();
+        float avgdl = stats.getAvgdl();
         final String field = stats.getField();
         if (fieldWeights.containsKey(field)) {
           weight = fieldWeights.get(field);
@@ -117,9 +114,9 @@ public class BM25FQuery extends DisjunctionMaxQuery {
         final BM25FSimilarity.BM25DocScorer docScorer =
             (BM25FSimilarity.BM25DocScorer)
                 ((TermBM25FQuery.TermBM25FScorer) subScorer).getDocScorer();
-        doclen = docScorer.calculateDocLen(subScorer.docID());
+        float doclen = docScorer.calculateDocLen(subScorer.docID());
         final float normalisedTF =
-            subScorer.freq() / (1.0f + normFactor * ((1.0f * doclen) / avgdl - 1.0f));
+            subScorer.freq() / (1.0f + normFactor * ((doclen) / avgdl - 1.0f));
         idf = stats.getIdf().getValue();
         sumFreq += normalisedTF * weight;
       }

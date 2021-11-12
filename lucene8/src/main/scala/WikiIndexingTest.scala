@@ -1,15 +1,14 @@
-import java.io.{FileInputStream, IOException}
-import java.nio.file.{Files, Paths}
-import java.util
-import java.util.concurrent.TimeUnit
-
-import javax.xml.stream.events.XMLEvent
-import javax.xml.stream.{XMLEventReader, XMLInputFactory, XMLStreamException}
 import org.apache.solr.client.solrj.impl.{ConcurrentUpdateSolrClient, HttpSolrClient}
 import org.apache.solr.client.solrj.{SolrClient, SolrServerException}
 import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.common.params.ModifiableSolrParams
 
+import java.io.{FileInputStream, IOException}
+import java.nio.file.{Files, Paths}
+import java.util
+import java.util.concurrent.TimeUnit
+import javax.xml.stream.events.XMLEvent
+import javax.xml.stream.{XMLEventReader, XMLInputFactory, XMLStreamException}
 import scala.Console._
 
 object WikiIndexingTest {
@@ -23,7 +22,7 @@ object WikiIndexingTest {
   private var TYPE = "legacy"
   private var SLAVES = "ip1, ip2, ip3"
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
     if (Files.exists(Paths.get("config.env"))) {
       val lines = Files.readAllLines(Paths.get(".", "config.env"))
       MAX_SIZE = Integer.parseInt(lines.get(0))
@@ -45,7 +44,7 @@ object WikiIndexingTest {
     COMMAND match {
       case "index" => testIndexing(client)
       case "reindex" => testReindexing(client)
-      case _ => throw new IllegalArgumentException(s"Command ${COMMAND} is unknown")
+      case _ => throw new IllegalArgumentException(s"Command $COMMAND is unknown")
     }
 
 
@@ -53,7 +52,7 @@ object WikiIndexingTest {
 
   def checkSlaves(slavesIps: List[String], expectedDocs: Long, port: Int = 8080): Unit = {
     slavesIps.forall(ip => waitTillExpectedNumberOfDocs(
-      new HttpSolrClient.Builder(s"http://${ip}:${port}/solr/gettingstarted").build(),
+      new HttpSolrClient.Builder(s"http://$ip:$port/solr/gettingstarted").build(),
       expectedDocs
     ))
   }
@@ -65,7 +64,7 @@ object WikiIndexingTest {
       found = getNumberOfDocs(client)
 
     }
-    return true
+    true
   }
 
   def getNumberOfDocs(client: SolrClient): Long = {
@@ -73,11 +72,11 @@ object WikiIndexingTest {
     q.add("q", "*:*")
     client.query(q)
     val response = client.query(q).getResults
-    return response.getNumFound
+    response.getNumFound
   }
 
   def createListFromString(SLAVES: String): List[String] = {
-    return SLAVES.split(",").map(_.trim).toList
+    SLAVES.split(",").map(_.trim).toList
   }
 
   def testReindexing(client: SolrClient): Unit = {
@@ -103,7 +102,7 @@ object WikiIndexingTest {
             doc = new SolrInputDocument
           }
         }
-        else if (event.isCharacters && isDocs && !event.asCharacters.getData.trim.isEmpty) {
+        else if (event.isCharacters && isDocs && event.asCharacters.getData.trim.nonEmpty) {
           // TODO add more fields
           if ("title".equalsIgnoreCase(fieldName) || "url".equalsIgnoreCase(fieldName) || "abstract".equalsIgnoreCase(fieldName)) {
             doc.addField(fieldName, event.asCharacters.getData)
@@ -111,10 +110,10 @@ object WikiIndexingTest {
         }
         else if (event.isEndElement) {
           if ("doc".equalsIgnoreCase(event.asEndElement.getName.getLocalPart)) {
-            doc.addField("id", ({
-              id += 1;
+            doc.addField("id", {
+              id += 1
               id - 1
-            }))
+            })
             docs.add(doc)
             //            client.add(doc)
             //            doc.clear()
@@ -124,7 +123,7 @@ object WikiIndexingTest {
         if (docs.size > MAX_SIZE) {
           println("---------- Adding " + MAX_SIZE + " documents to Solr---------------")
           client.add(docs)
-          docs.clear
+          docs.clear()
         }
       }
       println("-------------------Adding last chunk of docs to Solr-----------------")
@@ -150,15 +149,12 @@ object WikiIndexingTest {
       println("--------Total: " + (System.currentTimeMillis - start) / 1000 + " seconds--------")
     }
     catch {
-      case e: SolrServerException => {
+      case e: SolrServerException =>
         println("Error in Solr" + e.getRootCause)
-      }
-      case e: IOException => {
+      case e: IOException =>
         println("Error while IO operation" + e.getCause)
-      }
-      case e: XMLStreamException => {
+      case e: XMLStreamException =>
         println("Error while reading XML file" + e.getCause)
-      }
     }
   }
 

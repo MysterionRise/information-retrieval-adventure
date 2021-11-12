@@ -24,7 +24,7 @@ import org.apache.lucene.util.CharsRefBuilder;
 
 public class SynonymGraphFilterTest {
 
-  private static SynonymMap.Builder builder = new SynonymMap.Builder(true);
+  private static final SynonymMap.Builder builder = new SynonymMap.Builder(true);
 
   /**
    * Now the graph is more interesting! For each token (arc), the PositionIncrementAttribute tells
@@ -53,7 +53,7 @@ public class SynonymGraphFilterTest {
         srcNode += posInc;
         b.append("  ");
         b.append(srcNode);
-        b.append(" [shape=circle,label=\"" + srcNode + "\"]\n");
+        b.append(" [shape=circle,label=\"").append(srcNode).append("\"]\n");
       }
       destNode = srcNode + posLenAtt.getPositionLength();
       b.append("  ");
@@ -124,9 +124,9 @@ public class SynonymGraphFilterTest {
     final TopDocs response = searcher.search(query, 10);
 
     ScoreDoc[] scoreDocs = response.scoreDocs;
-    for (int i = 0; i < scoreDocs.length; ++i) {
-      System.out.println(searcher.doc(scoreDocs[i].doc));
-      System.out.println(scoreDocs[i].doc + " " + scoreDocs[i].score);
+    for (ScoreDoc scoreDoc : scoreDocs) {
+      System.out.println(searcher.doc(scoreDoc.doc));
+      System.out.println(scoreDoc.doc + " " + scoreDoc.score);
     }
   }
 

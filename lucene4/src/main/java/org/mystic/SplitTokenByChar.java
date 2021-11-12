@@ -33,10 +33,10 @@ public class SplitTokenByChar {
   }
 
   static class CharDelimeterTokenFilter extends TokenFilter {
+    private final CharTermAttribute termAtt = addAttribute(CharTermAttribute.class);
     private char[] curTermBuffer;
     private int curPos;
     private int curLen;
-    private final CharTermAttribute termAtt = addAttribute(CharTermAttribute.class);
 
     /**
      * Construct a token stream filtering the given input.

@@ -27,6 +27,5 @@ object ManagedSchemaTesting {
     } finally {
       server.shutdown()
     }
-    return
   }
 }

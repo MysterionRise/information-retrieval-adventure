@@ -7,13 +7,13 @@ import org.apache.solr.core.CoreContainer
 import scala.Console._
 
 /**
-  * @see https://stackoverflow.com/q/47476770/2663985
-  */
+ * @see https://stackoverflow.com/q/47476770/2663985
+ */
 object GroupQuery {
 
-  var server: SolrClient = null
+  var server: SolrClient = _
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
     try {
       val solrDir = GroupQuery.getClass.getResource("/solr").getPath
@@ -71,7 +71,6 @@ object GroupQuery {
     finally {
       server.close()
     }
-    return
   }
 
 }

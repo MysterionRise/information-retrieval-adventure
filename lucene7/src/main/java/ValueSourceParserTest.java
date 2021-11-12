@@ -8,6 +8,11 @@ import org.apache.solr.search.ValueSourceParser;
 
 public class ValueSourceParserTest {
 
+  public static void main(String[] args) throws SyntaxError {
+    final SortOnXSourceParser sortOnXSourceParser = new SortOnXSourceParser();
+    sortOnXSourceParser.parse(new FunctionQParser("sortOnX(x, 309043) desc", null, null, null));
+  }
+
   static class SortOnXSourceParser extends ValueSourceParser {
 
     public void init(NamedList namedList) {}
@@ -21,10 +26,5 @@ public class ValueSourceParserTest {
       }
       return new FloatFieldSource("test");
     }
-  }
-
-  public static void main(String[] args) throws SyntaxError {
-    final SortOnXSourceParser sortOnXSourceParser = new SortOnXSourceParser();
-    sortOnXSourceParser.parse(new FunctionQParser("sortOnX(x, 309043) desc", null, null, null));
   }
 }

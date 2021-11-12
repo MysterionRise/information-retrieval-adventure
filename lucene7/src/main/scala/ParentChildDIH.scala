@@ -1,21 +1,20 @@
-import java.util.concurrent.TimeUnit
-
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.client.solrj.request.GenericSolrRequest
 import org.apache.solr.client.solrj.{SolrClient, SolrRequest}
 import org.apache.solr.common.params.ModifiableSolrParams
 import org.apache.solr.core.CoreContainer
 
+import java.util.concurrent.TimeUnit
 import scala.Console._
 
 /**
-  * @see https://stackoverflow.com/q/47807517/2663985
-  */
+ * @see https://stackoverflow.com/q/47807517/2663985
+ */
 object ParentChildDIH {
 
-  var server: SolrClient = null
+  var server: SolrClient = _
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
     try {
       val solrDir = ParentChildDIH.getClass.getResource("/solr").getPath
@@ -51,7 +50,6 @@ object ParentChildDIH {
     finally {
       server.close()
     }
-    return
   }
 
 }

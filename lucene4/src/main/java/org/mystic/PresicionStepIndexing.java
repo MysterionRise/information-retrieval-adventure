@@ -82,8 +82,8 @@ public class PresicionStepIndexing {
       int hits = scoreDocs.length;
       int count = results.totalHits;
 
-      for (int i = 0; i < hits; i++) {
-        doc = searcher.doc(scoreDocs[i].doc);
+      for (ScoreDoc scoreDoc : scoreDocs) {
+        doc = searcher.doc(scoreDoc.doc);
         String value = doc.get("BirthDate");
         System.out.println(new Date(Long.parseLong(value)));
       }

@@ -7,13 +7,13 @@ import org.apache.solr.core.CoreContainer
 import scala.Console._
 
 /**
-  * @see https://stackoverflow.com/q/47348712/2663985
-  */
+ * @see https://stackoverflow.com/q/47348712/2663985
+ */
 object SynonymsWithBrackets {
 
-  var server: SolrClient = null
+  var server: SolrClient = _
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
     try {
       val solrDir = SynonymsWithBrackets.getClass.getResource("/solr").getPath.substring(1)
@@ -58,7 +58,6 @@ object SynonymsWithBrackets {
     finally {
       server.close()
     }
-    return
   }
 
 }

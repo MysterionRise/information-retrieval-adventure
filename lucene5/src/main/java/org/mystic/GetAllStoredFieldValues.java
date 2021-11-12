@@ -54,8 +54,8 @@ public class GetAllStoredFieldValues {
 
     TopDocs results = searcher.search(query, null, 100);
     ScoreDoc[] scoreDocs = results.scoreDocs;
-    for (int i = 0; i < scoreDocs.length; ++i) {
-      System.out.println(searcher.explain(query, scoreDocs[i].doc));
+    for (ScoreDoc scoreDoc : scoreDocs) {
+      System.out.println(searcher.explain(query, scoreDoc.doc));
     }
   }
 }

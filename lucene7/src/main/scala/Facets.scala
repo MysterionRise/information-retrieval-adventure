@@ -7,13 +7,13 @@ import org.apache.solr.core.CoreContainer
 import scala.Console._
 
 /**
-  * @see https://stackoverflow.com/q/47591065/2663985
-  */
+ * @see https://stackoverflow.com/q/47591065/2663985
+ */
 object Facets {
 
-  var server: SolrClient = null
+  var server: SolrClient = _
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
     try {
       val solrDir = Facets.getClass.getResource("/solr").getPath
@@ -54,7 +54,7 @@ object Facets {
       q.add("facet.field", "brand")
       q.add("facet.field", "brand_text")
       q.add("facet.sort", "index")
-      var resp = server.query(q)
+      val resp = server.query(q)
       println("---------------------------------------------")
       println(resp.getResults.getNumFound)
       println(resp.getFacetFields)
@@ -66,7 +66,6 @@ object Facets {
     finally {
       server.close()
     }
-    return
   }
 
 }

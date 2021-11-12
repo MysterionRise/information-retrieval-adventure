@@ -1,5 +1,3 @@
-import java.util
-
 import org.apache.solr.client.solrj.SolrClient
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.client.solrj.response.RangeFacet
@@ -7,18 +5,19 @@ import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.common.params.ModifiableSolrParams
 import org.apache.solr.core.CoreContainer
 
+import java.util
 import scala.Console._
 
 /**
-  * @see https://stackoverflow.com/q/47761539/2663985
-  * @see https://stackoverflow.com/q/47802286/2663985
-  */
+ * @see https://stackoverflow.com/q/47761539/2663985
+ * @see https://stackoverflow.com/q/47802286/2663985
+ */
 
 object RangeDateFacets {
 
-  var server: SolrClient = null
+  var server: SolrClient = _
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
     try {
       val solrDir = RangeDateFacets.getClass.getResource("/solr").getPath
@@ -79,10 +78,9 @@ object RangeDateFacets {
     finally {
       server.close()
     }
-    return
   }
 
-  private def printRangeFacets(ranges: util.List[RangeFacet[_, _]]) = {
+  private def printRangeFacets(ranges: util.List[RangeFacet[_, _]]): Unit = {
     for (i <- 0 until ranges.size()) {
       val value = ranges.get(i)
       println(value.getName)

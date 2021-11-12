@@ -12,14 +12,14 @@ import scala.Console._
 import scala.util.Random
 
 /**
-  * @see http://stackoverflow.com/q/41856051/2663985
-  */
+ * @see http://stackoverflow.com/q/41856051/2663985
+ */
 object DateGapFaceting {
 
-  var server: SolrClient = null
+  var server: SolrClient = _
 
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
     try {
       val rand = new Random()
@@ -78,7 +78,6 @@ object DateGapFaceting {
     finally {
       server.shutdown()
     }
-    return
   }
 
 }

@@ -19,7 +19,7 @@ public class PropogateSKUAttributesTest {
   public static void indexing() throws FileNotFoundException {
 
     final Scanner in = new Scanner(new File("/home/kperikov/Downloads/out.txt"));
-    final PrintWriter out = new PrintWriter(new File("/home/kperikov/Downloads/products.json"));
+    final PrintWriter out = new PrintWriter("/home/kperikov/Downloads/products.json");
 
     final List<String> displayColors = new ArrayList<>();
     final List<String> color_refines = new ArrayList<>();
@@ -65,17 +65,16 @@ public class PropogateSKUAttributesTest {
                 + "\" } }");
         out.println(
             new Product(
-                    prdId,
-                    department,
-                    brand,
-                    category,
-                    product,
-                    desc,
-                    displayColors,
-                    color_refines,
-                    variations,
-                    title)
-                .toString());
+                prdId,
+                department,
+                brand,
+                category,
+                product,
+                desc,
+                displayColors,
+                color_refines,
+                variations,
+                title));
         out.flush();
         displayColors.clear();
         color_refines.clear();

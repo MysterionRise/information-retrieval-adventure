@@ -20,16 +20,14 @@ import org.junit.Test;
 
 public class BM25FTest {
 
-  private IndexSearcher indexSearcher;
-  private IndexReader reader;
-  private Directory dir;
-
   private static final Version VERSION = Version.LATEST;
-
   private static final String ID = "famn";
   private static final String TI_EN = "title_en";
   private static final String TI_FR = "title_fr";
   private static final String TI_DE = "title_de";
+  private IndexSearcher indexSearcher;
+  private IndexReader reader;
+  private Directory dir;
 
   @Before
   public void setUp() {

@@ -22,8 +22,7 @@ public class EnricherPlugin extends QParserPlugin {
 
       @Override
       public Query parse() {
-        EnricherQuery eq = new EnricherQuery();
-        return eq;
+        return new EnricherQuery();
       }
     };
   }

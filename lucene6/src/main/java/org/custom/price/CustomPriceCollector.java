@@ -1,7 +1,9 @@
 package org.custom.price;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import org.apache.lucene.index.LeafReaderContext;
 import org.apache.solr.handler.component.ResponseBuilder;
 import org.apache.solr.request.SolrRequestInfo;
@@ -9,21 +11,20 @@ import org.apache.solr.search.DelegatingCollector;
 
 public class CustomPriceCollector extends DelegatingCollector {
 
+  private static Integer cnt = 0;
   final Map<Integer, Integer> ids = new HashMap<>();
   final Random r = new Random();
   private final ResponseBuilder rb;
-  private static Integer cnt = 0;
-  private final Map fcontext;
 
-  public CustomPriceCollector(ResponseBuilder rb, Map fcontext) {
+  public CustomPriceCollector(ResponseBuilder rb) {
     cnt = 0;
     this.rb = rb;
-    this.fcontext = SolrRequestInfo.getRequestInfo().getReq().getContext();
+    Map fcontext1 = SolrRequestInfo.getRequestInfo().getReq().getContext();
     ids.clear();
   }
 
   @Override
-  public void collect(int doc) throws IOException {
+  public void collect(int doc) {
     // TODO GET from doc the external ID from the document like doc values
     ids.put(doc, r.nextInt(1000));
   }

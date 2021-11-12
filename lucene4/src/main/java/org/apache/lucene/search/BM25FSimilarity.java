@@ -9,8 +9,23 @@ import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.util.SmallFloat;
 
 public class BM25FSimilarity extends Similarity {
+  /** Cache of decoded bytes. */
+  private static final float[] NORM_TABLE = new float[256];
+
+  static {
+    for (int i = 0; i < 256; i++) {
+      float f = SmallFloat.byte315ToFloat((byte) i);
+      NORM_TABLE[i] = 1.0f / (f * f);
+    }
+  }
+
   private final float k1;
   private final float b;
+  /**
+   * True if overlap tokens (tokens with a position of increment of zero) are discounted from the
+   * document's length.
+   */
+  protected boolean discountOverlaps = true;
 
   /**
    * BM25 with the supplied parameter values.
@@ -47,7 +62,7 @@ public class BM25FSimilarity extends Similarity {
   }
 
   /** The default implementation returns <code>1</code> */
-  public float scorePayload(int doc, int start, int end, BytesRef payload) {
+  public float scorePayload() {
     return 1;
   }
 
@@ -83,20 +98,6 @@ public class BM25FSimilarity extends Similarity {
   }
 
   /**
-   * True if overlap tokens (tokens with a position of increment of zero) are discounted from the
-   * document's length.
-   */
-  protected boolean discountOverlaps = true;
-
-  /**
-   * Sets whether overlap tokens (Tokens with 0 position increment) are ignored when computing norm.
-   * By default this is true, meaning overlap tokens do not count when computing norms.
-   */
-  public void setDiscountOverlaps(boolean v) {
-    discountOverlaps = v;
-  }
-
-  /**
    * Returns true if overlap tokens are discounted from the document's length.
    *
    * @see #setDiscountOverlaps
@@ -105,14 +106,12 @@ public class BM25FSimilarity extends Similarity {
     return discountOverlaps;
   }
 
-  /** Cache of decoded bytes. */
-  private static final float[] NORM_TABLE = new float[256];
-
-  static {
-    for (int i = 0; i < 256; i++) {
-      float f = SmallFloat.byte315ToFloat((byte) i);
-      NORM_TABLE[i] = 1.0f / (f * f);
-    }
+  /**
+   * Sets whether overlap tokens (Tokens with 0 position increment) are ignored when computing norm.
+   * By default this is true, meaning overlap tokens do not count when computing norms.
+   */
+  public void setDiscountOverlaps(boolean v) {
+    discountOverlaps = v;
   }
 
   @Override
@@ -165,7 +164,7 @@ public class BM25FSimilarity extends Similarity {
    * @return an Explain object that includes both an idf score factor for the phrase and an
    *     explanation for each term.
    */
-  public Explanation idfExplain(CollectionStatistics collectionStats, TermStatistics termStats[]) {
+  public Explanation idfExplain(CollectionStatistics collectionStats, TermStatistics[] termStats) {
     final long max = collectionStats.maxDoc();
     float idf = 0.0f;
     final Explanation exp = new Explanation();
@@ -191,7 +190,7 @@ public class BM25FSimilarity extends Similarity {
     float avgdl = avgFieldLength(collectionStats);
 
     // compute freq-independent part of bm25 equation across all norm values
-    float cache[] = new float[256];
+    float[] cache = new float[256];
     for (int i = 0; i < cache.length; i++) {
       cache[i] = k1 * ((1 - b) + b * decodeNormValue((byte) i) / avgdl);
     }
@@ -203,118 +202,6 @@ public class BM25FSimilarity extends Similarity {
       throws IOException {
     BM25FStats bm25stats = (BM25FStats) stats;
     return new BM25DocScorer(bm25stats, context.reader().getNormValues(bm25stats.field));
-  }
-
-  class BM25DocScorer extends SimScorer {
-    private final BM25FStats stats;
-    private final float weightValue; // boost * idf * (k1 + 1)
-    private final NumericDocValues norms;
-    private final float[] cache;
-
-    BM25DocScorer(BM25FStats stats, NumericDocValues norms) throws IOException {
-      this.stats = stats;
-      this.weightValue = stats.weight * (k1 + 1);
-      this.cache = stats.cache;
-      this.norms = norms;
-    }
-
-    @Override
-    public float score(int doc, float freq) {
-      // if there are no norms, we act as if b=0
-      float norm = norms == null ? k1 : cache[(byte) norms.get(doc) & 0xFF];
-      return weightValue * freq / (freq + norm);
-    }
-
-    @Override
-    public Explanation explain(int doc, Explanation freq) {
-      return explainScore(doc, freq, stats, norms);
-    }
-
-    @Override
-    public float computeSlopFactor(int distance) {
-      return sloppyFreq(distance);
-    }
-
-    @Override
-    public float computePayloadFactor(int doc, int start, int end, BytesRef payload) {
-      return scorePayload(doc, start, end, payload);
-    }
-
-    public float calculateDocLen(int docId) {
-      if (norms != null) {
-        return decodeNormValue((byte) norms.get(docId));
-      }
-      return 0.0f;
-    }
-  }
-
-  /** Collection statistics for the BM25 model. */
-  static class BM25FStats extends SimWeight {
-    /** BM25's idf */
-    private final Explanation idf;
-    /** The average document length. */
-    private final float avgdl;
-    /** query's inner boost */
-    private final float queryBoost;
-    /** query's outer boost (only for explain) */
-    private float topLevelBoost;
-    /** weight (idf * boost) */
-    private float weight;
-    /** field name, for pulling norms */
-    private final String field;
-    /** precomputed norm[256] with k1 * ((1 - b) + b * dl / avgdl) */
-    private final float cache[];
-
-    public Explanation getIdf() {
-      return idf;
-    }
-
-    public float getAvgdl() {
-      return avgdl;
-    }
-
-    public float getQueryBoost() {
-      return queryBoost;
-    }
-
-    public float getTopLevelBoost() {
-      return topLevelBoost;
-    }
-
-    public float getWeight() {
-      return weight;
-    }
-
-    public String getField() {
-      return field;
-    }
-
-    public float[] getCache() {
-      return cache;
-    }
-
-    BM25FStats(String field, Explanation idf, float queryBoost, float avgdl, float cache[]) {
-      this.field = field;
-      this.idf = idf;
-      this.queryBoost = queryBoost;
-      this.avgdl = avgdl;
-      this.cache = cache;
-    }
-
-    @Override
-    public float getValueForNormalization() {
-      // we return a TF-IDF like normalization to be nice, but we don't actually normalize
-      // ourselves.
-      final float queryWeight = idf.getValue() * queryBoost;
-      return queryWeight * queryWeight;
-    }
-
-    @Override
-    public void normalize(float queryNorm, float topLevelBoost) {
-      // we don't normalize with queryNorm at all, we just capture the top-level boost
-      this.topLevelBoost = topLevelBoost;
-      this.weight = idf.getValue() * queryBoost * topLevelBoost;
-    }
   }
 
   private Explanation explainScore(
@@ -369,5 +256,117 @@ public class BM25FSimilarity extends Similarity {
    */
   public float getB() {
     return b;
+  }
+
+  /** Collection statistics for the BM25 model. */
+  static class BM25FStats extends SimWeight {
+    /** BM25's idf */
+    private final Explanation idf;
+    /** The average document length. */
+    private final float avgdl;
+    /** query's inner boost */
+    private final float queryBoost;
+    /** field name, for pulling norms */
+    private final String field;
+    /** precomputed norm[256] with k1 * ((1 - b) + b * dl / avgdl) */
+    private final float[] cache;
+    /** query's outer boost (only for explain) */
+    private float topLevelBoost;
+    /** weight (idf * boost) */
+    private float weight;
+
+    BM25FStats(String field, Explanation idf, float queryBoost, float avgdl, float[] cache) {
+      this.field = field;
+      this.idf = idf;
+      this.queryBoost = queryBoost;
+      this.avgdl = avgdl;
+      this.cache = cache;
+    }
+
+    public Explanation getIdf() {
+      return idf;
+    }
+
+    public float getAvgdl() {
+      return avgdl;
+    }
+
+    public float getQueryBoost() {
+      return queryBoost;
+    }
+
+    public float getTopLevelBoost() {
+      return topLevelBoost;
+    }
+
+    public float getWeight() {
+      return weight;
+    }
+
+    public String getField() {
+      return field;
+    }
+
+    public float[] getCache() {
+      return cache;
+    }
+
+    @Override
+    public float getValueForNormalization() {
+      // we return a TF-IDF like normalization to be nice, but we don't actually normalize
+      // ourselves.
+      final float queryWeight = idf.getValue() * queryBoost;
+      return queryWeight * queryWeight;
+    }
+
+    @Override
+    public void normalize(float queryNorm, float topLevelBoost) {
+      // we don't normalize with queryNorm at all, we just capture the top-level boost
+      this.topLevelBoost = topLevelBoost;
+      this.weight = idf.getValue() * queryBoost * topLevelBoost;
+    }
+  }
+
+  class BM25DocScorer extends SimScorer {
+    private final BM25FStats stats;
+    private final float weightValue; // boost * idf * (k1 + 1)
+    private final NumericDocValues norms;
+    private final float[] cache;
+
+    BM25DocScorer(BM25FStats stats, NumericDocValues norms) {
+      this.stats = stats;
+      this.weightValue = stats.weight * (k1 + 1);
+      this.cache = stats.cache;
+      this.norms = norms;
+    }
+
+    @Override
+    public float score(int doc, float freq) {
+      // if there are no norms, we act as if b=0
+      float norm = norms == null ? k1 : cache[(byte) norms.get(doc) & 0xFF];
+      return weightValue * freq / (freq + norm);
+    }
+
+    @Override
+    public Explanation explain(int doc, Explanation freq) {
+      return explainScore(doc, freq, stats, norms);
+    }
+
+    @Override
+    public float computeSlopFactor(int distance) {
+      return sloppyFreq(distance);
+    }
+
+    @Override
+    public float computePayloadFactor(int doc, int start, int end, BytesRef payload) {
+      return scorePayload();
+    }
+
+    public float calculateDocLen(int docId) {
+      if (norms != null) {
+        return decodeNormValue((byte) norms.get(docId));
+      }
+      return 0.0f;
+    }
   }
 }

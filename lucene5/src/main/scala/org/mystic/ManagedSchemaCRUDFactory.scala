@@ -1,7 +1,5 @@
 package org.mystic
 
-import java.util
-
 import org.apache.lucene.analysis.core.{KeywordTokenizerFactory, LowerCaseFilterFactory}
 import org.apache.lucene.analysis.util.TokenFilterFactory
 import org.apache.solr.analysis.TokenizerChain
@@ -12,13 +10,13 @@ import org.apache.solr.schema.{IndexSchema, TextField}
 import org.apache.solr.update.AddUpdateCommand
 import org.apache.solr.update.processor.{UpdateRequestProcessor, UpdateRequestProcessorFactory}
 
-import scala.collection.JavaConversions
-
+import java.util
+import scala.jdk.CollectionConverters._
 
 class ManagedSchemaCRUDFactory extends UpdateRequestProcessorFactory {
 
   def getInstance(req: SolrQueryRequest, rsp: SolrQueryResponse, next: UpdateRequestProcessor): UpdateRequestProcessor = {
-    return new ManagedSchemaCRUDProcessor(req.getSchema, next)
+    new ManagedSchemaCRUDProcessor(req.getSchema, next)
   }
 }
 
@@ -46,7 +44,7 @@ class ManagedSchemaCRUDProcessor(indexSchema: IndexSchema, next: UpdateRequestPr
       val childs = doc.getChildDocuments.toArray(new Array[SolrInputDocument](1))
         .map(child => addExtraFields(child))
       if (!childs.isEmpty) {
-        updatedDoc.addChildDocuments(JavaConversions.seqAsJavaList(childs.toSeq))
+        updatedDoc.addChildDocuments(childs.toSeq.asJava)
       }
     }
     val fields = doc.getFieldNames.toArray(new Array[String](1)).map({
