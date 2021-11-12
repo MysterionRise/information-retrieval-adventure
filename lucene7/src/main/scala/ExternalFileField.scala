@@ -1,7 +1,3 @@
-import java.util
-import java.util.concurrent._
-import java.util.concurrent.atomic.AtomicInteger
-
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics
 import org.apache.solr.client.solrj.SolrClient
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
@@ -9,22 +5,25 @@ import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.common.params.ModifiableSolrParams
 import org.apache.solr.core.CoreContainer
 
+import java.util
+import java.util.concurrent._
+import java.util.concurrent.atomic.AtomicInteger
 import scala.Console._
 import scala.util.Random
 
 /**
-  * using external file field to filter stuff out
-  */
+ * using external file field to filter stuff out
+ */
 object ExternalFileField {
 
-  var server: SolrClient = null
   val maxProd = 80000
   val numQueries = 10000
   val maxAcc = 40000
   val nThreads = 10
   val rand = new Random()
+  var server: SolrClient = _
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
     //    for (i <- 1 to 99) {
     //      val out = new PrintWriter(new BufferedOutputStream(new FileOutputStream("external_account" + i)))
     //      for (i <- 1 to maxProd) {
@@ -51,10 +50,9 @@ object ExternalFileField {
     val z = new AtomicInteger(1)
     val cmd = a(0)
     cmd match {
-      case "0" => {
+      case "0" =>
         server.optimize(null, true, true, 5)
-      }
-      case "1" => {
+      case "1" =>
         // generate index
 
         val executor = Executors.newFixedThreadPool(nThreads)
@@ -65,7 +63,7 @@ object ExternalFileField {
             val size = maxProd / nThreads
             println("start = " + ((start - 1) * size))
             println("finish = " + ((start * size) - 1))
-            for (i <- (start - 1) * size to (start * size) - 1) {
+            for (i <- (start - 1) * size until start * size) {
               val doc = new SolrInputDocument()
               doc.addField("id", "prod" + i)
               doc.addField("scope", "product")
@@ -96,10 +94,7 @@ object ExternalFileField {
           executor.execute(runnable)
 
         executor.shutdown()
-
-
-      }
-      case "2" => {
+      case "2" =>
         // do query testing
 
         val stats = new DescriptiveStatistics
@@ -123,10 +118,8 @@ object ExternalFileField {
           println("---------------------------------------------")
         }
         println("mean qtime = " + stats.getMean)
-      }
     }
 
-    return
   }
 
 }

@@ -9,9 +9,9 @@ import org.apache.solr.search.DelegatingCollector;
 
 public class EnricherCollector extends DelegatingCollector {
 
-  private final ResponseBuilder rb;
-  final Map fcontext;
   private static final Random r = new Random();
+  final Map fcontext;
+  private final ResponseBuilder rb;
 
   public EnricherCollector(ResponseBuilder rb, Map fcontext) {
     this.rb = rb;

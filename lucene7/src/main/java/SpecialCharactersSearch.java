@@ -20,26 +20,6 @@ import org.apache.lucene.store.RAMDirectory;
 /** @see https://stackoverflow.com/q/49393645/2663985 */
 public class SpecialCharactersSearch {
 
-  static class CustomAnalyzer extends Analyzer {
-
-    @Override
-    protected Reader initReader(String fieldName, Reader reader) {
-      CharFilter cf = new PatternReplaceCharFilter(Pattern.compile("\\["), "", reader);
-      cf = new PatternReplaceCharFilter(Pattern.compile("\\]"), "", cf);
-      cf = new PatternReplaceCharFilter(Pattern.compile("\\)"), "", cf);
-      cf = new PatternReplaceCharFilter(Pattern.compile("\\("), "", cf);
-      return cf;
-    }
-
-    @Override
-    protected TokenStreamComponents createComponents(String fieldName) {
-      final StandardTokenizer analyzer = new StandardTokenizer();
-      TokenStream tok = new StandardFilter(analyzer);
-      tok = new LowerCaseFilter(tok);
-      return new TokenStreamComponents(analyzer, tok);
-    }
-  }
-
   public static void main(String[] args) throws IOException, ParseException {
     Directory dir = new RAMDirectory();
     IndexWriterConfig iwc = new IndexWriterConfig(new CustomAnalyzer());
@@ -70,5 +50,25 @@ public class SpecialCharactersSearch {
     }
     System.out.println("Hits: " + results.totalHits);
     System.out.println("Max score:" + results.getMaxScore());
+  }
+
+  static class CustomAnalyzer extends Analyzer {
+
+    @Override
+    protected Reader initReader(String fieldName, Reader reader) {
+      CharFilter cf = new PatternReplaceCharFilter(Pattern.compile("\\["), "", reader);
+      cf = new PatternReplaceCharFilter(Pattern.compile("\\]"), "", cf);
+      cf = new PatternReplaceCharFilter(Pattern.compile("\\)"), "", cf);
+      cf = new PatternReplaceCharFilter(Pattern.compile("\\("), "", cf);
+      return cf;
+    }
+
+    @Override
+    protected TokenStreamComponents createComponents(String fieldName) {
+      final StandardTokenizer analyzer = new StandardTokenizer();
+      TokenStream tok = new StandardFilter(analyzer);
+      tok = new LowerCaseFilter(tok);
+      return new TokenStreamComponents(analyzer, tok);
+    }
   }
 }

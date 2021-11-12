@@ -1,35 +1,31 @@
-import java.io.File
-import java.util.Scanner
-
 import org.json4s._
 import org.json4s.native.JsonMethods._
 
+import java.io.File
+import java.util.Scanner
 import scala.collection.mutable
 
 
 object ThesaurusAnalyzer {
 
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
     val in = new Scanner(new File("lucene6/src/main/resources/synonyms.json"))
     val thesaurus = parse(in.nextLine())
     val synonyms = thesaurus.children(2).children
     val phrases = new mutable.HashSet[String]
-    for (i <- 0 until synonyms.size) {
+    for (i <- synonyms.indices) {
       synonyms(i).children.size match {
         //multi-way
-        case 2 => {
-          synonyms(i).children.apply(0).children.foreach(value => {
+        case 2 =>
+          synonyms(i).children.head.children.foreach(value => {
             phrases.add(value.asInstanceOf[JString].s.trim)
           })
-        }
         //one way
-        case 3 => {
-          phrases.add(synonyms(i).children.apply(0).asInstanceOf[JString].s.trim)
-        }
-        case _ => {
+        case 3 =>
+          phrases.add(synonyms(i).children.head.asInstanceOf[JString].s.trim)
+        case _ =>
           println(synonyms(i).children)
-        }
       }
     }
     val sorted = phrases.toList.sorted.toArray.filter(_.contains(" "))
@@ -51,7 +47,6 @@ object ThesaurusAnalyzer {
         }
       }
     }
-    return
   }
 
 }

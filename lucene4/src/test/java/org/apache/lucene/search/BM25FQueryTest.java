@@ -20,6 +20,14 @@ import org.junit.Test;
 
 public class BM25FQueryTest {
 
+  private static Document doc(int id, String title, String abs) {
+    Document doc = new Document();
+    doc.add(new IntField("id", id, Field.Store.YES));
+    doc.add(new TextField("title", title, Field.Store.YES));
+    doc.add(new TextField("abs", abs, Field.Store.YES));
+    return doc;
+  }
+
   @Test
   public void testBM25FQuery() throws IOException {
     Directory index = new RAMDirectory();
@@ -135,13 +143,5 @@ public class BM25FQueryTest {
       System.out.println();
     }
     assertEquals(5, collector.getTotalHits());
-  }
-
-  private static Document doc(int id, String title, String abs) throws IOException {
-    Document doc = new Document();
-    doc.add(new IntField("id", id, Field.Store.YES));
-    doc.add(new TextField("title", title, Field.Store.YES));
-    doc.add(new TextField("abs", abs, Field.Store.YES));
-    return doc;
   }
 }

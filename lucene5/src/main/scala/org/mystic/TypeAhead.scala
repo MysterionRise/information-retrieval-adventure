@@ -2,6 +2,7 @@ package org.mystic
 
 import org.apache.solr.client.solrj.SolrClient
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
+import org.apache.solr.client.solrj.response.UpdateResponse
 import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.common.params.ModifiableSolrParams
 import org.apache.solr.core.CoreContainer
@@ -11,11 +12,9 @@ import scala.collection.mutable
 import scala.util.Random
 
 /**
-  *
-  */
+ *
+ */
 object TypeAhead {
-
-  var server: SolrClient = null
 
   val titles = List(
     "calvin",
@@ -36,28 +35,10 @@ object TypeAhead {
     "nike",
     "socks"
   )
-
   val possibleTitles = new mutable.HashSet[String]()
+  var server: SolrClient = _
 
-  def combineTitle(rand: Random): String = {
-    val size = rand.nextInt(3) + 1
-    val generatedTitle = (0 to size).foldRight("")((_, b: String) => b + " " + titles(rand.nextInt(titles.size))).trim
-    possibleTitles.add(generatedTitle)
-    generatedTitle
-  }
-
-  def addDocsToIndex(rand: Random) = {
-
-    for (i <- 0 until 10000) {
-      val doc = new SolrInputDocument()
-      doc.addField("id", i)
-      doc.addField("title", combineTitle(rand))
-      server.add(doc)
-    }
-    server.commit()
-  }
-
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
     try {
       val rand = new Random()
@@ -76,9 +57,9 @@ object TypeAhead {
         val queryS = query.split(" ").toList.foldLeft("")((pos: String, b: String) => s"$pos +$b") + "*"
         q.add("q", s"""title_prefix:(${queryS.trim})""")
         val resp = server.query(q).getResults
-        println(s"title = ${title}")
+        println(s"title = $title")
         println(s"query = ${queryS.trim}")
-        println(s"numFound = ${resp.getNumFound()}")
+        println(s"numFound = ${resp.getNumFound}")
         assert(resp.getNumFound > 0)
         for (i <- 0 until resp.size()) {
           println(resp.get(i))
@@ -97,11 +78,11 @@ object TypeAhead {
           query = title.substring(of, Math.min(title.length, title.length / 2 + 5)).trim
         }
         val q = new ModifiableSolrParams()
-        q.add("q", s"""title_ngram:"${query}"""")
+        q.add("q", s"""title_ngram:"$query"""")
         val resp = server.query(q).getResults
-        println(s"title = ${title}")
-        println(s"query = ${query}")
-        println(s"numFound = ${resp.getNumFound()}")
+        println(s"title = $title")
+        println(s"query = $query")
+        println(s"numFound = ${resp.getNumFound}")
         assert(resp.getNumFound > 0)
         for (i <- 0 until resp.size()) {
           println(resp.get(i))
@@ -130,7 +111,24 @@ object TypeAhead {
     finally {
       server.shutdown()
     }
-    return
+  }
+
+  def addDocsToIndex(rand: Random): UpdateResponse = {
+
+    for (i <- 0 until 10000) {
+      val doc = new SolrInputDocument()
+      doc.addField("id", i)
+      doc.addField("title", combineTitle(rand))
+      server.add(doc)
+    }
+    server.commit()
+  }
+
+  def combineTitle(rand: Random): String = {
+    val size = rand.nextInt(3) + 1
+    val generatedTitle = (0 to size).foldRight("")((_, b: String) => b + " " + titles(rand.nextInt(titles.size))).trim
+    possibleTitles.add(generatedTitle)
+    generatedTitle
   }
 
 }

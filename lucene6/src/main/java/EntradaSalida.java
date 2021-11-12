@@ -13,7 +13,7 @@ import org.apache.lucene.util.CharsRefBuilder;
 /** @see http://stackoverflow.com/q/42378027/2663985 */
 public class EntradaSalida {
 
-  private static SynonymMap.Builder builder = new SynonymMap.Builder(true);
+  private static final SynonymMap.Builder builder = new SynonymMap.Builder(true);
 
   /**
    * Now the graph is more interesting! For each token (arc), the PositionIncrementAttribute tells
@@ -45,7 +45,7 @@ public class EntradaSalida {
         srcNode += posInc;
         b.append("  ");
         b.append(srcNode);
-        b.append(" [shape=circle,label=\"" + srcNode + "\"]\n");
+        b.append(" [shape=circle,label=\"").append(srcNode).append("\"]\n");
       }
       destNode = srcNode + posLenAtt.getPositionLength();
       b.append("  ");

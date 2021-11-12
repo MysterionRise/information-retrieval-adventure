@@ -1,18 +1,17 @@
-import java.util.Collections
-
 import org.apache.solr.client.solrj.SolrClient
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.client.solrj.request.FieldAnalysisRequest
 import org.apache.solr.common.util.NamedList
 import org.apache.solr.core.CoreContainer
 
+import java.util.Collections
 import scala.Console._
 
 object SynonymGraph {
 
-  var server: SolrClient = null
+  var server: SolrClient = _
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
     try {
       val solrDir = SynonymGraph.getClass.getResource("/solr").getPath
@@ -32,7 +31,6 @@ object SynonymGraph {
     finally {
       server.close()
     }
-    return
   }
 
 }

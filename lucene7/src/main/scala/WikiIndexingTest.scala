@@ -1,42 +1,40 @@
-import java.io.{FileInputStream, IOException}
-import java.net.URL
-import java.security.SecureRandom
-import java.security.cert.X509Certificate
-import java.util
-
-import javax.net.ssl.{HttpsURLConnection, SSLContext, TrustManager, X509TrustManager}
-import javax.xml.stream.events.XMLEvent
-import javax.xml.stream.{XMLEventReader, XMLInputFactory, XMLStreamException}
 import org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrClient
 import org.apache.solr.client.solrj.{SolrClient, SolrServerException}
 import org.apache.solr.common.SolrInputDocument
 
+import java.io.{FileInputStream, IOException}
+import java.net.URL
+import java.util
+import javax.net.ssl.HttpsURLConnection
+import javax.xml.stream.events.XMLEvent
+import javax.xml.stream.{XMLEventReader, XMLInputFactory, XMLStreamException}
 import scala.Console._
 
 /**
-  * https://stackoverflow.com/q/23639112/2663985
-  */
+ * https://stackoverflow.com/q/23639112/2663985
+ */
 object WikiIndexingTest {
 
   private final val MAX_SIZE: Int = 10000
   private final val THREAD_COUNT: Int = 10
   private final val QUEUE_SIZE = 10000
+  private final val XML_FILE_PATH: String = "https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-abstract1.xml"
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
-//    val trust: TrustManager = new X509TrustManager {
-//      override def checkServerTrusted(x509Certificates: Array[X509Certificate], s: String): Unit = println()
-//
-//      override def checkClientTrusted(x509Certificates: Array[X509Certificate], s: String): Unit = println()
-//
-//      override def getAcceptedIssuers: Array[X509Certificate] = return null
-//    }
-//
-//    val trustAllCerts = Array(trust)
-//
-//    val sc = SSLContext.getInstance("TLS")
-//    sc.init(null, trustAllCerts, new SecureRandom())
-//    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory())
+    //    val trust: TrustManager = new X509TrustManager {
+    //      override def checkServerTrusted(x509Certificates: Array[X509Certificate], s: String): Unit = println()
+    //
+    //      override def checkClientTrusted(x509Certificates: Array[X509Certificate], s: String): Unit = println()
+    //
+    //      override def getAcceptedIssuers: Array[X509Certificate] = return null
+    //    }
+    //
+    //    val trustAllCerts = Array(trust)
+    //
+    //    val sc = SSLContext.getInstance("TLS")
+    //    sc.init(null, trustAllCerts, new SecureRandom())
+    //    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory())
 
     // replace client if needed with
     //            val client = new HttpSolrClient.Builder().withBaseSolrUrl("http://localhost:8983/solr/wikipedia").allowCompression(true).build()
@@ -49,10 +47,6 @@ object WikiIndexingTest {
 
     println("Indexing takes " + (System.currentTimeMillis - start) / 1000 + " seconds")
   }
-
-
-  private final val XML_FILE_PATH: String = "https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-abstract1.xml"
-
 
   def testIndexing(client: SolrClient): Unit = {
     try {
@@ -78,17 +72,17 @@ object WikiIndexingTest {
             doc = new SolrInputDocument
           }
         }
-        else if (event.isCharacters && isDocs && !event.asCharacters.getData.trim.isEmpty) {
+        else if (event.isCharacters && isDocs && event.asCharacters.getData.trim.nonEmpty) {
           if ("title".equalsIgnoreCase(fieldName) || "url".equalsIgnoreCase(fieldName)) {
             doc.addField(fieldName, event.asCharacters.getData)
           }
         }
         else if (event.isEndElement) {
           if ("doc".equalsIgnoreCase(event.asEndElement.getName.getLocalPart)) {
-            doc.addField("id", ({
-              id += 1;
+            doc.addField("id", {
+              id += 1
               id - 1
-            }))
+            })
             docs.add(doc)
             client.add(doc)
             doc.clear()
@@ -107,15 +101,12 @@ object WikiIndexingTest {
       client.close()
     }
     catch {
-      case e: SolrServerException => {
+      case e: SolrServerException =>
         println("Error in Solr" + e.getRootCause)
-      }
-      case e: IOException => {
+      case e: IOException =>
         println("Error while IO operation" + e.getCause)
-      }
-      case e: XMLStreamException => {
+      case e: XMLStreamException =>
         println("Error while reading XML file" + e.getCause)
-      }
     }
   }
 }

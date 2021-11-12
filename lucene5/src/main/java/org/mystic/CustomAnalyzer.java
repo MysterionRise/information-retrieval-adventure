@@ -1,6 +1,5 @@
 package org.mystic;
 
-import java.io.IOException;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.Tokenizer;
@@ -29,7 +28,7 @@ public class CustomAnalyzer extends Analyzer {
       super();
     }
 
-    public boolean incrementToken() throws IOException {
+    public boolean incrementToken() {
       // add your logic
       return false;
     }

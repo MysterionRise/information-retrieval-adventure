@@ -26,8 +26,7 @@ public class CustomPricePlugin extends QParserPlugin {
       @Override
       public Query parse() {
         account = localParams.get(CUSTOM_PRICE_PARAM_ACC);
-        CustomPriceQuery cpq = new CustomPriceQuery(account);
-        return cpq;
+        return new CustomPriceQuery(account);
       }
     };
   }

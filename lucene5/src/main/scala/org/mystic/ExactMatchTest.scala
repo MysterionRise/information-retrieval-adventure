@@ -9,11 +9,11 @@ import org.apache.solr.core.CoreContainer
 import scala.Console._
 
 /**
-  * @see http://stackoverflow.com/q/26415156/2663985
-  */
+ * @see http://stackoverflow.com/q/26415156/2663985
+ */
 object ExactMatchTest {
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
     var server: SolrClient = null
     try {
       val solrDir = ExactMatchTest.getClass.getResource("/solr").getPath
@@ -45,7 +45,6 @@ object ExactMatchTest {
     finally {
       server.shutdown()
     }
-    return
   }
 
 }

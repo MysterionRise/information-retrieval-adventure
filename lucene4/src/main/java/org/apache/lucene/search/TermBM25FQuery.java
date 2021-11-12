@@ -12,10 +12,102 @@ public class TermBM25FQuery extends Query {
   private final int docFreq;
   private final TermContext perReaderTermState;
 
+  /** Constructs a query for the term <code>t</code>. */
+  public TermBM25FQuery(Term t) {
+    this(t, -1);
+  }
+
+  /**
+   * Expert: constructs a TermQuery that will use the provided docFreq instead of looking up the
+   * docFreq against the searcher.
+   */
+  public TermBM25FQuery(Term t, int docFreq) {
+    term = t;
+    this.docFreq = docFreq;
+    perReaderTermState = null;
+  }
+
+  /**
+   * Expert: constructs a TermQuery that will use the provided docFreq instead of looking up the
+   * docFreq against the searcher.
+   */
+  public TermBM25FQuery(Term t, TermContext states) {
+    assert states != null;
+    term = t;
+    docFreq = states.docFreq();
+    perReaderTermState = states;
+  }
+
+  /** Returns the term of this query. */
+  public Term getTerm() {
+    return term;
+  }
+
+  @Override
+  public Weight createWeight(IndexSearcher searcher) throws IOException {
+    final IndexReaderContext context = searcher.getTopReaderContext();
+    final TermContext termState;
+    if (perReaderTermState == null || perReaderTermState.topReaderContext != context) {
+      // make TermQuery single-pass if we don't have a PRTS or if the context differs!
+      termState = TermContext.build(context, term);
+    } else {
+      // PRTS was pre-build for this IS
+      termState = this.perReaderTermState;
+    }
+
+    // we must not ignore the given docFreq - if set use the given value (lie)
+    if (docFreq != -1) termState.setDocFreq(docFreq);
+
+    return new TermBM25FWeight(searcher, termState);
+  }
+
+  @Override
+  public void extractTerms(Set<Term> terms) {
+    terms.add(getTerm());
+  }
+
+  /** Prints a user-readable version of this query. */
+  @Override
+  public String toString(String field) {
+    StringBuilder buffer = new StringBuilder();
+    if (!term.field().equals(field)) {
+      buffer.append(term.field());
+      buffer.append(":");
+    }
+    buffer.append(term.text());
+    buffer.append(ToStringUtils.boost(getBoost()));
+    return buffer.toString();
+  }
+
+  /** Returns true iff <code>o</code> is equal to this. */
+  @Override
+  public boolean equals(Object o) {
+    if (!(o instanceof TermBM25FQuery)) return false;
+    TermBM25FQuery other = (TermBM25FQuery) o;
+    return (this.getBoost() == other.getBoost()) && this.term.equals(other.term);
+  }
+
+  /** Returns a hash code value for this object. */
+  @Override
+  public int hashCode() {
+    return Float.floatToIntBits(getBoost()) ^ term.hashCode();
+  }
+
   final class TermBM25FWeight extends Weight {
     private final Similarity similarity;
     private final Similarity.SimWeight stats;
     private final TermContext termStates;
+
+    public TermBM25FWeight(IndexSearcher searcher, TermContext termStates) throws IOException {
+      assert termStates != null : "TermContext must not be null";
+      this.termStates = termStates;
+      this.similarity = searcher.getSimilarity();
+      this.stats =
+          similarity.computeWeight(
+              getBoost(),
+              searcher.collectionStatistics(term.field()),
+              searcher.termStatistics(term, termStates));
+    }
 
     public Similarity getSimilarity() {
       return similarity;
@@ -27,17 +119,6 @@ public class TermBM25FQuery extends Query {
 
     public TermContext getTermStates() {
       return termStates;
-    }
-
-    public TermBM25FWeight(IndexSearcher searcher, TermContext termStates) throws IOException {
-      assert termStates != null : "TermContext must not be null";
-      this.termStates = termStates;
-      this.similarity = searcher.getSimilarity();
-      this.stats =
-          similarity.computeWeight(
-              getBoost(),
-              searcher.collectionStatistics(term.field()),
-              searcher.termStatistics(term, termStates));
     }
 
     @Override
@@ -130,94 +211,9 @@ public class TermBM25FQuery extends Query {
     }
   }
 
-  /** Constructs a query for the term <code>t</code>. */
-  public TermBM25FQuery(Term t) {
-    this(t, -1);
-  }
-
-  /**
-   * Expert: constructs a TermQuery that will use the provided docFreq instead of looking up the
-   * docFreq against the searcher.
-   */
-  public TermBM25FQuery(Term t, int docFreq) {
-    term = t;
-    this.docFreq = docFreq;
-    perReaderTermState = null;
-  }
-
-  /**
-   * Expert: constructs a TermQuery that will use the provided docFreq instead of looking up the
-   * docFreq against the searcher.
-   */
-  public TermBM25FQuery(Term t, TermContext states) {
-    assert states != null;
-    term = t;
-    docFreq = states.docFreq();
-    perReaderTermState = states;
-  }
-
-  /** Returns the term of this query. */
-  public Term getTerm() {
-    return term;
-  }
-
-  @Override
-  public Weight createWeight(IndexSearcher searcher) throws IOException {
-    final IndexReaderContext context = searcher.getTopReaderContext();
-    final TermContext termState;
-    if (perReaderTermState == null || perReaderTermState.topReaderContext != context) {
-      // make TermQuery single-pass if we don't have a PRTS or if the context differs!
-      termState = TermContext.build(context, term);
-    } else {
-      // PRTS was pre-build for this IS
-      termState = this.perReaderTermState;
-    }
-
-    // we must not ignore the given docFreq - if set use the given value (lie)
-    if (docFreq != -1) termState.setDocFreq(docFreq);
-
-    return new TermBM25FWeight(searcher, termState);
-  }
-
-  @Override
-  public void extractTerms(Set<Term> terms) {
-    terms.add(getTerm());
-  }
-
-  /** Prints a user-readable version of this query. */
-  @Override
-  public String toString(String field) {
-    StringBuilder buffer = new StringBuilder();
-    if (!term.field().equals(field)) {
-      buffer.append(term.field());
-      buffer.append(":");
-    }
-    buffer.append(term.text());
-    buffer.append(ToStringUtils.boost(getBoost()));
-    return buffer.toString();
-  }
-
-  /** Returns true iff <code>o</code> is equal to this. */
-  @Override
-  public boolean equals(Object o) {
-    if (!(o instanceof TermBM25FQuery)) return false;
-    TermBM25FQuery other = (TermBM25FQuery) o;
-    return (this.getBoost() == other.getBoost()) && this.term.equals(other.term);
-  }
-
-  /** Returns a hash code value for this object. */
-  @Override
-  public int hashCode() {
-    return Float.floatToIntBits(getBoost()) ^ term.hashCode();
-  }
-
   class TermBM25FScorer extends Scorer {
     private final DocsEnum docsEnum;
     private final Similarity.SimScorer docScorer;
-
-    public Similarity.SimScorer getDocScorer() {
-      return docScorer;
-    }
 
     /**
      * Construct a <code>TermScorer</code>.
@@ -231,6 +227,10 @@ public class TermBM25FQuery extends Query {
       super(weight);
       this.docScorer = docScorer;
       this.docsEnum = td;
+    }
+
+    public Similarity.SimScorer getDocScorer() {
+      return docScorer;
     }
 
     @Override

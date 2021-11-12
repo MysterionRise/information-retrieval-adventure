@@ -7,13 +7,13 @@ import org.apache.solr.core.CoreContainer
 import scala.Console._
 
 /**
-  * @see https://stackoverflow.com/q/45935681/2663985
-  */
+ * @see https://stackoverflow.com/q/45935681/2663985
+ */
 object DateRangeHotels {
 
-  var server: SolrClient = null
+  var server: SolrClient = _
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
     try {
       val solrDir = SynonymGraph.getClass.getResource("/solr").getPath
@@ -57,7 +57,6 @@ object DateRangeHotels {
     finally {
       server.close()
     }
-    return
   }
 
 }

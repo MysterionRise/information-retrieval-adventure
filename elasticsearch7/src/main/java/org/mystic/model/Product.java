@@ -2,6 +2,7 @@ package org.mystic.model;
 
 import java.io.StringWriter;
 import java.util.List;
+import java.util.Objects;
 import org.json.JSONWriter;
 
 public class Product {
@@ -87,24 +88,16 @@ public class Product {
 
     Product product1 = (Product) o;
 
-    if (prdId != null ? !prdId.equals(product1.prdId) : product1.prdId != null) return false;
-    if (department != null ? !department.equals(product1.department) : product1.department != null)
-      return false;
-    if (brand != null ? !brand.equals(product1.brand) : product1.brand != null) return false;
-    if (category != null ? !category.equals(product1.category) : product1.category != null)
-      return false;
-    if (product != null ? !product.equals(product1.product) : product1.product != null)
-      return false;
-    if (desc != null ? !desc.equals(product1.desc) : product1.desc != null) return false;
-    if (displayColors != null
-        ? !displayColors.equals(product1.displayColors)
-        : product1.displayColors != null) return false;
-    if (color_refines != null
-        ? !color_refines.equals(product1.color_refines)
-        : product1.color_refines != null) return false;
-    if (variations != null ? !variations.equals(product1.variations) : product1.variations != null)
-      return false;
-    return title != null ? title.equals(product1.title) : product1.title == null;
+    if (!Objects.equals(prdId, product1.prdId)) return false;
+    if (!Objects.equals(department, product1.department)) return false;
+    if (!Objects.equals(brand, product1.brand)) return false;
+    if (!Objects.equals(category, product1.category)) return false;
+    if (!Objects.equals(product, product1.product)) return false;
+    if (!Objects.equals(desc, product1.desc)) return false;
+    if (!Objects.equals(displayColors, product1.displayColors)) return false;
+    if (!Objects.equals(color_refines, product1.color_refines)) return false;
+    if (!Objects.equals(variations, product1.variations)) return false;
+    return Objects.equals(title, product1.title);
   }
 
   @Override

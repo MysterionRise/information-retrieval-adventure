@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.regex.Pattern;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.Tokenizer;
@@ -36,10 +35,8 @@ public class CommaTokenizer {
 
     IndexReader reader = DirectoryReader.open(dir);
     final Fields fields = MultiFields.getFields(reader);
-    final Iterator<String> iterator = fields.iterator();
 
-    while (iterator.hasNext()) {
-      final String field = iterator.next();
+    for (String field : fields) {
       final Terms terms = MultiFields.getTerms(reader, field);
       final TermsEnum it = terms.iterator();
       BytesRef term = it.next();

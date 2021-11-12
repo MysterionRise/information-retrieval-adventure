@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.lucene.analysis.Analyzer;
@@ -33,8 +32,8 @@ public class MyAnalyzerPlugin implements AnalysisPlugin {
       analyzerProvider = new MyAnalyzerProvider(AnalyzerScope.INDICES);
     }
 
-    public AnalyzerProvider<?> create(String name, Settings settings) {
-      Version indexVersion = Version.indexCreated(settings);
+    public AnalyzerProvider<?> create(String name) {
+      Version indexVersion = Version.V_7_15_1;
       if (!Version.CURRENT.equals(indexVersion)) {
         PreBuiltAnalyzers preBuiltAnalyzers = PreBuiltAnalyzers.getOrDefault(name, null);
         if (preBuiltAnalyzers != null) {
@@ -48,9 +47,8 @@ public class MyAnalyzerPlugin implements AnalysisPlugin {
 
     @Override
     public AnalyzerProvider<?> get(
-        IndexSettings indexSettings, Environment environment, String name, Settings settings)
-        throws IOException {
-      return create(name, settings);
+        IndexSettings indexSettings, Environment environment, String name, Settings settings) {
+      return create(name);
     }
 
     public Analyzer analyzer() {

@@ -7,13 +7,13 @@ import org.apache.solr.core.CoreContainer
 import scala.Console._
 
 /**
-  * @see https://stackoverflow.com/q/53587685/2663985
-  */
+ * @see https://stackoverflow.com/q/53587685/2663985
+ */
 object BJQExample {
 
-  var server: SolrClient = null
+  var server: SolrClient = _
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
     try {
       val solrDir = Facets.getClass.getResource("/solr").getPath
@@ -66,12 +66,12 @@ object BJQExample {
 
       val q = new ModifiableSolrParams()
       q.add("q", "+service_id:service1 +{!parent which=\"type:type_dataset\"}name:random")
-//      q.add("fq", "service_id:service1")
-//      q.add("fl", "*,greeting:[value v='hello']")
+      //      q.add("fq", "service_id:service1")
+      //      q.add("fl", "*,greeting:[value v='hello']")
       q.add("fl", "*,[child parentFilter=type:type_dataset]")
-//      q.add("fl", "*,[child parentFilter=doc_type:book childFilter=doc_type:chapter limit=100]")
-//      q.add("fq", "type:type_dataset")
-      var resp = server.query(q)
+      //      q.add("fl", "*,[child parentFilter=doc_type:book childFilter=doc_type:chapter limit=100]")
+      //      q.add("fq", "type:type_dataset")
+      val resp = server.query(q)
       println("---------------------------------------------")
       println(resp)
       println(resp.getResults.getNumFound)
@@ -86,7 +86,6 @@ object BJQExample {
     finally {
       server.close()
     }
-    return
   }
 
 }

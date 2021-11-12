@@ -40,7 +40,7 @@ public class ExactMatchBJQTest {
     product1.add(new TextField("title", "dress", Field.Store.YES));
     product1.add(new TextField("type", "product", Field.Store.YES));
 
-    writer.addDocuments(Arrays.asList(new Document[] {sku1_1, sku1_2, product1}));
+    writer.addDocuments(Arrays.asList(sku1_1, sku1_2, product1));
 
     // second block
     final Document sku2_1 = new Document();
@@ -58,7 +58,7 @@ public class ExactMatchBJQTest {
     product2.add(new TextField("title", "dress", Field.Store.YES));
     product2.add(new TextField("type", "product", Field.Store.YES));
 
-    writer.addDocuments(Arrays.asList(new Document[] {sku2_1, sk2_2, product2}));
+    writer.addDocuments(Arrays.asList(sku2_1, sk2_2, product2));
 
     writer.close();
 
@@ -78,8 +78,8 @@ public class ExactMatchBJQTest {
 
     TopDocs results = searcher.search(parentQuery, 100);
     ScoreDoc[] scoreDocs = results.scoreDocs;
-    for (int i = 0; i < scoreDocs.length; ++i) {
-      System.out.println(searcher.explain(parentQuery, scoreDocs[i].doc));
+    for (ScoreDoc scoreDoc : scoreDocs) {
+      System.out.println(searcher.explain(parentQuery, scoreDoc.doc));
     }
   }
 }

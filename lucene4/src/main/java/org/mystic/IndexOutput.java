@@ -1,7 +1,6 @@
 package org.mystic;
 
 import java.io.IOException;
-import java.util.Iterator;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -36,10 +35,8 @@ public class IndexOutput {
 
     IndexReader reader = DirectoryReader.open(dir);
     final Fields fields = MultiFields.getFields(reader);
-    final Iterator<String> iterator = fields.iterator();
 
-    while (iterator.hasNext()) {
-      final String field = iterator.next();
+    for (String field : fields) {
       final Terms terms = MultiFields.getTerms(reader, field);
       final TermsEnum it = terms.iterator(null);
       BytesRef term = it.next();

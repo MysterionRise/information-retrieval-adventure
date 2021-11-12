@@ -1,6 +1,5 @@
 package org.custom.price;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -11,14 +10,13 @@ import org.apache.lucene.queries.function.docvalues.FloatDocValues;
 
 public class PriceValueSource extends ValueSource {
 
-  public PriceValueSource() {}
-
   private static final Random r = new Random();
-
   private static final Map<Integer, Double> cachemap = new HashMap<>();
 
+  public PriceValueSource() {}
+
   @Override
-  public FunctionValues getValues(Map map, LeafReaderContext leafReaderContext) throws IOException {
+  public FunctionValues getValues(Map map, LeafReaderContext leafReaderContext) {
 
     return new FloatDocValues(this) {
 

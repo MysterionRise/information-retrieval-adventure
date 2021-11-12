@@ -51,13 +51,13 @@ public class URLAnalyzerTest {
 
     QueryParser queryParser = new QueryParser("url", new StandardAnalyzer());
     final Query query = queryParser.parse("http://google.com");
-    System.out.printf(query.toString());
+    System.out.print(query.toString());
 
     TopDocs results = searcher.search(query, null, 100);
     System.out.println("Found: " + results.totalHits);
     ScoreDoc[] scoreDocs = results.scoreDocs;
-    for (int i = 0; i < scoreDocs.length; ++i) {
-      System.out.println(reader.document(scoreDocs[i].doc).getField("url"));
+    for (ScoreDoc scoreDoc : scoreDocs) {
+      System.out.println(reader.document(scoreDoc.doc).getField("url"));
     }
   }
 }

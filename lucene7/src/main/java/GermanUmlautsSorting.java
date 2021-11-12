@@ -4,8 +4,13 @@ import java.io.IOException;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.collation.ICUCollationDocValuesField;
 import org.apache.lucene.collation.ICUCollationKeyAnalyzer;
-import org.apache.lucene.document.*;
-import org.apache.lucene.index.*;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.TextField;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.RAMDirectory;
@@ -25,10 +30,10 @@ public class GermanUmlautsSorting {
     final ICUCollationDocValuesField contents =
         new ICUCollationDocValuesField("contents", instance);
 
-    for (int i = 0; i < data.length; ++i) {
+    for (String datum : data) {
       final Document doc = new Document();
-      doc.add(new TextField("z", data[i], Field.Store.YES));
-      contents.setStringValue(data[i]);
+      doc.add(new TextField("z", datum, Field.Store.YES));
+      contents.setStringValue(datum);
       doc.add(contents);
       writer.addDocument(doc);
     }
@@ -40,8 +45,8 @@ public class GermanUmlautsSorting {
     sort.setSort(new SortField("contents", SortField.Type.STRING));
     Query query = new MatchAllDocsQuery();
     ScoreDoc[] result = searcher.search(query, 1000, sort).scoreDocs;
-    for (int i = 0; i < result.length; ++i) {
-      Document doc = searcher.doc(result[i].doc);
+    for (ScoreDoc scoreDoc : result) {
+      Document doc = searcher.doc(scoreDoc.doc);
       System.out.println(doc);
     }
   }

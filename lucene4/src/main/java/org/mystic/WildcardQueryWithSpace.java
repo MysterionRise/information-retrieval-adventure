@@ -46,9 +46,9 @@ public class WildcardQueryWithSpace {
 
     TopDocs results = searcher.search(wildcardQuery, null, 100);
     ScoreDoc[] scoreDocs = results.scoreDocs;
-    for (int i = 0; i < scoreDocs.length; ++i) {
-      System.out.println(scoreDocs[i].doc);
-      System.out.println(searcher.explain(wildcardQuery, scoreDocs[i].doc));
+    for (ScoreDoc scoreDoc : scoreDocs) {
+      System.out.println(scoreDoc.doc);
+      System.out.println(searcher.explain(wildcardQuery, scoreDoc.doc));
     }
   }
 }

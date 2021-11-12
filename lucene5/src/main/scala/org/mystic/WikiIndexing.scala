@@ -1,26 +1,25 @@
 package org.mystic
 
-import java.io.IOException
-import java.net.URL
-import java.util
-
-import javax.xml.stream.events.XMLEvent
-import javax.xml.stream.{XMLEventReader, XMLInputFactory, XMLStreamException}
 import org.apache.solr.client.solrj.SolrServerException
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.core.CoreContainer
 
+import java.io.IOException
+import java.net.URL
+import java.util
+import javax.xml.stream.events.XMLEvent
+import javax.xml.stream.{XMLEventReader, XMLInputFactory, XMLStreamException}
 import scala.Console._
 
 /**
-  * Connects to localhost Solr, and then index small part of russian wikipedia titles
-  */
+ * Connects to localhost Solr, and then index small part of russian wikipedia titles
+ */
 object WikiIndexing {
   private final val XML_FILE_PATH: String = "https://dumps.wikimedia.org/ruwiki/latest/ruwiki-latest-abstract4.xml"
   private final val MAX_SIZE: Int = 1000
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
     val start: Long = System.currentTimeMillis
     val solrDir = WikiIndexing.getClass.getResource("/solr").getPath
     val container = new CoreContainer(solrDir)
@@ -47,17 +46,17 @@ object WikiIndexing {
             doc = new SolrInputDocument
           }
         }
-        else if (event.isCharacters && isDocs && !event.asCharacters.getData.trim.isEmpty) {
+        else if (event.isCharacters && isDocs && event.asCharacters.getData.trim.nonEmpty) {
           if ("title".equalsIgnoreCase(fieldName) || "url".equalsIgnoreCase(fieldName)) {
             doc.addField(fieldName, event.asCharacters.getData)
           }
         }
         else if (event.isEndElement) {
           if ("doc".equalsIgnoreCase(event.asEndElement.getName.getLocalPart)) {
-            doc.addField("id", ({
-              id += 1;
+            doc.addField("id", {
+              id += 1
               id - 1
-            }))
+            })
             docs.add(doc)
           }
         }
@@ -66,25 +65,22 @@ object WikiIndexing {
           println("---------- Adding " + MAX_SIZE + " documents to Solr---------------")
           server.add(docs)
           server.commit
-          docs.clear
+          docs.clear()
         }
       }
       println("-------------------Adding last chunk of docs to Solr-----------------")
       server.add(docs)
       server.commit
-      server.shutdown
+      server.shutdown()
       println("Indexing of " + id + " documents, takes " + (System.currentTimeMillis - start) / 1000 + " seconds")
     }
     catch {
-      case e: SolrServerException => {
+      case e: SolrServerException =>
         println("Error in Solr " + e.getRootCause)
-      }
-      case e: IOException => {
+      case e: IOException =>
         println("Error while IO operation " + e.getCause)
-      }
-      case e: XMLStreamException => {
+      case e: XMLStreamException =>
         println("Error while reading XML file " + e.getCause)
-      }
     }
   }
 }

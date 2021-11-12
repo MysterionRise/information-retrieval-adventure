@@ -1,12 +1,11 @@
 package org.mystic
 
-import java.io.IOException
-import java.nio.file.Paths
-
 import org.apache.lucene.index.{DirectoryReader, IndexReader}
 import org.apache.lucene.store.FSDirectory
 import org.apache.lucene.util.BytesRef
 
+import java.io.IOException
+import java.nio.file.Paths
 import scala.Console._
 
 object Searching {
@@ -14,7 +13,7 @@ object Searching {
   private final val SOLR_HOME: String = "/home/kperikov/Downloads/solr-4.4.0"
   private final val PATH_TO_INDEX: String = SOLR_HOME + "/example/solr/collection1/data/index"
 
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
     try {
       val fsDirectory: FSDirectory = FSDirectory.open(Paths.get(PATH_TO_INDEX))
       val indexReader: IndexReader = DirectoryReader.open(fsDirectory)
@@ -44,9 +43,8 @@ object Searching {
       }
     }
     catch {
-      case e: IOException => {
+      case e: IOException =>
         println("Error while opening index" + e.getCause)
-      }
     }
   }
 }

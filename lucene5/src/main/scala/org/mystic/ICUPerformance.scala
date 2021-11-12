@@ -1,7 +1,5 @@
 package org.mystic
 
-import java.util.concurrent.TimeUnit
-
 import org.apache.commons.lang.RandomStringUtils
 import org.apache.solr.client.solrj.SolrClient
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
@@ -9,15 +7,16 @@ import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.common.params.ModifiableSolrParams
 import org.apache.solr.core.CoreContainer
 
+import java.util.concurrent.TimeUnit
 import scala.Console._
 
 
 object ICUPerformance {
 
-  var server: SolrClient = null
+  var server: SolrClient = _
 
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
     try {
 
@@ -63,7 +62,6 @@ object ICUPerformance {
     finally {
       server.shutdown()
     }
-    return
   }
 
 }

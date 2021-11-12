@@ -43,10 +43,10 @@ public class BoostBeginningWithTest {
 
     TopDocs results = searcher.search(query, 100);
     ScoreDoc[] scoreDocs = results.scoreDocs;
-    for (int i = 0; i < scoreDocs.length; ++i) {
-      final String[] texts = reader.document(scoreDocs[i].doc).getValues("text");
+    for (ScoreDoc scoreDoc : scoreDocs) {
+      final String[] texts = reader.document(scoreDoc.doc).getValues("text");
       for (String token : texts) System.out.println(token);
-      System.out.println(searcher.explain(query, scoreDocs[i].doc));
+      System.out.println(searcher.explain(query, scoreDoc.doc));
     }
   }
 }

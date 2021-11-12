@@ -11,11 +11,7 @@ import org.apache.solr.search.PostFilter;
 
 public class CustomPriceQuery extends Query implements PostFilter {
 
-  private final String account;
-
-  public CustomPriceQuery(String account) {
-    this.account = account;
-  }
+  public CustomPriceQuery(String account) {}
 
   /**
    * Returns a DelegatingCollector to be run after the main query and all of its filters, but before
@@ -30,7 +26,7 @@ public class CustomPriceQuery extends Query implements PostFilter {
     }
     Map fcontext = ValueSource.newContext(searcher);
 
-    return new CustomPriceCollector(rb, fcontext);
+    return new CustomPriceCollector(rb);
   }
 
   @Override

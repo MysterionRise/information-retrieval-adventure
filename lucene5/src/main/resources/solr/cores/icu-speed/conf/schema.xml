@@ -19,7 +19,8 @@
                             replacement=""/>
 
                 <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="[\u0300-\u036f]" replacement=""/>
-                <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="([\u2200-\u22ff]|[\u20AC])" replacement=" $1 "/>
+                <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="([\u2200-\u22ff]|[\u20AC])"
+                            replacement=" $1 "/>
                 <tokenizer class="solr.StandardTokenizerFactory"/>
                 <!--<filter class="solr.ICUFoldingFilterFactory"/>-->
                 <filter class="solr.LowerCaseFilterFactory"/>

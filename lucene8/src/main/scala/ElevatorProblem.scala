@@ -4,6 +4,8 @@ import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.common.params.ModifiableSolrParams
 import org.apache.solr.core.CoreContainer
 
+import java.nio.file.Paths
+import java.util.Properties
 import scala.Console._
 
 /**
@@ -11,13 +13,13 @@ import scala.Console._
  */
 object ElevatorProblem {
 
-  var server: SolrClient = null
+  var server: SolrClient = _
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
     try {
       val solrDir = ElevatorProblem.getClass.getResource("/solr").getPath
-      val container = new CoreContainer(solrDir)
+      val container = new CoreContainer(Paths.get(solrDir), new Properties())
       container.load()
       server = new EmbeddedSolrServer(container, "elevator")
 
@@ -88,7 +90,6 @@ object ElevatorProblem {
     finally {
       server.close()
     }
-    return
   }
 
 }

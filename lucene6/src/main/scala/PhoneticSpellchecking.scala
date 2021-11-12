@@ -1,21 +1,20 @@
-import java.util.concurrent.TimeUnit
-
 import org.apache.solr.client.solrj.SolrClient
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.common.SolrInputDocument
 import org.apache.solr.common.params.ModifiableSolrParams
 import org.apache.solr.core.CoreContainer
 
+import java.util.concurrent.TimeUnit
 import scala.Console._
 
 /**
-  * @see https://stackoverflow.com/q/20350714/2663985
-  */
+ * @see https://stackoverflow.com/q/20350714/2663985
+ */
 object PhoneticSpellchecking {
 
-  var server: SolrClient = null
+  var server: SolrClient = _
 
-  def main(a: Array[String]) {
+  def main(a: Array[String]): Unit = {
 
     try {
       val solrDir = SynonymGraph.getClass.getResource("/solr").getPath.substring(1)
@@ -110,7 +109,6 @@ object PhoneticSpellchecking {
     finally {
       server.close()
     }
-    return
   }
 
 }

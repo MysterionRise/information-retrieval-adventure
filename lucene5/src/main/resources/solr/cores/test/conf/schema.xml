@@ -6,6 +6,9 @@
         <field name="url" type="string" indexed="true" stored="true"/>
         <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
         <field name="text" type="string" indexed="true" stored="false" multiValued="true"/>
+        <field name="name" type="text" indexed="true" stored="true" multiValued="true"/>
+        <field name="name_en" type="text" indexed="true" stored="true" multiValued="true"/>
+        <field name="genre" type="text" indexed="true" stored="true" multiValued="true"/>
         <field name="test" type="string" indexed="true" stored="false" multiValued="true"/>
         <field name="lastName" type="text_token" indexed="true" stored="true" omitNorms="true"
                omitTermFreqAndPositions="true"/>
@@ -48,6 +51,12 @@
                 <tokenizer class="solr.KeywordTokenizerFactory"/>
                 <filter class="solr.LowerCaseFilterFactory"/>
                 <filter class="solr.TrimFilterFactory"/>
+            </analyzer>
+        </fieldType>
+        <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
+            <analyzer>
+                <tokenizer class="solr.StandardTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
             </analyzer>
         </fieldType>
     </types>
