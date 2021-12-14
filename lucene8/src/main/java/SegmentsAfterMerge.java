@@ -23,19 +23,28 @@ public class SegmentsAfterMerge {
         Directory dir =
                 new NIOFSDirectory(Files.createTempDirectory(SegmentsAfterMerge.class.getName()));
 
-        indexDocs(dir, "A", 100000);
+        indexDocs(dir, "A", 1_000_000);
         printCommits(dir);
 
-        indexDocs(dir, "B", 100000);
+        indexDocs(dir, "B", 1_000_000);
         printCommits(dir);
 
-        indexDocs(dir, "C", 100000);
+        indexDocs(dir, "C", 100_000_000);
+        printCommits(dir);
+
+        indexDocs(dir, "D", 100_000_000);
+        printCommits(dir);
+
+        deleteDocs(dir, "C");
+
+        indexDocs(dir, "E", 100_000_000);
         printCommits(dir);
 
         forceMerge(dir);
         printCommits(dir);
 
         List<IndexCommit> indexCommits = DirectoryReader.listCommits(dir);
+        System.out.println("Number of commits at the end " + indexCommits.size());
         for (IndexCommit commit : indexCommits) {
             DirectoryReader open = DirectoryReader.open(commit);
             IndexSearcher searcher = new IndexSearcher(open);
@@ -52,11 +61,19 @@ public class SegmentsAfterMerge {
 
     }
 
+    private static void deleteDocs(Directory dir, String category) throws IOException {
+        IndexWriterConfig iwc = new IndexWriterConfig(new StandardAnalyzer());
+        iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+        IndexWriter writer = new IndexWriter(dir, iwc);
+        writer.deleteDocuments(new TermQuery(new Term("category", category)));
+        writer.close();
+    }
+
     private static void forceMerge(Directory dir) throws IOException {
         IndexWriterConfig iwc = new IndexWriterConfig(new StandardAnalyzer());
         iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
         IndexWriter writer = new IndexWriter(dir, iwc);
-        writer.forceMerge(1);
+        writer.forceMergeDeletes();
         writer.close();
     }
 
@@ -73,7 +90,7 @@ public class SegmentsAfterMerge {
 
     private static void indexDocs(Directory dir, String category, int size) throws IOException {
         IndexWriterConfig iwc = new IndexWriterConfig(new StandardAnalyzer())
-                .setMaxBufferedDocs(100_000)
+                .setMaxBufferedDocs(1_000_000)
                 .setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND)
                 .setIndexDeletionPolicy(NoDeletionPolicy.INSTANCE);
         IndexWriter writer = new IndexWriter(dir, iwc);
