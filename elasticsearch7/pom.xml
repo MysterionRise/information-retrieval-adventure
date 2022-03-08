@@ -12,7 +12,7 @@
     <artifactId>elasticsearch7</artifactId>
 
     <properties>
-        <elastic.version>7.16.1</elastic.version>
+        <elastic.version>7.17.1</elastic.version>
     </properties>
 
     <dependencies>
