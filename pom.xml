@@ -17,7 +17,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <scala.version>2.13.6</scala.version>
+        <scala.version>2.13.9</scala.version>
         <java.version>11</java.version>
     </properties>
 
