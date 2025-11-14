@@ -76,6 +76,20 @@
 
     <build>
         <plugins>
+            <!-- Skip integration tests that require Elasticsearch cluster and special security permissions -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <excludes>
+                        <!-- Exclude ESIntegTestCase tests - they require running ES cluster -->
+                        <exclude>**/PredefinedStringTest.java</exclude>
+                        <exclude>**/TermsScoringTest.java</exclude>
+                        <exclude>**/SortingInvestigationTest.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>

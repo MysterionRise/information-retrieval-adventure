@@ -38,6 +38,13 @@
             <groupId>org.apache.solr</groupId>
             <artifactId>solr-core</artifactId>
             <version>${lucene.version}</version>
+            <exclusions>
+                <!-- Exclude jdk.tools which references tools.jar (not available in Java 9+) -->
+                <exclusion>
+                    <groupId>jdk.tools</groupId>
+                    <artifactId>jdk.tools</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -62,6 +69,13 @@
             <groupId>org.apache.solr</groupId>
             <artifactId>solr-test-framework</artifactId>
             <version>${lucene.version}</version>
+            <exclusions>
+                <!-- Exclude jdk.tools which references tools.jar (not available in Java 9+) -->
+                <exclusion>
+                    <groupId>jdk.tools</groupId>
+                    <artifactId>jdk.tools</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
