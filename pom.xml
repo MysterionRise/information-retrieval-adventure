@@ -22,6 +22,21 @@
         <java.version>11</java.version>
     </properties>
 
+    <repositories>
+        <!-- Restlet repository for Solr 6.x dependencies -->
+        <repository>
+            <id>restlet</id>
+            <name>Restlet Repository</name>
+            <url>https://maven.restlet.talend.com</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <dependencies>
 
         <dependency>
