@@ -2,7 +2,6 @@
 
 [![Build and Test](https://github.com/MysterionRise/information-retrieval-adventure/workflows/Build%20and%20Test/badge.svg)](https://github.com/MysterionRise/information-retrieval-adventure/actions/workflows/build.yml)
 [![Lucene Version Verification](https://github.com/MysterionRise/information-retrieval-adventure/workflows/Lucene%20Version%20Verification/badge.svg)](https://github.com/MysterionRise/information-retrieval-adventure/actions/workflows/version-verification.yml)
-[![Cross-Platform Build](https://github.com/MysterionRise/information-retrieval-adventure/workflows/Cross-Platform%20Build/badge.svg)](https://github.com/MysterionRise/information-retrieval-adventure/actions/workflows/cross-platform.yml)
 [![Build Status](https://travis-ci.org/MysterionRise/information-retrieval-adventure.svg?branch=master)](https://travis-ci.org/MysterionRise/information-retrieval-adventure)
 
 Experimental repository for exploring information retrieval concepts using Apache Lucene (versions 4-8), Apache Solr, and Elasticsearch.
@@ -75,7 +74,7 @@ GitHub Actions workflows verify:
 - ✅ All modules build successfully
 - ✅ Correct Lucene versions are loaded in each module
 - ✅ No dependency conflicts
-- ✅ Cross-platform compatibility (Linux, macOS, Windows)
-- ✅ Java 11 and 17 compatibility
+
+- ✅ Code formatting compliance
 
 See [`.github/workflows/README.md`](.github/workflows/README.md) for workflow details.
