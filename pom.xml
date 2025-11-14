@@ -7,6 +7,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
+        <module>test-commons</module>
         <module>lucene4</module>
         <module>lucene5</module>
         <module>lucene6</module>
