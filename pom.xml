@@ -7,6 +7,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
+        <module>test-commons</module>
         <module>lucene4</module>
         <module>lucene5</module>
         <module>lucene6</module>
@@ -20,6 +21,21 @@
         <scala.version>2.13.6</scala.version>
         <java.version>11</java.version>
     </properties>
+
+    <repositories>
+        <!-- Restlet repository for Solr 6.x dependencies -->
+        <repository>
+            <id>restlet</id>
+            <name>Restlet Repository</name>
+            <url>https://maven.restlet.talend.com</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <dependencies>
 

@@ -1,0 +1,163 @@
+name: Lucene Version Verification
+
+on:
+  push:
+    branches: [ master, main, 'claude/**' ]
+  pull_request:
+    branches: [ master, main ]
+  schedule:
+    # Run weekly to catch dependency drift
+    - cron: '0 0 * * 0'
+
+jobs:
+  verify-versions:
+    name: Verify ${{ matrix.module }} - Lucene ${{ matrix.expected_version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - module: lucene4
+            expected_version: "4.10.4"
+            major_version: "4"
+          - module: lucene5
+            expected_version: "5.5.5"
+            major_version: "5"
+          - module: lucene6
+            expected_version: "6.6.6"
+            major_version: "6"
+          - module: lucene7
+            expected_version: "7.7.2"
+            major_version: "7"
+          - module: lucene8
+            expected_version: "8.10.1"
+            major_version: "8"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build test-commons
+        run: mvn clean install -pl test-commons -DskipTests -B
+
+      - name: Verify POM version
+        run: |
+          echo "Checking declared version in ${{ matrix.module }}/pom.xml"
+          if [ -f "${{ matrix.module }}/pom.xml" ]; then
+            VERSION=$(grep -A1 '<lucene.version>' ${{ matrix.module }}/pom.xml | grep '<lucene.version>' | sed 's/.*<lucene.version>\(.*\)<\/lucene.version>.*/\1/' | tr -d '[:space:]')
+            echo "Declared version: $VERSION"
+            echo "Expected version: ${{ matrix.expected_version }}"
+
+            if [ "$VERSION" != "${{ matrix.expected_version }}" ]; then
+              echo "::error::Version mismatch in ${{ matrix.module }}! Expected ${{ matrix.expected_version }} but found $VERSION"
+              exit 1
+            else
+              echo "::notice::Version check passed for ${{ matrix.module }}"
+            fi
+          else
+            echo "::warning::POM file not found for ${{ matrix.module }}"
+          fi
+
+      - name: Build and test module
+        run: mvn clean test -pl ${{ matrix.module }} -B
+        env:
+          MAVEN_OPTS: "-Xmx1024m"
+
+      - name: Check dependency tree
+        run: |
+          echo "Dependency tree for ${{ matrix.module }}:"
+          mvn dependency:tree -pl ${{ matrix.module }} -B | tee /tmp/deps.txt
+
+          echo ""
+          echo "Lucene/Solr dependencies:"
+          grep -E "org.apache.lucene|org.apache.solr" /tmp/deps.txt || echo "No Lucene/Solr dependencies found in output"
+
+      - name: Verify no version conflicts
+        run: |
+          echo "Checking for version conflicts in ${{ matrix.module }}..."
+
+          # Extract all Lucene versions from dependency tree
+          VERSIONS=$(mvn dependency:tree -pl ${{ matrix.module }} -B | grep -E "org.apache.lucene" | grep -oE "[0-9]+\.[0-9]+\.[0-9]+" | sort -u)
+
+          echo "Found Lucene versions: $VERSIONS"
+
+          # Count unique versions
+          VERSION_COUNT=$(echo "$VERSIONS" | wc -l)
+
+          if [ $VERSION_COUNT -gt 1 ]; then
+            echo "::error::Multiple Lucene versions detected in ${{ matrix.module }}!"
+            echo "Versions found:"
+            echo "$VERSIONS"
+            exit 1
+          else
+            echo "::notice::No version conflicts detected"
+          fi
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: version-test-results-${{ matrix.module }}
+          path: |
+            ${{ matrix.module }}/target/surefire-reports/
+            ${{ matrix.module }}/target/test-classes/
+
+  generate-compatibility-report:
+    name: Generate Compatibility Report
+    runs-on: ubuntu-latest
+    needs: verify-versions
+    if: always()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Generate version report
+        run: |
+          echo "# Lucene Version Compatibility Report" > compatibility-report.md
+          echo "" >> compatibility-report.md
+          echo "Generated: $(date)" >> compatibility-report.md
+          echo "" >> compatibility-report.md
+          echo "## Module Versions" >> compatibility-report.md
+          echo "" >> compatibility-report.md
+          echo "| Module | Declared Version | Status |" >> compatibility-report.md
+          echo "|--------|-----------------|--------|" >> compatibility-report.md
+
+          for module in lucene4 lucene5 lucene6 lucene7 lucene8; do
+            if [ -f "$module/pom.xml" ]; then
+              VERSION=$(grep -A1 '<lucene.version>' $module/pom.xml | grep '<lucene.version>' | sed 's/.*<lucene.version>\(.*\)<\/lucene.version>.*/\1/' | tr -d '[:space:]')
+              echo "| $module | $VERSION | ✅ |" >> compatibility-report.md
+            else
+              echo "| $module | N/A | ❌ |" >> compatibility-report.md
+            fi
+          done
+
+          echo "" >> compatibility-report.md
+          echo "## Build Information" >> compatibility-report.md
+          echo "" >> compatibility-report.md
+          echo "- Java Version: $(java -version 2>&1 | head -n 1)" >> compatibility-report.md
+          echo "- Maven Version: $(mvn -version | head -n 1)" >> compatibility-report.md
+          echo "- Runner OS: ${{ runner.os }}" >> compatibility-report.md
+
+          cat compatibility-report.md
+
+      - name: Upload compatibility report
+        uses: actions/upload-artifact@v4
+        with:
+          name: compatibility-report
+          path: compatibility-report.md
